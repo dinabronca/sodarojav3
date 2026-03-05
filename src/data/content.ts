@@ -338,56 +338,7 @@ export const defaultContent: SiteContent = {
   episodios: {
     title: 'Episodios',
     subtitle: 'Cada ciudad tiene una historia que merece ser contada',
-    items: [
-      {
-        id: 'ep-001', city: 'París', title: 'Las Catacumbas Olvidadas',
-        description: 'Bajo los bulevares iluminados de París existe un mundo de silencio y huesos.',
-        imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80',
-        publishDate: '2025-11-15', isPremium: false, lat: 48.8566, lng: 2.3522,
-        links: { youtube: '#', spotify: '#', soundcloud: '#' },
-        embeds: { spotify: '', soundcloud: '', ivoox: '' },
-      },
-      {
-        id: 'ep-002', city: 'Tokio', title: 'El Último Samurái Digital',
-        description: 'En los callejones de Akihabara, la tradición y el futuro colisionan.',
-        imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80',
-        publishDate: '2025-12-01', isPremium: true, lat: 35.6762, lng: 139.6503,
-        links: { youtube: '#', spotify: '#' },
-        embeds: { spotify: '', soundcloud: '' },
-      },
-      {
-        id: 'ep-003', city: 'Buenos Aires', title: 'La Dama de Blanco',
-        description: 'La Recoleta guarda secretos que solo se revelan de madrugada.',
-        imageUrl: 'https://images.unsplash.com/photo-1589909202802-8f4aadce1849?w=600&q=80',
-        publishDate: '2025-12-20', isPremium: false, lat: -34.6037, lng: -58.3816,
-        links: { youtube: '#', spotify: '#', soundcloud: '#', ivoox: '#' },
-        embeds: { spotify: '', soundcloud: '', ivoox: '' },
-      },
-      {
-        id: 'ep-004', city: 'Estambul', title: 'El Bazar de las Almas',
-        description: 'Entre especias y alfombras, las voces del Gran Bazar cuentan historias milenarias.',
-        imageUrl: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80',
-        publishDate: '2026-01-10', isPremium: true, lat: 41.0082, lng: 28.9784,
-        links: { youtube: '#', spotify: '#' },
-        embeds: { spotify: '' },
-      },
-      {
-        id: 'ep-005', city: 'Ciudad de México', title: 'Ecos de Tenochtitlán',
-        description: 'La ciudad más grande de América Latina esconde ruinas debajo de cada esquina.',
-        imageUrl: 'https://images.unsplash.com/photo-1518659526054-190340b32735?w=600&q=80',
-        publishDate: '2026-01-25', isPremium: false, lat: 19.4326, lng: -99.1332,
-        links: { youtube: '#', spotify: '#', soundcloud: '#' },
-        embeds: { spotify: '', soundcloud: '' },
-      },
-      {
-        id: 'ep-006', city: 'Praga', title: 'El Relojero del Viejo Mundo',
-        description: 'En la ciudad de las cien torres, un reloj astronómico guarda un secreto oscuro.',
-        imageUrl: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=600&q=80',
-        publishDate: '2026-02-05', isPremium: false, lat: 50.0755, lng: 14.4378,
-        links: { youtube: '#', spotify: '#' },
-        embeds: { spotify: '' },
-      },
-    ],
+    items: [],
   },
 
   frecuenciaInterna: {
