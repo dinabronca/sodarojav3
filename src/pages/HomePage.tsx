@@ -12,7 +12,7 @@ import { demoEpisodes } from '../data/episodes';
 export const HomePage: React.FC = () => {
   const content = getContent();
   const storeEps = content.episodios?.items || [];
-  const allRaw = storeEps.length > 0 ? storeEps : demoEpisodes;
+  const allRaw = (storeEps.length > 0 ? storeEps : demoEpisodes).filter((e: any) => !e.hidden);
   const sorted = useMemo(() =>
     [...allRaw].sort((a, b) => (b.publishDate || '').localeCompare(a.publishDate || '')),
     [allRaw]

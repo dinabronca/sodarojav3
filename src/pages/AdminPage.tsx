@@ -19,7 +19,7 @@ export const AdminPage: React.FC = () => {
   const episodes = content.episodios?.items?.length ? content.episodios.items : demoEpisodes as any[];
   const [expandedMember, setExpandedMember] = useState<number | null>(null);
   const [showNewEpisode, setShowNewEpisode] = useState(false);
-  const [newEpisode, setNewEpisode] = useState({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
+  const [newEpisode, setNewEpisode] = useState({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
 
   const handleLogin = async () => {
     if (adminAttempts >= 5) { setError('Demasiados intentos. Recargá la página.'); return; }
@@ -90,7 +90,7 @@ export const AdminPage: React.FC = () => {
   const addEpisode = () => {
     const ep = { ...newEpisode, id: `ep-${Date.now()}` };
     update('episodios.items', [...episodes, ep]);
-    setNewEpisode({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
+    setNewEpisode({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
     setShowNewEpisode(false);
   };
 
@@ -122,6 +122,36 @@ export const AdminPage: React.FC = () => {
         {/* ======== INICIO ======== */}
         {activeTab === 'inicio' && (
           <div>
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-4">Dashboard</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                  <p className="text-2xl font-serif text-soda-glow">{episodes.length}</p>
+                  <p className="text-soda-fog text-[10px] tracking-wider mt-1">EPISODIOS</p>
+                </div>
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                  <p className="text-2xl font-serif text-soda-glow">{[...new Set(episodes.map((e: any) => e.city))].length}</p>
+                  <p className="text-soda-fog text-[10px] tracking-wider mt-1">CIUDADES</p>
+                </div>
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                  <p className="text-2xl font-serif text-soda-glow">{content.equipo.members.length}</p>
+                  <p className="text-soda-fog text-[10px] tracking-wider mt-1">EQUIPO</p>
+                </div>
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                  <p className="text-2xl font-serif text-soda-glow">{content.frecuenciaInterna.plans.length}</p>
+                  <p className="text-soda-fog text-[10px] tracking-wider mt-1">PLANES</p>
+                </div>
+              </div>
+              <div className="border border-soda-accent/20 rounded-sm p-4 mb-4">
+                <h4 className="text-soda-lamp text-sm font-medium mb-2">Acciones rapidas</h4>
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={() => setActiveTab('episodios')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">+ Nuevo episodio</button>
+                  <button onClick={() => setActiveTab('frecuencia')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Mensajes internos</button>
+                  <button onClick={() => setActiveTab('general')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Redes sociales</button>
+                  <button onClick={() => setActiveTab('contacto')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Config email</button>
+                </div>
+              </div>
+            </div>
             <div className={cc}>
               <h2 className="text-xl font-serif text-soda-glow mb-4">Pantalla de Inicio (Hero)</h2>
               <div className="space-y-4">
@@ -319,7 +349,8 @@ export const AdminPage: React.FC = () => {
                   </div>
                   <h4 className="text-soda-lamp text-sm mb-3">Embeds (URLs de iframe — se ven dentro del modal del episodio)</h4>
                   <div className="grid grid-cols-2 gap-3 mb-4">
-                    <div><label className={lc}>Embed Spotify</label><input type="text" value={newEpisode.embeds.spotify} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, spotify: e.target.value } })} className={ic} placeholder="https://open.spotify.com/embed/..." /></div>
+                    <div><label className={lc}>Embed YouTube</label><input type="text" value={(newEpisode.embeds as any).youtube || ''} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, youtube: e.target.value } })} className={ic} placeholder="https://youtube.com/embed/..." /></div>
+                <div><label className={lc}>Embed Spotify</label><input type="text" value={newEpisode.embeds.spotify} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, spotify: e.target.value } })} className={ic} placeholder="https://open.spotify.com/embed/..." /></div>
                     <div><label className={lc}>Embed SoundCloud</label><input type="text" value={newEpisode.embeds.soundcloud} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, soundcloud: e.target.value } })} className={ic} placeholder="https://w.soundcloud.com/player/..." /></div>
                     <div><label className={lc}>Embed iVoox</label><input type="text" value={newEpisode.embeds.ivoox} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, ivoox: e.target.value } })} className={ic} placeholder="https://www.ivoox.com/player_..." /></div>
                     <div><label className={lc}>Embed Apple Podcasts</label><input type="text" value={newEpisode.embeds.applePodcasts || ''} onChange={(e) => setNewEpisode({ ...newEpisode, embeds: { ...newEpisode.embeds, applePodcasts: e.target.value } })} className={ic} placeholder="https://embed.podcasts.apple.com/..." /><p className={nc}>Apple tiene embed, copiá la URL del widget</p></div>
@@ -343,7 +374,11 @@ export const AdminPage: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
                       <button onClick={() => setExpandedMember(isEditing ? null : idx + 1000)} className="text-soda-accent text-xs hover:underline">{isEditing ? 'Cerrar' : 'Editar'}</button>
-                      <button onClick={() => update('episodios.items', episodes.filter((_: any, i: number) => i !== idx))} className="text-soda-red text-xs hover:underline">Eliminar</button>
+                      <button onClick={() => { const dup = { ...ep, id: 'ep-' + Date.now(), title: ep.title + ' (copia)' }; update('episodios.items', [...episodes, dup]); }} className="text-soda-accent text-xs px-2 py-1">Duplicar</button>
+                  <button onClick={() => { if(idx === 0) return; const arr = [...episodes]; [arr[idx-1], arr[idx]] = [arr[idx], arr[idx-1]]; update('episodios.items', arr); }} className="text-soda-fog text-xs px-1" title="Subir">{idx > 0 ? '↑' : ''}</button>
+                  <button onClick={() => { if(idx === episodes.length-1) return; const arr = [...episodes]; [arr[idx], arr[idx+1]] = [arr[idx+1], arr[idx]]; update('episodios.items', arr); }} className="text-soda-fog text-xs px-1" title="Bajar">{idx < episodes.length-1 ? '↓' : ''}</button>
+                  <button onClick={() => { const arr = [...episodes]; arr[idx] = { ...arr[idx], hidden: !arr[idx].hidden }; update('episodios.items', arr); }} className={`text-xs px-2 py-1 rounded-sm border ${ep.hidden ? 'border-soda-fog/20 text-soda-fog/30' : 'border-green-500/30 text-green-400'}`}>{ep.hidden ? 'OCULTO' : 'VISIBLE'}</button>
+                  <button onClick={() => update('episodios.items', episodes.filter((_: any, i: number) => i !== idx))} className="text-soda-red text-xs hover:underline">Eliminar</button>
                     </div>
                   </div>
                   {isEditing && (
@@ -373,10 +408,12 @@ export const AdminPage: React.FC = () => {
                       </div>
                       <h4 className="text-soda-lamp text-xs mb-2">Embeds</h4>
                       <div className="grid grid-cols-2 gap-2">
-                        {['spotify','soundcloud','ivoox','applePodcasts'].map(lk => (
+                        {['youtube','spotify','soundcloud','ivoox','applePodcasts'].map(lk => (
                           <div key={lk}><label className={lc}>Embed {lk}</label><input type="text" value={(ep.embeds || {})[lk] || ''} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], embeds: { ...(arr[idx].embeds || {}), [lk]: e.target.value } }; update('episodios.items', arr); }} className={ic} placeholder="URL del iframe..." /></div>
                         ))}
                       </div>
+                      <h4 className="text-soda-lamp text-xs mb-2 mt-3">Galeria de fotos</h4>
+                      <textarea rows={2} value={((ep as any).gallery || []).join('\n')} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], gallery: e.target.value.split('\n').filter(Boolean) }; update('episodios.items', arr); }} className={ic + ' resize-y text-xs'} placeholder="Una URL de imagen por linea" />
                     </div>
                   )}
                 </div>
@@ -461,7 +498,20 @@ export const AdminPage: React.FC = () => {
             {/* MISIONES / SODITAS */}
             <div className={cc}>
               <h2 className="text-xl font-serif text-soda-glow mb-4">🥤 Misiones de Soditas</h2>
-              <p className={nc + ' mb-4'}>Configurá cómo se ganan soditas. En producción, las misiones automáticas (escuchar episodios, streak) se verifican por el sistema.</p>
+              <div className="border border-soda-accent/20 rounded-sm p-4 mb-4">
+        <h4 className="text-soda-lamp text-sm font-medium mb-3">Notificaciones Automaticas</h4>
+        <p className="text-soda-fog text-[10px] mb-3">Estas se envian solas cuando se cumple la condicion.</p>
+        <div className="space-y-2">
+          {[{k:'birthday',e:'ð',l:'Feliz cumple',d:'Se envia en su cumple'},{k:'pay_fail',e:'ð³',l:'Pago rechazado',d:'Cuando falla un cobro'},{k:'pay_ok',e:'â',l:'Pago confirmado',d:'Cuando se confirma el pago'},{k:'winner',e:'ð',l:'Ganador sorteo',d:'Al elegir ganador'},{k:'new_ep',e:'ðï¸',l:'Episodio nuevo',d:'Al publicar episodio'},{k:'welcome',e:'ð',l:'Bienvenida',d:'Al suscribirse'}].map(n => (
+            <div key={n.k} className="flex items-center justify-between border border-soda-mist/10 rounded-sm px-3 py-2">
+              <div className="flex items-center gap-2"><span>{n.e}</span><div><p className="text-soda-lamp text-xs">{n.l}</p><p className="text-soda-fog text-[9px]">{n.d}</p></div></div>
+              <span className="text-green-400 text-[10px] tracking-wider">AUTO</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <h4 className="text-soda-lamp text-sm font-medium mb-2">Enviar manual</h4>
+      <p className={nc + ' mb-4'}>Configurá cómo se ganan soditas. En producción, las misiones automáticas (escuchar episodios, streak) se verifican por el sistema.</p>
               <AdminMissions ic={ic} lc={lc} />
             </div>
           </div>
@@ -491,6 +541,17 @@ export const AdminPage: React.FC = () => {
                 <div><label className={lc}>Email</label><input type="email" value={content.contacto.email} onChange={(e) => update('contacto.email', e.target.value)} className={ic} /></div>
                 <div><label className={lc}>Instagram</label><input type="text" value={content.contacto.instagram} onChange={(e) => update('contacto.instagram', e.target.value)} className={ic} /></div>
               </div>
+            </div>
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-4">Configuración de Email (EmailJS)</h2>
+              <p className={nc + ' mb-4'}>Para que el formulario de contacto envíe emails reales, configurá EmailJS (gratis hasta 200 emails/mes).</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div><label className={lc}>Service ID</label><input type="text" value={content.meta?.emailjsServiceId || ''} onChange={(e) => update('meta.emailjsServiceId', e.target.value)} className={ic} placeholder="service_xxxxxx" /></div>
+                <div><label className={lc}>Template ID</label><input type="text" value={content.meta?.emailjsTemplateId || ''} onChange={(e) => update('meta.emailjsTemplateId', e.target.value)} className={ic} placeholder="template_xxxxxx" /></div>
+                <div><label className={lc}>Public Key</label><input type="text" value={content.meta?.emailjsPublicKey || ''} onChange={(e) => update('meta.emailjsPublicKey', e.target.value)} className={ic} placeholder="xxxxxxxxxxxxx" /></div>
+                <div><label className={lc}>Email destino</label><input type="email" value={content.contacto?.email || ''} onChange={(e) => update('contacto.email', e.target.value)} className={ic} placeholder="tu@email.com" /></div>
+              </div>
+              <p className={nc + ' mt-3'}>Pasos: 1) Registrate en emailjs.com 2) Creá un Service (Gmail) 3) Creá un Template 4) Copiá los IDs acá</p>
             </div>
           </div>
         )}
@@ -607,21 +668,23 @@ export const AdminPage: React.FC = () => {
               </div>
               <p className={nc + ' mb-4'}>Toggle = mostrar/ocultar. En el footer se muestra la sigla como link de texto.</p>
               {/* Header */}
-              <div className="grid grid-cols-[32px_1fr_60px_2fr_32px] gap-2 mb-2 text-soda-fog text-[10px] tracking-wider px-1">
+              <div className="grid grid-cols-[32px_1fr_60px_2fr_1fr_32px] gap-2 mb-2 text-soda-fog text-[10px] tracking-wider px-1">
                 <div></div>
                 <div>Nombre</div>
                 <div className="text-center">Sigla</div>
                 <div>URL de la red social</div>
+                <div>URL Logo (PNG)</div>
                 <div></div>
               </div>
               {content.socialLinks.map((link: any, idx: number) => (
-                <div key={link.id} className="grid grid-cols-[32px_1fr_60px_2fr_32px] gap-2 mb-2 items-center">
+                <div key={link.id} className="grid grid-cols-[32px_1fr_60px_2fr_1fr_32px] gap-2 mb-2 items-center">
                   <button onClick={() => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], visible: !arr[idx].visible }; update('socialLinks', arr); }} className="flex-shrink-0">
                     {link.visible ? <ToggleRight size={22} className="text-green-400" /> : <ToggleLeft size={22} className="text-soda-fog" />}
                   </button>
                   <input type="text" value={link.platform} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], platform: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="Instagram" />
                   <input type="text" value={link.abbr} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], abbr: e.target.value.substring(0, 3) }; update('socialLinks', arr); }} className={ic + ' text-center text-xs'} placeholder="IG" maxLength={3} />
                   <input type="text" value={link.url} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], url: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="https://instagram.com/sodaroja" />
+                  <input type="text" value={link.iconUrl || ''} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], iconUrl: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="URL del icono PNG" />
                   <button onClick={() => update('socialLinks', content.socialLinks.filter((_: any, i: number) => i !== idx))} className="text-soda-red flex-shrink-0"><Trash2 size={14} /></button>
                 </div>
               ))}
@@ -836,7 +899,14 @@ const AdminInternalMessages: React.FC<{ ic: string; lc: string }> = ({ ic, lc })
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
-        <input type="text" value={newEmoji} onChange={e => setNewEmoji(e.target.value)} className={ic + ' w-16 text-center'} />
+        <select value={newEmoji} onChange={e => setNewEmoji(e.target.value)} className={ic + ' w-20 text-center'}>
+          <option value="ð¡">ð¡ Anuncio</option>
+          <option value="ðï¸">ðï¸ Episodio</option>
+          <option value="ð">ð Evento</option>
+          <option value="ð¬">ð¬ Mensaje</option>
+          <option value="â ï¸">â ï¸ Alerta</option>
+          <option value="ð">ð Sorpresa</option>
+        </select>
         <input type="text" value={newMsg} onChange={e => setNewMsg(e.target.value)} className={ic + ' flex-1'} placeholder="Escribí un mensaje para los suscriptores..." />
         <button onClick={add} className="px-4 py-2 bg-soda-red/20 border border-soda-red/40 text-soda-lamp rounded-sm text-sm"><Plus size={16} /></button>
       </div>
@@ -1002,6 +1072,7 @@ const AdminRaffles: React.FC<{ ic: string; lc: string }> = ({ ic, lc }) => {
           </div>
           <div className="flex gap-2">
             <button onClick={() => toggle(r.id)} className="text-soda-fog hover:text-soda-lamp text-xs">{r.active ? 'Cerrar' : 'Abrir'}</button>
+              <button onClick={() => { const e = entries[r.id] || []; if(e.length === 0) { alert('No hay participantes'); return; } const winner = e[Math.floor(Math.random() * e.length)]; alert('Ganador: ' + (winner.userName || winner.userId || 'Usuario')); }} className="text-soda-accent hover:text-soda-lamp text-xs">Sortear</button>
             <button onClick={() => remove(r.id)} className="text-soda-fog hover:text-red-400"><Trash2 size={14} /></button>
           </div>
         </div>

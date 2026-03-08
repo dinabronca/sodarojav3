@@ -162,7 +162,9 @@ const Footer: React.FC = () => {
             {visibleLinks.map((link: any) => (
               <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer"
                 className="text-soda-lamp/30 text-[10px] tracking-[0.1em] uppercase hover:text-soda-lamp/60 transition-colors duration-700">
-                {link.abbr || link.platform}
+                {link.iconUrl ? (
+                  <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-40 hover:opacity-70 transition-opacity duration-500" />
+                ) : (link.abbr || link.platform)}
               </a>
             ))}
           </div>

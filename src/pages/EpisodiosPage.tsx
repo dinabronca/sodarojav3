@@ -12,7 +12,7 @@ export const EpisodiosPage: React.FC = () => {
   const content = getContent();
   // Combinar: episodios del admin store + demo fallback
   const storeEps = content.episodios?.items || [];
-  const allRaw = storeEps.length > 0 ? storeEps : demoEpisodes;
+  const allRaw = (storeEps.length > 0 ? storeEps : demoEpisodes).filter((e: any) => !e.hidden);
 
   // Ordenar mas reciente primero
   const allSorted = useMemo(() =>

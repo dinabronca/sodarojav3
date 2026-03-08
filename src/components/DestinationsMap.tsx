@@ -68,7 +68,7 @@ export const DestinationsMap: React.FC = () => {
       if (cancelled || !mapRef.current) return;
       const map = L.map(mapRef.current, {
         center: [20, 10], zoom: 2, minZoom: 2, maxZoom: 12,
-        zoomControl: false, attributionControl: false, scrollWheelZoom: true,
+        zoomControl: false, attributionControl: false, scrollWheelZoom: true, worldCopyJump: true, maxBoundsViscosity: 1.0,
       });
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd', maxZoom: 19,
