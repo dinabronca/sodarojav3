@@ -993,7 +993,9 @@ const AdminPolls: React.FC<{ ic: string; lc: string }> = ({ ic, lc }) => {
       </div>
 
       {/* Lista de encuestas */}
-      {polls.map((p: any) => {
+      <h4 className="text-soda-lamp text-xs tracking-wider mb-2">ACTIVAS</h4>
+      {polls.filter((p: any) => p.active).length === 0 && <p className="text-soda-fog text-xs mb-3">No hay encuestas activas</p>}
+      {polls.filter((p: any) => p.active).map((p: any) => {
         const questions = p.questions || [{ question: p.question, options: p.options }];
         return (
           <div key={p.id} className="border border-soda-mist/15 rounded-sm p-4">
@@ -1020,6 +1022,27 @@ const AdminPolls: React.FC<{ ic: string; lc: string }> = ({ ic, lc }) => {
                   })}
                 </div>
               );
+            })}
+          </div>
+        );
+      })}
+      <h4 className="text-soda-lamp text-xs tracking-wider mb-2 mt-6">HISTORIAL / ARCHIVADAS</h4>
+      {polls.filter((p: any) => !p.active).length === 0 && <p className="text-soda-fog text-xs">No hay encuestas archivadas</p>}
+      {polls.filter((p: any) => !p.active).map((p: any) => {
+        const questions = p.questions || [{ question: p.question, options: p.options }];
+        return (
+          <div key={p.id + '-arch'} className="border border-soda-mist/10 rounded-sm p-4 opacity-60 mb-2">
+            <div className="flex items-start justify-between mb-2">
+              <div><h4 className="text-soda-lamp text-sm">{p.title || p.question}</h4><span className="text-soda-fog text-[10px]">Archivada</span></div>
+              <div className="flex gap-2">
+                <button onClick={() => toggle(p.id)} className="text-soda-fog hover:text-soda-lamp text-xs">Reabrir</button>
+                <button onClick={() => remove(p.id)} className="text-soda-fog hover:text-red-400"><Trash2 size={14} /></button>
+              </div>
+            </div>
+            {questions.map((q: any, qi: number) => {
+              const votes = allVotes[p.id + '-q' + qi] || {};
+              const total = Object.values(votes).reduce((a: number, b: any) => a + (b as number), 0) as number;
+              return (<div key={qi} className="mb-1"><p className="text-soda-fog text-xs font-medium mb-1">{qi+1}. {q.question}</p>{q.options.map((opt: string, oi: number) => { const count = votes[String(oi)] || 0; const pct = total > 0 ? Math.round((count/total)*100) : 0; return <div key={oi} className="flex justify-between text-[11px] text-soda-fog py-0.5 pl-3"><span>{opt}</span><span>{count} ({pct}%)</span></div>; })}</div>);
             })}
           </div>
         );
@@ -1064,7 +1087,9 @@ const AdminRaffles: React.FC<{ ic: string; lc: string }> = ({ ic, lc }) => {
           <button onClick={add} className="px-3 py-2 bg-soda-accent/20 border border-soda-accent/40 text-soda-lamp rounded-sm text-sm"><Plus size={14} /></button>
         </div>
       </div>
-      {raffles.map((r: any) => (
+      <h4 className="text-soda-lamp text-xs tracking-wider mb-2">ACTIVOS</h4>
+      {raffles.filter((r: any) => r.active).length === 0 && <p className="text-soda-fog text-xs mb-3">No hay sorteos activos</p>}
+      {raffles.filter((r: any) => r.active).map((r: any) => (
         <div key={r.id} className="flex items-center justify-between border border-soda-mist/15 rounded-sm p-3">
           <div>
             <h4 className="text-soda-lamp text-sm">{r.title}</h4>
@@ -1073,6 +1098,17 @@ const AdminRaffles: React.FC<{ ic: string; lc: string }> = ({ ic, lc }) => {
           <div className="flex gap-2">
             <button onClick={() => toggle(r.id)} className="text-soda-fog hover:text-soda-lamp text-xs">{r.active ? 'Cerrar' : 'Abrir'}</button>
               <button onClick={() => { const e = entries[r.id] || []; if(e.length === 0) { alert('No hay participantes'); return; } const winner = e[Math.floor(Math.random() * e.length)]; alert('Ganador: ' + (winner.userName || winner.userId || 'Usuario')); }} className="text-soda-accent hover:text-soda-lamp text-xs">Sortear</button>
+            <button onClick={() => remove(r.id)} className="text-soda-fog hover:text-red-400"><Trash2 size={14} /></button>
+          </div>
+        </div>
+      ))}
+      <h4 className="text-soda-lamp text-xs tracking-wider mb-2 mt-6">HISTORIAL</h4>
+      {raffles.filter((r: any) => !r.active).length === 0 && <p className="text-soda-fog text-xs">No hay sorteos archivados</p>}
+      {raffles.filter((r: any) => !r.active).map((r: any) => (
+        <div key={r.id + '-arch'} className="flex items-center justify-between border border-soda-mist/10 rounded-sm p-3 opacity-60 mb-2">
+          <div><h4 className="text-soda-lamp text-sm">{r.title}</h4><p className="text-soda-fog text-[10px]">{r.description} - Archivado</p></div>
+          <div className="flex gap-2">
+            <button onClick={() => toggle(r.id)} className="text-soda-fog hover:text-soda-lamp text-xs">Reabrir</button>
             <button onClick={() => remove(r.id)} className="text-soda-fog hover:text-red-400"><Trash2 size={14} /></button>
           </div>
         </div>

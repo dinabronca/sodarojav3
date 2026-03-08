@@ -212,6 +212,7 @@ function AppContent() {
     <div className="relative min-h-screen bg-soda-night overflow-x-hidden">
       <ScrollProgress />
       <div className="vhs-global-band" />
+      <div className="grain-overlay" />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />

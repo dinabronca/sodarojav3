@@ -26,7 +26,7 @@ export const MiCuentaPage: React.FC = () => {
   const fields = content.userProfileFields.filter(f => f.visible);
   const navigate = useNavigate();
 
-  const user: DemoUser | null = getCurrentUser();
+  const [user, setUser] = useState<DemoUser | null>(getCurrentUser());
 
   const [formData, setFormData] = useState<Record<string, string>>({
     name: user?.name || '',
@@ -53,6 +53,7 @@ export const MiCuentaPage: React.FC = () => {
   const handleSave = () => {
     const updated = { ...user, name: formData.name, email: formData.email, photoUrl: formData.photoUrl };
     localStorage.setItem('sodaroja-user', JSON.stringify(updated));
+    setUser(updated as DemoUser);
     alert('Cambios guardados');
   };
 
