@@ -94,11 +94,15 @@ export const MiCuentaPage: React.FC = () => {
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <div className="bg-soda-slate bg-opacity-40 backdrop-blur-sm border border-soda-mist border-opacity-20 rounded-sm p-6">
               <div className="flex items-center gap-4 mb-6">
-                {user.photoUrl ? (
-                  <img src={user.photoUrl} alt="Perfil" className="w-16 h-16 rounded-full object-cover border-2 border-soda-red" />
-                ) : (
-                  <div className="w-16 h-16 rounded-full bg-soda-red bg-opacity-20 flex items-center justify-center border-2 border-soda-red"><User size={32} className="text-soda-red" /></div>
-                )}
+                {(() => {
+                  const emojis = ['🧳','🧭','🎒','🚀','🏴‍☠️','🔍','🧙‍♀️','🤖','👻','🐱','👽','💀'];
+                  const idx = AVATARS.findIndex(a => a.id === user.photoUrl);
+                  return idx >= 0 ? (
+                    <div className="w-16 h-16 rounded-full bg-soda-night/80 border-2 border-soda-red flex items-center justify-center text-3xl">{emojis[idx]}</div>
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-soda-red bg-opacity-20 flex items-center justify-center border-2 border-soda-red"><User size={32} className="text-soda-red" /></div>
+                  );
+                })()}
                 <div>
                   <h3 className="text-soda-glow font-serif text-xl">{user.name}</h3>
                   <p className="text-soda-fog text-sm">{user.email}</p>

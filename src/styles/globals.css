@@ -185,8 +185,8 @@ body::before {
   }
   .overflow-y-auto { -webkit-overflow-scrolling: touch; }
   iframe { will-change: auto !important; contain: strict; }
-  body::after { opacity: 0.015; }
-  body::before { opacity: 0.5; }
+  body::after { opacity: 0.18; }
+  body::before { opacity: 0.14; }
   .vhs-global-band { opacity: 0.6; }
   .postal-card::before { display: none; }
 }

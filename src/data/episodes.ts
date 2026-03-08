@@ -112,7 +112,7 @@ export const demoEpisodes: DemoEpisode[] = [
     durationMin: 44,
     title: 'La Patinadora del Canal y el Guardian del Parlamento',
     description: 'Cada invierno, una mujer de 82 anos patina 7 kilometros por el canal Rideau para ir a trabajar. En Parliament Hill, un guardia veterano cuenta la noche en que alguien entro armado y el no se movio.',
-    imageUrl: 'https://images.unsplash.com/photo-1534655378221-868f00801ced?w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&q=80',
     isPremium: false,
     lat: 45.4215,
     lng: -75.6972,

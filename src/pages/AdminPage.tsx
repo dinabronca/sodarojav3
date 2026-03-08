@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Users, Radio, ShoppingBag, Mic, Settings, Eye, Save, Plus, Trash2, Image, AlertCircle, Home, HelpCircle, Mail, ChevronDown, ChevronUp, ToggleLeft, ToggleRight, UserCog, Layout, X } from 'lucide-react';
 import { getContent, saveContent, SiteContent } from '../data/content';
+import { demoEpisodes } from '../data/episodes';
 
 import { verifyAdminPassword } from '../data/auth';
 
@@ -15,6 +16,7 @@ export const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('inicio');
   const [saved, setSaved] = useState(false);
   const [content, setContent] = useState<SiteContent>(getContent());
+  const episodes = content.episodios?.items?.length ? content.episodios.items : demoEpisodes as any[];
   const [expandedMember, setExpandedMember] = useState<number | null>(null);
   const [showNewEpisode, setShowNewEpisode] = useState(false);
   const [newEpisode, setNewEpisode] = useState({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
@@ -87,7 +89,7 @@ export const AdminPage: React.FC = () => {
 
   const addEpisode = () => {
     const ep = { ...newEpisode, id: `ep-${Date.now()}` };
-    update('episodios.items', [...content.episodios.items, ep]);
+    update('episodios.items', [...episodes, ep]);
     setNewEpisode({ id: '', city: '', title: '', description: '', imageUrl: '', publishDate: '', isPremium: false, links: { youtube: '', spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' }, embeds: { spotify: '', soundcloud: '', ivoox: '', applePodcasts: '' } });
     setShowNewEpisode(false);
   };
@@ -278,7 +280,7 @@ export const AdminPage: React.FC = () => {
           <div>
             <div className={cc}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-serif text-soda-glow">Episodios ({content.episodios.items.length})</h2>
+                <h2 className="text-xl font-serif text-soda-glow">Episodios ({episodes.length})</h2>
                 <button onClick={() => setShowNewEpisode(!showNewEpisode)} className="flex items-center gap-2 px-4 py-2 border border-soda-accent text-soda-accent rounded-sm text-sm hover:bg-soda-accent hover:bg-opacity-10">{showNewEpisode ? 'Cancelar' : <><Plus size={16} />Nuevo Episodio</>}</button>
               </div>
 
@@ -326,7 +328,7 @@ export const AdminPage: React.FC = () => {
                 </div>
               )}
 
-              {content.episodios.items.map((ep: any, idx: number) => {
+              {episodes.map((ep: any, idx: number) => {
                 const isEditing = expandedMember === idx + 1000; // offset to not collide with team member index
                 return (
                 <div key={ep.id} className="border border-soda-mist border-opacity-15 rounded-sm mb-3 overflow-hidden">
@@ -341,23 +343,23 @@ export const AdminPage: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
                       <button onClick={() => setExpandedMember(isEditing ? null : idx + 1000)} className="text-soda-accent text-xs hover:underline">{isEditing ? 'Cerrar' : 'Editar'}</button>
-                      <button onClick={() => update('episodios.items', content.episodios.items.filter((_: any, i: number) => i !== idx))} className="text-soda-red text-xs hover:underline">Eliminar</button>
+                      <button onClick={() => update('episodios.items', episodes.filter((_: any, i: number) => i !== idx))} className="text-soda-red text-xs hover:underline">Eliminar</button>
                     </div>
                   </div>
                   {isEditing && (
                     <div className="px-4 pb-4 border-t border-soda-mist border-opacity-10 pt-4 bg-soda-night bg-opacity-30">
                       <div className="grid grid-cols-3 gap-3 mb-3">
-                        <div><label className={lc}>Ciudad</label><input type="text" value={ep.city} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], city: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
-                        <div><label className={lc}>País</label><input type="text" value={(ep as any).country || ''} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], country: e.target.value }; update('episodios.items', arr); }} className={ic} placeholder="Ej: Argentina" /></div>
-                        <div><label className={lc}>Titulo</label><input type="text" value={ep.title} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], title: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
+                        <div><label className={lc}>Ciudad</label><input type="text" value={ep.city} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], city: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
+                        <div><label className={lc}>País</label><input type="text" value={(ep as any).country || ''} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], country: e.target.value }; update('episodios.items', arr); }} className={ic} placeholder="Ej: Argentina" /></div>
+                        <div><label className={lc}>Titulo</label><input type="text" value={ep.title} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], title: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
                       </div>
-                      <div className="mb-3"><label className={lc}>Descripcion</label><textarea rows={2} value={ep.description} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], description: e.target.value }; update('episodios.items', arr); }} className={ic + ' resize-y'} /></div>
+                      <div className="mb-3"><label className={lc}>Descripcion</label><textarea rows={2} value={ep.description} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], description: e.target.value }; update('episodios.items', arr); }} className={ic + ' resize-y'} /></div>
                       <div className="grid grid-cols-4 gap-3 mb-3">
-                        <div><label className={lc}>Fecha</label><input type="date" value={ep.publishDate} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], publishDate: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
-                        <div><label className={lc}>Duración (min)</label><input type="number" value={(ep as any).durationMin || ''} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], durationMin: parseInt(e.target.value) || 0 }; update('episodios.items', arr); }} className={ic} placeholder="45" /></div>
-                        <div><label className={lc}>URL Imagen</label><input type="text" value={ep.imageUrl} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], imageUrl: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
+                        <div><label className={lc}>Fecha</label><input type="date" value={ep.publishDate} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], publishDate: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
+                        <div><label className={lc}>Duración (min)</label><input type="number" value={(ep as any).durationMin || ''} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], durationMin: parseInt(e.target.value) || 0 }; update('episodios.items', arr); }} className={ic} placeholder="45" /></div>
+                        <div><label className={lc}>URL Imagen</label><input type="text" value={ep.imageUrl} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], imageUrl: e.target.value }; update('episodios.items', arr); }} className={ic} /></div>
                         <div><label className={lc}>Premium</label>
-                          <button onClick={() => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], isPremium: !arr[idx].isPremium }; update('episodios.items', arr); }} className="flex items-center gap-2 text-xs mt-1">
+                          <button onClick={() => { const arr = [...episodes]; arr[idx] = { ...arr[idx], isPremium: !arr[idx].isPremium }; update('episodios.items', arr); }} className="flex items-center gap-2 text-xs mt-1">
                             {ep.isPremium ? <ToggleRight size={20} className="text-soda-red" /> : <ToggleLeft size={20} className="text-soda-fog" />}
                             <span className="text-soda-fog">{ep.isPremium ? 'Premium' : 'Publico'}</span>
                           </button>
@@ -366,13 +368,13 @@ export const AdminPage: React.FC = () => {
                       <h4 className="text-soda-lamp text-xs mb-2 mt-1">Links</h4>
                       <div className="grid grid-cols-2 gap-2 mb-3">
                         {['youtube','spotify','soundcloud','ivoox','applePodcasts'].map(lk => (
-                          <div key={lk}><label className={lc}>{lk}</label><input type="text" value={(ep.links || {})[lk] || ''} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], links: { ...(arr[idx].links || {}), [lk]: e.target.value } }; update('episodios.items', arr); }} className={ic} placeholder="https://..." /></div>
+                          <div key={lk}><label className={lc}>{lk}</label><input type="text" value={(ep.links || {})[lk] || ''} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], links: { ...(arr[idx].links || {}), [lk]: e.target.value } }; update('episodios.items', arr); }} className={ic} placeholder="https://..." /></div>
                         ))}
                       </div>
                       <h4 className="text-soda-lamp text-xs mb-2">Embeds</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {['spotify','soundcloud','ivoox','applePodcasts'].map(lk => (
-                          <div key={lk}><label className={lc}>Embed {lk}</label><input type="text" value={(ep.embeds || {})[lk] || ''} onChange={(e) => { const arr = [...content.episodios.items]; arr[idx] = { ...arr[idx], embeds: { ...(arr[idx].embeds || {}), [lk]: e.target.value } }; update('episodios.items', arr); }} className={ic} placeholder="URL del iframe..." /></div>
+                          <div key={lk}><label className={lc}>Embed {lk}</label><input type="text" value={(ep.embeds || {})[lk] || ''} onChange={(e) => { const arr = [...episodes]; arr[idx] = { ...arr[idx], embeds: { ...(arr[idx].embeds || {}), [lk]: e.target.value } }; update('episodios.items', arr); }} className={ic} placeholder="URL del iframe..." /></div>
                         ))}
                       </div>
                     </div>
