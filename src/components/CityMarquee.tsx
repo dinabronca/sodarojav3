@@ -12,7 +12,7 @@ export const CityMarquee: React.FC = () => {
     <div className="relative py-6 overflow-hidden select-none pointer-events-none">
       <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-soda-night to-transparent z-10" />
       <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-soda-night to-transparent z-10" />
-      <div style={{ display: 'flex', width: 'max-content', animation: 'marqueeScroll 45s linear infinite' }}>
+      <div style={{ display: 'flex', width: 'max-content', animation: 'marqueeScroll 135s linear infinite' }}>
         <span className="font-serif text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] text-soda-mist/[0.12] tracking-[0.08em] whitespace-nowrap italic" style={{ paddingRight: '2rem' }}>
           {text}
         </span>

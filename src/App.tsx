@@ -12,6 +12,8 @@ import { ShopPage } from './pages/ShopPage';
 import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
+import { CustomCursor } from './effects/CustomCursor';
+import { PageTransition } from './effects/PageTransition';
 import { getContent } from './data/content';
 import { initDemoUsers } from './data/auth';
 import { demoEpisodes } from './data/episodes';
@@ -110,26 +112,54 @@ const EasterEgg: React.FC = () => {
   );
 };
 
+// ===== EFFECTS TOGGLE =====
+const useEffectsToggle = () => {
+  const [reduced, setReduced] = React.useState(() => {
+    try { return localStorage.getItem('sodaroja-reduced-effects') === '1'; } catch { return false; }
+  });
+
+  React.useEffect(() => {
+    const grain = document.querySelector('.grain-overlay') as HTMLElement;
+    const vhs = document.querySelector('.vhs-global-band') as HTMLElement;
+    if (grain) grain.style.opacity = reduced ? '0' : '';
+    if (vhs) vhs.style.opacity = reduced ? '0' : '';
+    document.body.style.setProperty('--scanlines-opacity', reduced ? '0' : '');
+    if (reduced) {
+      document.body.classList.add('effects-reduced');
+    } else {
+      document.body.classList.remove('effects-reduced');
+    }
+    try { localStorage.setItem('sodaroja-reduced-effects', reduced ? '1' : '0'); } catch {}
+  }, [reduced]);
+
+  return { reduced, toggle: () => setReduced(r => !r) };
+};
 // ===== FOOTER =====
 const Footer: React.FC = () => {
   const content = getContent();
   const visibleLinks = content.socialLinks.filter(l => l.visible);
   const sponsors = (content as any).sponsors?.filter((s: any) => s.visible) || [];
   const footerLogo = (content as any).footerLogoUrl;
+  const { reduced, toggle } = useEffectsToggle();
   return (
-    <footer className="relative px-6 pt-16 pb-10">
-      <div className="max-w-5xl mx-auto">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-mist/15 to-transparent mb-12" />
-      </div>
+    <footer className="relative px-6 pt-20 pb-12 overflow-hidden">
+      {/* Faint city silhouette backdrop */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 80% 60% at 50% 110%, rgba(196,85,85,0.04) 0%, transparent 70%)',
+      }} />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Top divider — fine line */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-red/20 to-transparent mb-16" />
+
         {/* Sponsors */}
         {sponsors.length > 0 && (
-          <div className="mb-14">
-            <div className="flex items-center justify-center gap-6 sm:gap-10 flex-wrap">
+          <div className="mb-16 text-center">
+            <p className="text-soda-lamp/20 text-[8px] tracking-[0.35em] uppercase mb-6">Con el apoyo de</p>
+            <div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
               {sponsors.map((s: any) => (
                 <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="opacity-12 hover:opacity-35 transition-opacity duration-700">
+                  className="opacity-15 hover:opacity-40 transition-opacity duration-700">
                   <img src={s.logoUrl} alt={s.name} className="h-4 sm:h-[18px] object-contain" style={{ filter: 'brightness(3) grayscale(1)' }} loading="lazy" />
                 </a>
               ))}
@@ -137,42 +167,54 @@ const Footer: React.FC = () => {
           </div>
         )}
 
-        {/* 3-col: brand | airport counter | socials */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 items-end mb-10">
-          {/* Left: Brand */}
-          <div className="flex items-center gap-3 justify-center sm:justify-start">
+        {/* Airport counter — central, prominent */}
+        <div className="text-center mb-14">
+          <p className="text-soda-lamp/20 text-[8px] tracking-[0.4em] uppercase mb-6">el mapa de sodaroja</p>
+          <AirportCounter />
+        </div>
+
+        {/* Bottom row: brand | social */}
+        <div className="flex items-center justify-between flex-wrap gap-6 mb-10">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
             {footerLogo ? (
-              <img src={footerLogo} alt="sodaroja" className="h-7 object-contain opacity-50" />
+              <img src={footerLogo} alt="sodaroja" className="h-7 object-contain opacity-45" />
             ) : content.brand?.isotipoUrl ? (
-              <img src={content.brand.isotipoUrl} alt="" className="h-5 w-5 object-contain opacity-30" />
+              <img src={content.brand.isotipoUrl} alt="" className="h-5 w-5 object-contain opacity-25" />
             ) : null}
             <div>
-              <span className="font-serif text-soda-glow/70 text-sm block leading-tight">sodaroja</span>
-              <span className="text-soda-lamp/40 text-[8px] tracking-[0.12em] block mt-0.5">Un podcast que viaja</span>
+              <span className="font-serif text-soda-glow/65 text-sm block leading-tight tracking-wide">sodaroja</span>
+              <span className="text-soda-lamp/30 text-[8px] tracking-[0.15em] block mt-0.5 italic">un podcast que viaja</span>
             </div>
           </div>
 
-          {/* Center: Airport counter */}
-          <div className="flex justify-center">
-            <AirportCounter />
-          </div>
-
-          {/* Right: Social links */}
-          <div className="flex items-center gap-5 flex-wrap justify-center sm:justify-end">
+          {/* Social links */}
+          <div className="flex items-center gap-6 flex-wrap">
             {visibleLinks.map((link: any) => (
               <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer"
-                className="text-soda-lamp/30 text-[10px] tracking-[0.1em] uppercase hover:text-soda-lamp/60 transition-colors duration-700">
+                className="text-soda-lamp/25 text-[10px] tracking-[0.12em] uppercase hover:text-soda-lamp/55 transition-colors duration-700">
                 {link.iconUrl ? (
-                  <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-40 hover:opacity-70 transition-opacity duration-500" />
+                  <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-35 hover:opacity-65 transition-opacity duration-500" />
                 ) : (link.abbr || link.platform)}
               </a>
             ))}
           </div>
         </div>
 
-        {/* Copyright with Easter Egg */}
-        <div className="text-center sm:text-left">
+        {/* Fine bottom divider */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-mist/8 to-transparent mb-6" />
+
+        {/* Copyright with Easter Egg + Effects toggle */}
+        <div className="flex items-center justify-between flex-wrap gap-3">
           <EasterEgg />
+          <button
+            onClick={toggle}
+            title={reduced ? 'Activar efectos visuales' : 'Reducir efectos visuales'}
+            className="flex items-center gap-1.5 text-soda-lamp/18 hover:text-soda-lamp/40 transition-colors duration-500 text-[9px] tracking-[0.12em] group"
+          >
+            <span className={`w-2.5 h-2.5 rounded-full border transition-all duration-500 ${reduced ? 'border-soda-lamp/15 bg-transparent' : 'border-soda-red/35 bg-soda-red/15'}`} />
+            {reduced ? 'efectos apagados' : 'modo tranquilo'}
+          </button>
         </div>
       </div>
     </footer>
@@ -210,22 +252,25 @@ const ScrollProgress: React.FC = () => {
 function AppContent() {
   return (
     <div className="relative min-h-screen bg-soda-night overflow-x-hidden">
+      <CustomCursor />
       <ScrollProgress />
       <div className="vhs-global-band" />
       <div className="grain-overlay" />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/que-es-esto" element={<QueEsEstoPage />} />
-        <Route path="/equipo" element={<EquipoPage />} />
-        <Route path="/episodios" element={<EpisodiosPage />} />
-        <Route path="/frecuencia-interna" element={<FrecuenciaInternaPage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/contacto" element={<ContactoPage />} />
-        <Route path="/mi-cuenta" element={<MiCuentaPage />} />
-        <Route path="/admin" element={<React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader" /></div>}><AdminPage /></React.Suspense>} />
-        <Route path="/unirse" element={<UnirsePage />} />
-      </Routes>
+      <PageTransition>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/que-es-esto" element={<QueEsEstoPage />} />
+          <Route path="/equipo" element={<EquipoPage />} />
+          <Route path="/episodios" element={<EpisodiosPage />} />
+          <Route path="/frecuencia-interna" element={<FrecuenciaInternaPage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/contacto" element={<ContactoPage />} />
+          <Route path="/mi-cuenta" element={<MiCuentaPage />} />
+          <Route path="/admin" element={<React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader" /></div>}><AdminPage /></React.Suspense>} />
+          <Route path="/unirse" element={<UnirsePage />} />
+        </Routes>
+      </PageTransition>
       <Footer />
     </div>
   );

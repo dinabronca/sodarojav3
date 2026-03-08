@@ -130,7 +130,7 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 1 }}
-            className="text-6xl md:text-8xl font-serif font-light tracking-wider text-soda-glow mb-6"
+            className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[11rem] font-serif font-light tracking-[0.06em] text-soda-glow mb-6 leading-[0.9]"
           >
             {hero.title}
           </motion.h1>

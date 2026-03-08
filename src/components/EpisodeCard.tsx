@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { X, ExternalLink, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -24,6 +24,8 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   const [listened, setListened] = useState(false);
   const [showListenPrompt, setShowListenPrompt] = useState(false);
   const [zoomedImg, setZoomedImg] = useState<string | null>(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
   const formattedDate = formatDate(episode.publishDate);
   const user = getCurrentUser();
   const isPremiumUser = user?.isPremium === true;
@@ -54,6 +56,20 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
     if (!isLocked) { setIsExpanded(true); if (!listened) setShowListenPrompt(true); }
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isLocked || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    setParallax({ x: dx * 6, y: dy * 4 });
+  };
+
+  const handleMouseLeave = () => {
+    setParallax({ x: 0, y: 0 });
+  };
+
   // Auto-mark as listened after 60 seconds with modal open (implies user is engaging with embed)
   useEffect(() => {
     if (isExpanded && !listened) {
@@ -72,6 +88,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
     <>
       {/* === CARD: Classic style — image top, info below === */}
       <motion.div
+        ref={cardRef}
         data-ep-id={episode.id}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -80,6 +97,8 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
         whileHover={!isLocked ? { y: -2, transition: { duration: 1.2, ease: 'easeOut' } } : undefined}
         className="relative group h-full"
         onClick={handleCardClick}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         style={{ cursor: isLocked ? 'default' : 'pointer' }}
       >
         <div className={`relative overflow-hidden rounded-sm h-full transition-all duration-700 ${
@@ -106,9 +125,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           {/* Image */}
           <div className={`relative overflow-hidden bg-soda-deep ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}>
             <img src={episode.imageUrl} alt={episode.city}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[5s] ease-out group-hover:scale-[1.004]"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-out"
               loading="lazy"
-              style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}} />
+              style={{
+                transform: `scale(1.06) translate(${parallax.x * 0.5}px, ${parallax.y * 0.5}px)`,
+                ...(isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}),
+              }} />
 
             {/* VHS scanline for premium */}
             {(isUnlockedPremium || isLocked) && (
@@ -213,11 +235,18 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
       {/* === MODAL === */}
       {isExpanded && !isLocked && (
         <div className="fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4 md:p-8" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
-          <div className="absolute inset-0 bg-soda-night/95 backdrop-blur-sm" />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="absolute inset-0 bg-soda-night/95 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.88, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, scale: 0.93, y: 16 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-soda-deep border border-soda-mist/15 rounded-sm"
             style={{ WebkitOverflowScrolling: 'touch' }}
             onClick={e => e.stopPropagation()}

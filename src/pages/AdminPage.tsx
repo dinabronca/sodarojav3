@@ -74,17 +74,17 @@ export const AdminPage: React.FC = () => {
     );
   }
 
-  const tabs: { id: AdminTab; label: string; icon: React.ReactNode }[] = [
-    { id: 'inicio', label: 'Inicio', icon: <Home size={16} /> },
-    { id: 'queesesto', label: 'Qué es esto', icon: <HelpCircle size={16} /> },
-    { id: 'equipo', label: 'El Equipo', icon: <Users size={16} /> },
-    { id: 'episodios', label: 'Episodios', icon: <Mic size={16} /> },
-    { id: 'frecuencia', label: 'Frecuencia Interna', icon: <Radio size={16} /> },
-    { id: 'shop', label: 'Shop', icon: <ShoppingBag size={16} /> },
-    { id: 'contacto', label: 'Contacto', icon: <Mail size={16} /> },
-    { id: 'micuenta', label: 'Mi Cuenta (campos)', icon: <UserCog size={16} /> },
-    { id: 'secciones', label: 'Nombres Secciones', icon: <Layout size={16} /> },
-    { id: 'general', label: 'General / Redes', icon: <Settings size={16} /> },
+  const tabs: { id: AdminTab; label: string; icon: React.ReactNode; desc: string }[] = [
+    { id: 'inicio', label: 'Dashboard', icon: <Home size={16} />, desc: 'Resumen + Hero' },
+    { id: 'episodios', label: 'Episodios', icon: <Mic size={16} />, desc: 'Publicar y editar' },
+    { id: 'frecuencia', label: 'Frecuencia Interna', icon: <Radio size={16} />, desc: 'Suscripciones + mensajes' },
+    { id: 'equipo', label: 'El Equipo', icon: <Users size={16} />, desc: 'Miembros y perfiles' },
+    { id: 'queesesto', label: '¿Qué es esto?', icon: <HelpCircle size={16} />, desc: 'Textos de la sección' },
+    { id: 'shop', label: 'Shop', icon: <ShoppingBag size={16} />, desc: 'Tienda' },
+    { id: 'contacto', label: 'Contacto', icon: <Mail size={16} />, desc: 'Email + EmailJS' },
+    { id: 'micuenta', label: 'Perfil Usuario', icon: <UserCog size={16} />, desc: 'Campos del registro' },
+    { id: 'secciones', label: 'Menú / Nombres', icon: <Layout size={16} />, desc: 'Nombres en la nav' },
+    { id: 'general', label: 'General', icon: <Settings size={16} />, desc: 'Logos, redes, SEO' },
   ];
 
   const addEpisode = () => {
@@ -100,21 +100,22 @@ export const AdminPage: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div>
-            <h1 className="text-4xl font-serif text-soda-glow mb-2">Admin Panel</h1>
-            <p className="text-soda-fog text-sm">Gestión de contenido de sodaroja</p>
+            <h1 className="text-4xl font-serif text-soda-glow mb-1">Admin Panel</h1>
+            <p className="text-soda-fog text-xs tracking-wider">sodaroja — acordate de guardar los cambios antes de salir</p>
           </div>
           <div className="flex items-center gap-3">
-            {saved && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-green-400 text-sm">✓ Guardado</motion.span>}
-            <button onClick={handleSave} className="flex items-center gap-2 px-6 py-3 bg-soda-red bg-opacity-20 border border-soda-red text-soda-glow rounded-sm hover:bg-opacity-30 transition-all text-sm"><Save size={16} />Guardar</button>
-            <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 border border-soda-accent text-soda-accent rounded-sm hover:bg-soda-accent hover:bg-opacity-10 transition-all text-sm"><Eye size={16} />Ver Sitio</a>
+            {saved && <motion.span initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-1.5 text-green-400 text-sm bg-green-400/10 border border-green-400/20 px-3 py-1.5 rounded-sm">✓ Guardado</motion.span>}
+            <button onClick={handleSave} className="flex items-center gap-2 px-6 py-3 bg-soda-red bg-opacity-20 border border-soda-red text-soda-glow rounded-sm hover:bg-opacity-30 transition-all text-sm font-medium"><Save size={16} />Guardar cambios</button>
+            <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 border border-soda-accent text-soda-accent rounded-sm hover:bg-soda-accent hover:bg-opacity-10 transition-all text-sm"><Eye size={16} />Ver sitio</a>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+        <div className="flex gap-1.5 mb-8 overflow-x-auto pb-2 scrollbar-hide">
           {tabs.map((tab) => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-2 px-4 py-2.5 rounded-sm text-xs transition-all whitespace-nowrap ${activeTab === tab.id ? 'bg-soda-red bg-opacity-20 border border-soda-red text-soda-glow' : 'border border-soda-mist border-opacity-20 text-soda-fog hover:text-soda-lamp hover:border-opacity-40'}`}>
-              {tab.icon}{tab.label}
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} title={tab.desc} className={`flex flex-col items-center gap-0.5 px-4 py-2.5 rounded-sm text-xs transition-all whitespace-nowrap min-w-fit ${activeTab === tab.id ? 'bg-soda-red bg-opacity-20 border border-soda-red text-soda-glow' : 'border border-soda-mist border-opacity-20 text-soda-fog hover:text-soda-lamp hover:border-opacity-40'}`}>
+              <div className="flex items-center gap-1.5">{tab.icon}<span className="font-medium">{tab.label}</span></div>
+              <span className={`text-[9px] tracking-wide ${activeTab === tab.id ? 'text-soda-lamp/60' : 'text-soda-fog/40'}`}>{tab.desc}</span>
             </button>
           ))}
         </div>
@@ -122,10 +123,31 @@ export const AdminPage: React.FC = () => {
         {/* ======== INICIO ======== */}
         {activeTab === 'inicio' && (
           <div>
+            {/* Guía rápida — para quien entre por primera vez */}
+            <div className="border border-soda-accent/30 rounded-sm p-5 mb-6 bg-soda-accent/5">
+              <h3 className="text-soda-accent text-sm font-medium mb-3 flex items-center gap-2">💡 Flujo de trabajo recomendado</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                {[
+                  { n: '1', t: 'Episodios', d: 'Publicar un episodio nuevo', tab: 'episodios' },
+                  { n: '2', t: 'General', d: 'Actualizar logos y redes sociales', tab: 'general' },
+                  { n: '3', t: 'Frecuencia', d: 'Gestionar suscriptores y mensajes', tab: 'frecuencia' },
+                  { n: '4', t: 'Guardar', d: 'Siempre presionar "Guardar cambios" al terminar', tab: null },
+                ].map(step => (
+                  <div key={step.n} className={`border border-soda-mist/10 rounded-sm p-3 ${step.tab ? 'cursor-pointer hover:border-soda-accent/30 transition-colors' : ''}`} onClick={() => step.tab && setActiveTab(step.tab as AdminTab)}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="w-5 h-5 rounded-full bg-soda-accent/20 text-soda-accent text-[10px] flex items-center justify-center font-mono">{step.n}</span>
+                      <span className="text-soda-lamp text-xs font-medium">{step.t}</span>
+                    </div>
+                    <p className="text-soda-fog text-[10px]">{step.d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className={cc}>
-              <h2 className="text-xl font-serif text-soda-glow mb-4">Dashboard</h2>
+              <h2 className="text-xl font-serif text-soda-glow mb-4">Resumen del sitio</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center cursor-pointer hover:border-soda-accent/30 transition-colors" onClick={() => setActiveTab('episodios')}>
                   <p className="text-2xl font-serif text-soda-glow">{episodes.length}</p>
                   <p className="text-soda-fog text-[10px] tracking-wider mt-1">EPISODIOS</p>
                 </div>
@@ -133,22 +155,23 @@ export const AdminPage: React.FC = () => {
                   <p className="text-2xl font-serif text-soda-glow">{[...new Set(episodes.map((e: any) => e.city))].length}</p>
                   <p className="text-soda-fog text-[10px] tracking-wider mt-1">CIUDADES</p>
                 </div>
-                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center cursor-pointer hover:border-soda-accent/30 transition-colors" onClick={() => setActiveTab('equipo')}>
                   <p className="text-2xl font-serif text-soda-glow">{content.equipo.members.length}</p>
                   <p className="text-soda-fog text-[10px] tracking-wider mt-1">EQUIPO</p>
                 </div>
-                <div className="border border-soda-mist/15 rounded-sm p-4 text-center">
+                <div className="border border-soda-mist/15 rounded-sm p-4 text-center cursor-pointer hover:border-soda-accent/30 transition-colors" onClick={() => setActiveTab('frecuencia')}>
                   <p className="text-2xl font-serif text-soda-glow">{content.frecuenciaInterna.plans.length}</p>
                   <p className="text-soda-fog text-[10px] tracking-wider mt-1">PLANES</p>
                 </div>
               </div>
-              <div className="border border-soda-accent/20 rounded-sm p-4 mb-4">
-                <h4 className="text-soda-lamp text-sm font-medium mb-2">Acciones rapidas</h4>
+              <div className="border border-soda-mist/10 rounded-sm p-4">
+                <h4 className="text-soda-lamp text-sm font-medium mb-3">⚡ Acciones rápidas</h4>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => setActiveTab('episodios')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">+ Nuevo episodio</button>
-                  <button onClick={() => setActiveTab('frecuencia')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Mensajes internos</button>
-                  <button onClick={() => setActiveTab('general')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Redes sociales</button>
-                  <button onClick={() => setActiveTab('contacto')} className="px-3 py-1.5 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp">Config email</button>
+                  <button onClick={() => { setActiveTab('episodios'); setShowNewEpisode(true); }} className="px-3 py-2 border border-soda-red/30 text-soda-red text-xs rounded-sm hover:bg-soda-red/10 transition-colors flex items-center gap-1.5"><Plus size={12} />Nuevo episodio</button>
+                  <button onClick={() => setActiveTab('frecuencia')} className="px-3 py-2 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp transition-colors">📡 Mensajes internos</button>
+                  <button onClick={() => setActiveTab('general')} className="px-3 py-2 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp transition-colors">🔗 Redes sociales</button>
+                  <button onClick={() => setActiveTab('contacto')} className="px-3 py-2 border border-soda-mist/20 text-soda-fog text-xs rounded-sm hover:text-soda-lamp transition-colors">✉️ Config email</button>
+                  <button onClick={handleSave} className="px-3 py-2 border border-green-500/30 text-green-400 text-xs rounded-sm hover:bg-green-400/10 transition-colors flex items-center gap-1.5"><Save size={12} />Guardar todo ahora</button>
                 </div>
               </div>
             </div>
@@ -500,9 +523,9 @@ export const AdminPage: React.FC = () => {
               <h2 className="text-xl font-serif text-soda-glow mb-4">🥤 Misiones de Soditas</h2>
               <div className="border border-soda-accent/20 rounded-sm p-4 mb-4">
         <h4 className="text-soda-lamp text-sm font-medium mb-3">Notificaciones Automaticas</h4>
-        <p className="text-soda-fog text-[10px] mb-3">Estas se envian solas cuando se cumple la condicion.</p>
+        <p className="text-soda-fog text-[10px] mb-3">Estas se envían solas cuando se cumple la condicion.</p>
         <div className="space-y-2">
-          {[{k:'birthday',e:'ð',l:'Feliz cumple',d:'Se envia en su cumple'},{k:'pay_fail',e:'ð³',l:'Pago rechazado',d:'Cuando falla un cobro'},{k:'pay_ok',e:'â',l:'Pago confirmado',d:'Cuando se confirma el pago'},{k:'winner',e:'ð',l:'Ganador sorteo',d:'Al elegir ganador'},{k:'new_ep',e:'ðï¸',l:'Episodio nuevo',d:'Al publicar episodio'},{k:'welcome',e:'ð',l:'Bienvenida',d:'Al suscribirse'}].map(n => (
+          {[{k:'birthday',e:'🎂',l:'Feliz cumple',d:'Se envía en su cumple'},{k:'pay_fail',e:'💳',l:'Pago rechazado',d:'Cuando falla un cobro'},{k:'pay_ok',e:'✅',l:'Pago confirmado',d:'Cuando se confirma el pago'},{k:'winner',e:'🏆',l:'Ganador sorteo',d:'Al elegir ganador'},{k:'new_ep',e:'🎙️',l:'Episodio nuevo',d:'Al publicar episodio'},{k:'welcome',e:'🎉',l:'Bienvenida',d:'Al suscribirse'}].map(n => (
             <div key={n.k} className="flex items-center justify-between border border-soda-mist/10 rounded-sm px-3 py-2">
               <div className="flex items-center gap-2"><span>{n.e}</span><div><p className="text-soda-lamp text-xs">{n.l}</p><p className="text-soda-fog text-[9px]">{n.d}</p></div></div>
               <span className="text-green-400 text-[10px] tracking-wider">AUTO</span>
@@ -899,13 +922,13 @@ const AdminInternalMessages: React.FC<{ ic: string; lc: string }> = ({ ic, lc })
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
-        <select value={newEmoji} onChange={e => setNewEmoji(e.target.value)} className={ic + ' w-20 text-center'}>
-          <option value="ð¡">ð¡ Anuncio</option>
-          <option value="ðï¸">ðï¸ Episodio</option>
-          <option value="ð">ð Evento</option>
-          <option value="ð¬">ð¬ Mensaje</option>
-          <option value="â ï¸">â ï¸ Alerta</option>
-          <option value="ð">ð Sorpresa</option>
+        <select value={newEmoji} onChange={e => setNewEmoji(e.target.value)} className={ic + ' w-28 text-center'}>
+          <option value="📡">📡 Anuncio</option>
+          <option value="🎙️">🎙️ Episodio</option>
+          <option value="🎉">🎉 Evento</option>
+          <option value="💬">💬 Mensaje</option>
+          <option value="⚠️">⚠️ Alerta</option>
+          <option value="🎁">🎁 Sorpresa</option>
         </select>
         <input type="text" value={newMsg} onChange={e => setNewMsg(e.target.value)} className={ic + ' flex-1'} placeholder="Escribí un mensaje para los suscriptores..." />
         <button onClick={add} className="px-4 py-2 bg-soda-red/20 border border-soda-red/40 text-soda-lamp rounded-sm text-sm"><Plus size={16} /></button>
