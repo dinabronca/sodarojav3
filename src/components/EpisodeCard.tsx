@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { X, ExternalLink, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCurrentUser } from '../data/auth';
-import { miniPlayerShow, miniPlayerHide } from './MiniPlayer';
 
 interface Episode {
   id: string; city: string; title: string; description: string; imageUrl: string;
@@ -52,7 +51,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   }, [isExpanded]);
 
   const handleCardClick = () => {
-    if (!isLocked) { setIsExpanded(true); miniPlayerShow({ episodeTitle: episode.title, city: episode.city, imageUrl: episode.imageUrl, episodeId: episode.id }); if (!listened) setShowListenPrompt(true); }
+    if (!isLocked) { setIsExpanded(true); if (!listened) setShowListenPrompt(true); }
   };
 
   // Auto-mark as listened after 60 seconds with modal open (implies user is engaging with embed)

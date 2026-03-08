@@ -116,7 +116,7 @@ export const HomePage: React.FC = () => {
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                 className="relative p-8 border border-soda-mist/10 rounded-sm group hover:border-soda-mist/20 transition-all duration-700"
               >
-                <span className="absolute -top-3 left-6 text-soda-red/20 text-6xl font-serif leading-none select-none">&ldquo;</span>
+                <span className="absolute -top-3 left-6 text-soda-red/45 text-6xl font-serif leading-none select-none">&ldquo;</span>
                 <p className="text-soda-lamp/60 text-sm font-light leading-relaxed mb-6 relative z-10">{t.quote}</p>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-px bg-soda-red/40" />

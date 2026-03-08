@@ -140,7 +140,20 @@ export const MiCuentaPage: React.FC = () => {
                 <div className="space-y-5">
                   <div><label className="block text-soda-lamp text-sm mb-2">Nombre</label><input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={ic} /></div>
                   <div><label className="block text-soda-lamp text-sm mb-2">Email</label><input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={ic} /></div>
-                  <div><label className="block text-soda-lamp text-sm mb-2">Foto de perfil (URL)</label><input type="url" value={formData.photoUrl} onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })} className={ic} placeholder="https://... (máx 200×200px)" /><p className="text-soda-fog text-xs mt-1">Pegá un link a tu foto. No almacenamos imágenes.</p></div>
+              <div>
+                <label className="block text-soda-lamp text-sm mb-2">Avatar</label>
+                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                  {AVATARS.map((av, idx) => (
+                    <button key={av.id} type="button" onClick={() => setFormData({...formData, photoUrl: av.id})}
+                      className={`flex flex-col items-center gap-1 p-2 rounded-sm border transition-all duration-300 ${formData.photoUrl === av.id ? 'border-soda-red/50 bg-soda-red/10' : 'border-soda-mist/10 hover:border-soda-mist/25'}`}>
+                      <div className="w-10 h-10 rounded-full bg-soda-night/50 flex items-center justify-center text-lg">
+                        {['🧳','🧭','🎒','🚀','🏴‍☠️','🔍','🧙‍♀️','🤖','👻','🐱','👽','💀'][idx]}
+                      </div>
+                      <span className="text-soda-lamp/40 text-[8px] tracking-wider">{av.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
                   {fields.map(renderField)}
                   <button onClick={handleSave} className="w-full py-3 bg-soda-accent bg-opacity-20 border border-soda-accent text-soda-lamp rounded-sm hover:bg-opacity-30 transition-all mt-4 flex items-center justify-center gap-2 text-sm"><Save size={16} />Guardar Cambios</button>
                 </div>

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
-import { MiniPlayer } from './components/MiniPlayer';
 import { HomePage } from './pages/HomePage';
 import { QueEsEstoPage } from './pages/QueEsEstoPage';
 import { EquipoPage } from './pages/EquipoPage';
@@ -224,7 +223,6 @@ function AppContent() {
         <Route path="/admin" element={<React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader" /></div>}><AdminPage /></React.Suspense>} />
         <Route path="/unirse" element={<UnirsePage />} />
       </Routes>
-      <MiniPlayer />
       <Footer />
     </div>
   );
