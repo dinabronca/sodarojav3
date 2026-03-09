@@ -429,7 +429,6 @@ const SubscriberDashboard: React.FC = () => {
                 </div>
               )}
             </div>
-          </div>
 
           {/* Section nav tabs — mensajes + alertas */}
           <div className="flex items-center gap-1">
@@ -693,6 +692,8 @@ const SubscriberDashboard: React.FC = () => {
           }} />
         )}
       </AnimatePresence>
+        </div>{/* end space-y-5 left col */}
+      </div>{/* end xl:grid */}
     </div>
   );
 };
