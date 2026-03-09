@@ -127,14 +127,18 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           )}
 
           {/* Image */}
-          <div className={`relative overflow-hidden bg-soda-deep ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}>
-            {/* Wrapper con scale generoso para que el parallax nunca exponga borde */}
+          <div className={`relative overflow-hidden ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}
+            style={{ background: 'transparent' }}>
+            {/* inset en px fijos — % sobre aspect-ratio se calcula solo sobre el ancho, insuficiente en vertical */}
             <div
-              className="absolute inset-0 transition-transform duration-[900ms] ease-out"
-              style={{ transform: `scale(1.12) translate(${parallax.x * 0.3}px, ${parallax.y * 0.25}px)` }}
+              className="absolute transition-transform duration-[1000ms] ease-out"
+              style={{
+                top: '-30px', bottom: '-30px', left: '-30px', right: '-30px',
+                transform: `translate(${parallax.x * 0.28}px, ${parallax.y * 0.22}px)`,
+              }}
             >
               <img src={episode.imageUrl} alt={episode.city}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="w-full h-full object-cover"
                 loading="lazy"
                 style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}}
               />
@@ -307,20 +311,73 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                 </div>
               )}
 
-              {/* Gallery */}
+              {/* Gallery — layout editorial cinematográfico */}
               {gallery.length > 0 && (
-                <div className="mb-6">
-                  <span className="text-soda-lamp/50 text-[10px] tracking-[0.2em] block mb-3">GALERIA</span>
-                  <div className="flex gap-2 overflow-x-auto pb-2" style={{ scrollSnapType: 'x mandatory' }}>
-                    {gallery.map((img: string, gi: number) => (
-                      <div key={gi} className="flex-shrink-0 cursor-pointer group/gal" style={{ scrollSnapAlign: 'start' }}
-                        onClick={(e) => { e.stopPropagation(); setZoomedImg(img); }}>
-                        <div className="w-20 h-[106px] sm:w-24 sm:h-32 rounded-sm overflow-hidden border border-soda-mist/10 group-hover/gal:border-soda-mist/25 transition-all duration-500">
-                          <img src={img} alt={`Foto ${gi + 1}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.015]" loading="lazy" />
-                        </div>
-                      </div>
-                    ))}
+                <div className="mb-7">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-4 h-px bg-soda-red/35" />
+                    <span className="text-soda-lamp/35 text-[9px] tracking-[0.3em] uppercase font-light">
+                      Galería · {gallery.length} {gallery.length === 1 ? 'foto' : 'fotos'}
+                    </span>
                   </div>
+
+                  {gallery.length === 1 && (
+                    <div className="relative aspect-[16/9] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                      onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
+                      <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                      <div className="absolute inset-0 bg-soda-night/0 group-hover/gal:bg-soda-night/20 transition-all duration-500" />
+                    </div>
+                  )}
+
+                  {gallery.length === 2 && (
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {gallery.map((img, gi) => (
+                        <div key={gi} className={`${gi === 0 ? 'col-span-2' : 'col-span-1'} aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500`}
+                          onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
+                          <img src={img} alt={`Foto ${gi+1}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {gallery.length === 3 && (
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <div className="row-span-2 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                        onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
+                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                      </div>
+                      {gallery.slice(1).map((img, gi) => (
+                        <div key={gi} className="aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                          onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
+                          <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {gallery.length >= 4 && (
+                    <div className="space-y-1.5">
+                      {/* Portada ancha */}
+                      <div className="relative aspect-[16/7] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                        onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
+                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-soda-night/40 via-transparent to-transparent pointer-events-none" />
+                        <span className="absolute top-2.5 left-3 text-soda-glow/25 text-[8px] font-mono tracking-widest">01</span>
+                      </div>
+                      {/* Tira horizontal del resto */}
+                      <div className="flex gap-1.5 overflow-x-auto scrollbar-hide" style={{ scrollSnapType:'x mandatory' }}>
+                        {gallery.slice(1).map((img, gi) => (
+                          <div key={gi} className="flex-shrink-0 relative overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                            style={{ width:'118px', height:'80px', scrollSnapAlign:'start' }}
+                            onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
+                            <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.08]" loading="lazy" />
+                            <div className="absolute inset-0 bg-soda-night/0 group-hover/gal:bg-soda-night/25 transition-all duration-500" />
+                            <span className="absolute bottom-1 right-1.5 text-soda-glow/22 text-[7px] font-mono">{String(gi+2).padStart(2,'0')}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 

@@ -166,14 +166,18 @@ export const HomePage: React.FC = () => {
 
 
       {/* ===== ESCUCHA EN ===== */}
-      <section className="relative py-20 sm:py-28 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-16 sm:py-20 px-6">
+        <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-soda-lamp/50 text-[9px] tracking-[0.4em] uppercase mb-10">Escucha en tu plataforma favorita</p>
-            <div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
+            <p className="text-soda-lamp/30 text-[9px] tracking-[0.4em] uppercase text-center mb-8">Escuchá en tu plataforma favorita</p>
+            <div className="flex items-center justify-center gap-6 sm:gap-10 flex-wrap">
               {((content as any).platforms || []).filter((p: any) => p.visible).map((p: any) => (
-                <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-3 opacity-35 hover:opacity-75 transition-opacity duration-700" title={p.name}>
-                  <span className="text-soda-lamp/55 text-sm sm:text-base group-hover:text-soda-glow transition-colors duration-500 font-light tracking-wide">{p.name}</span>
+                <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"
+                  className="group relative text-soda-lamp/40 text-xs sm:text-sm font-light tracking-[0.08em] hover:text-soda-lamp transition-all duration-500"
+                  title={p.name}
+                >
+                  {p.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-soda-red/40 group-hover:w-full transition-all duration-500" />
                 </a>
               ))}
             </div>

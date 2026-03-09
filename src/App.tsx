@@ -164,7 +164,7 @@ const Footer: React.FC = () => {
 
         {/* Airport counter — central, prominent */}
         <div className="text-center mb-14">
-          <p className="text-soda-lamp/20 text-[8px] tracking-[0.4em] uppercase mb-6">el mapa de sodaroja</p>
+          <p className="text-soda-lamp/20 text-[8px] tracking-[0.4em] uppercase mb-6">los números de sodaroja</p>
           <AirportCounter />
         </div>
 
