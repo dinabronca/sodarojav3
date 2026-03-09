@@ -91,7 +91,7 @@ const EasterEgg: React.FC = () => {
   return (
     <>
       <div onClick={handleClick} className="cursor-default select-none" title="">
-        <span className="text-soda-red/25 text-[9px] tracking-[0.12em]">&copy; 2026 sodaroja</span>
+        <span className="text-soda-red/25 text-[9px] tracking-[0.12em]">&copy; {new Date().getFullYear()} sodaroja</span>
       </div>
       <AnimatePresence>
         {show && (
@@ -119,11 +119,6 @@ const useEffectsToggle = () => {
   });
 
   React.useEffect(() => {
-    const grain = document.querySelector('.grain-overlay') as HTMLElement;
-    const vhs = document.querySelector('.vhs-global-band') as HTMLElement;
-    if (grain) grain.style.opacity = reduced ? '0' : '';
-    if (vhs) vhs.style.opacity = reduced ? '0' : '';
-    document.body.style.setProperty('--scanlines-opacity', reduced ? '0' : '');
     if (reduced) {
       document.body.classList.add('effects-reduced');
     } else {
@@ -241,8 +236,12 @@ const ScrollProgress: React.FC = () => {
   }, []);
   return (
     <div
-      className="fixed top-0 left-0 right-0 h-[2px] bg-soda-red/60 origin-left z-[10000]"
-      style={{ transform: 'scaleX(' + progress + ')', willChange: 'transform' }}
+      className="fixed top-0 left-0 right-0 h-[1px] origin-left z-[10000]"
+      style={{
+        transform: 'scaleX(' + progress + ')',
+        willChange: 'transform',
+        background: 'linear-gradient(90deg, rgba(196,85,85,0.6), rgba(212,197,176,0.4))',
+      }}
     />
   );
 };

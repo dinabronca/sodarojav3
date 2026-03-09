@@ -47,8 +47,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   };
 
   useEffect(() => {
-    if (isExpanded) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = '';
+    if (isExpanded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    // Cleanup garantizado aunque se desmonte con el modal abierto
     return () => { document.body.style.overflow = ''; };
   }, [isExpanded]);
 
@@ -63,7 +67,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
     const cy = rect.top + rect.height / 2;
     const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
-    setParallax({ x: dx * 6, y: dy * 4 });
+    setParallax({ x: dx * 3, y: dy * 2 });
   };
 
   const handleMouseLeave = () => {
@@ -124,13 +128,17 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
           {/* Image */}
           <div className={`relative overflow-hidden bg-soda-deep ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}>
-            <img src={episode.imageUrl} alt={episode.city}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-out"
-              loading="lazy"
-              style={{
-                transform: `scale(1.06) translate(${parallax.x * 0.5}px, ${parallax.y * 0.5}px)`,
-                ...(isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}),
-              }} />
+            {/* Wrapper con scale generoso para que el parallax nunca exponga borde */}
+            <div
+              className="absolute inset-0 transition-transform duration-[900ms] ease-out"
+              style={{ transform: `scale(1.12) translate(${parallax.x * 0.3}px, ${parallax.y * 0.25}px)` }}
+            >
+              <img src={episode.imageUrl} alt={episode.city}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+                style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}}
+              />
+            </div>
 
             {/* VHS scanline for premium */}
             {(isUnlockedPremium || isLocked) && (

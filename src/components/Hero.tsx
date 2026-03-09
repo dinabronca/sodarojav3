@@ -84,88 +84,103 @@ export const Hero: React.FC = () => {
             <img src={hero.imageUrl} alt={hero.title || 'sodaroja'} className="relative z-10 w-full"  />
           </motion.div>
         ) : heroLogo ? (
-          /* Logotipo brand — the main brand display */
+          /* Logotipo brand — sin fondo, mezcla con el fondo oscuro */
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, ease: 'easeOut' }}
-            className="relative inline-block mb-12"
+            className="relative inline-block mb-10"
           >
             <motion.div
-              className="absolute -inset-12"
-              style={{ background: 'radial-gradient(ellipse, rgba(196,85,85,0.05) 0%, transparent 65%)' }}
+              className="absolute -inset-16"
+              style={{ background: 'radial-gradient(ellipse, rgba(196,85,85,0.06) 0%, transparent 65%)' }}
               animate={{ opacity: [0.2, 0.5, 0.2] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <img src={heroLogo} alt="sodaroja" className="relative z-10 h-20 sm:h-28 md:h-36 mx-auto object-contain"  />
+            <img
+              src={heroLogo}
+              alt="sodaroja"
+              className="relative z-10 h-20 sm:h-24 md:h-28 mx-auto object-contain"
+              style={{ mixBlendMode: 'screen', filter: 'brightness(1.1)' }}
+            />
           </motion.div>
         ) : (
-          /* Fallback: SVG carita */
+          /* Fallback: punto de frecuencia animado */
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: 'easeOut' }}
-            className="relative inline-block mb-10"
+            className="relative inline-flex items-center justify-center mb-10"
           >
+            {[0,1,2].map(i => (
+              <motion.div key={i} className="absolute rounded-full border border-soda-red/20"
+                style={{ width: 40 + i*28, height: 40 + i*28 }}
+                animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0, 0.4] }}
+                transition={{ duration: 3.5, repeat: Infinity, delay: i * 0.7, ease: 'easeInOut' }}
+              />
+            ))}
+            <div className="w-3 h-3 rounded-full bg-soda-red" style={{ boxShadow: '0 0 16px rgba(196,85,85,0.8), 0 0 32px rgba(196,85,85,0.3)' }} />
+          </motion.div>
+        )}
+
+        {/* ===== BLOQUE CENTRAL DE IDENTIDAD ===== */}
+        <div className="relative flex flex-col items-center">
+
+          {/* Eyebrow label */}
+          {hero.subtitle && (
             <motion.div
-              className="absolute -inset-8"
-              style={{ background: 'radial-gradient(circle, rgba(196,85,85,0.07) 0%, transparent 60%)' }}
-              animate={{ opacity: [0.2, 0.5, 0.2], scale: [0.97, 1.05, 0.97] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <div className="w-40 h-40 md:w-48 md:h-48 mx-auto relative">
-              <svg viewBox="0 0 120 120" className="w-full h-full">
-                <circle cx="60" cy="60" r="55" fill="none" stroke="rgba(196, 85, 85, 0.08)" strokeWidth="0.5" />
-                <circle cx="60" cy="60" r="20" fill="rgba(196, 85, 85, 0.12)" />
-                <circle cx="54" cy="57" r="2" fill="rgba(212, 197, 176, 0.6)" />
-                <circle cx="66" cy="57" r="2" fill="rgba(212, 197, 176, 0.6)" />
-                <path d="M 53 65 Q 60 70 67 65" stroke="rgba(212, 197, 176, 0.5)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-              </svg>
-            </div>
-          </motion.div>
-        )}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.9 }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <div className="w-6 h-px bg-soda-red/50" />
+              <span className="text-soda-red/70 text-[10px] tracking-[0.35em] uppercase font-light">{hero.subtitle}</span>
+              <div className="w-6 h-px bg-soda-red/50" />
+            </motion.div>
+          )}
 
-        {hero.title && (
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1 }}
-            className="text-7xl sm:text-8xl md:text-[10rem] lg:text-[11rem] font-serif font-light tracking-[0.06em] text-soda-glow mb-6 leading-[0.9]"
-          >
-            {hero.title}
-          </motion.h1>
-        )}
+          {/* Título principal — extra large, elegante */}
+          {hero.title && (
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif font-light text-soda-glow leading-[0.88] tracking-[0.04em] mb-8"
+              style={{ fontSize: 'clamp(5rem, 14vw, 13rem)' }}
+            >
+              {hero.title}
+            </motion.h1>
+          )}
 
-        {hero.subtitle && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-soda-fog/65 text-base md:text-lg font-light tracking-wide mb-4"
-          >
-            {hero.subtitle}
-          </motion.div>
-        )}
-
-        {(hero.title || hero.subtitle) && hero.description && (
+          {/* Línea decorativa con punto central */}
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-            className="w-[120px] h-px bg-soda-red/40 mx-auto mb-8"
-          />
-        )}
-
-        {hero.description && (
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-            className="text-soda-fog/55 text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed whitespace-pre-line"
+            transition={{ delay: 0.8, duration: 1, ease: 'easeOut' }}
+            className="flex items-center gap-3 mb-8 w-full max-w-xs"
           >
-            {hero.description}
-          </motion.p>
-        )}
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-soda-red/30" />
+            <motion.div
+              className="w-1 h-1 rounded-full bg-soda-red/60"
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-soda-red/30" />
+          </motion.div>
+
+          {/* Descripción — solo si existe */}
+          {hero.description && (
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.9 }}
+              className="text-soda-lamp/45 text-sm font-light max-w-md mx-auto leading-loose tracking-wide text-center whitespace-pre-line"
+            >
+              {hero.description}
+            </motion.p>
+          )}
+        </div>
       </div>
 
       {/* Scroll indicator */}

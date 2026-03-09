@@ -68,6 +68,11 @@ body::before {
     );
 }
 
+/* ===== EFECTOS REDUCIDOS — clase agregada por toggle en footer ===== */
+body.effects-reduced::before { opacity: 0 !important; }
+body.effects-reduced .vhs-global-band { opacity: 0 !important; transition: opacity 0.6s ease; }
+body.effects-reduced .grain-overlay { opacity: 0 !important; transition: opacity 0.6s ease; }
+
 /* VHS moving band — pegada al fondo */
 @keyframes vhsGlobal {
   0% { transform: translateY(-100vh); }
@@ -196,6 +201,12 @@ body::before {
   width: 8px; height: 8px; border-radius: 50%;
   background: rgba(196, 85, 85, 0.85);
   box-shadow: 0 0 8px rgba(196, 85, 85, 0.5), 0 0 16px rgba(196, 85, 85, 0.2);
+  transition: all 0.2s ease;
+}
+.sr-dot-hover, .sr-marker:hover .sr-dot {
+  background: rgba(212, 197, 176, 0.95) !important;
+  box-shadow: 0 0 12px rgba(212, 197, 176, 0.7), 0 0 24px rgba(196, 85, 85, 0.4) !important;
+  transform: translate(-50%, -50%) scale(1.4) !important;
 }
 .sr-pulse {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -207,25 +218,26 @@ body::before {
   0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
   100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
 }
-.sr-popup-wrap .leaflet-popup-content-wrapper {
-  background: rgba(13, 17, 23, 0.95) !important;
-  border: 1px solid rgba(212, 197, 176, 0.1) !important;
-  border-radius: 4px !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
-  color: #e8e0d4 !important;
-}
-.sr-popup-wrap .leaflet-popup-content { margin: 10px 14px !important; }
-.sr-popup-wrap .leaflet-popup-tip { background: rgba(13, 17, 23, 0.95) !important; border: none !important; }
-.sr-goto:hover { text-decoration: underline; }
+/* Leaflet overrides */
+.leaflet-container { cursor: grab !important; }
+.leaflet-container:active { cursor: grabbing !important; }
 .leaflet-control-zoom a {
-  background: rgba(13, 17, 23, 0.8) !important;
+  background: rgba(13, 17, 23, 0.85) !important;
   color: rgba(212, 197, 176, 0.6) !important;
   border-color: rgba(212, 197, 176, 0.1) !important;
+  backdrop-filter: blur(4px) !important;
 }
 .leaflet-control-zoom a:hover {
-  background: rgba(20, 25, 35, 0.9) !important;
+  background: rgba(20, 25, 35, 0.95) !important;
   color: rgba(212, 197, 176, 0.9) !important;
 }
+.leaflet-control-attribution {
+  background: rgba(10,14,26,0.7) !important;
+  color: rgba(212,197,176,0.2) !important;
+  font-size: 8px !important;
+  backdrop-filter: blur(4px) !important;
+}
+.leaflet-control-attribution a { color: rgba(196,85,85,0.4) !important; }
 
 /* ===== VHS GLITCH MICRO ===== */
 @keyframes vhsGlitch {
