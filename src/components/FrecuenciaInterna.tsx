@@ -157,7 +157,7 @@ const SubscriberDashboard: React.FC = () => {
   const [openPanel, setOpenPanel] = useState<string | null>(null);
   const [userPlan, setUserPlan] = useState('plan-b');
   const [payMethod, setPayMethod] = useState('Mercado Pago');
-  const [activeSection, setActiveSection] = useState<'mensajes' | 'encuesta' | 'sorteo' | 'notif'>('mensajes');
+  const [activeSection, setActiveSection] = useState<'mensajes' | 'notif'>('mensajes');
 
   useEffect(() => {
     setMessages(getLS('sodaroja-internal-messages'));
@@ -202,8 +202,6 @@ const SubscriberDashboard: React.FC = () => {
 
   const navItems = [
     { id: 'mensajes' as const, label: 'Transmisiones', icon: Radio, count: messages.length },
-    { id: 'encuesta' as const, label: 'Encuesta', icon: BarChart3, count: currentPoll && !pollCompleted ? 1 : 0 },
-    { id: 'sorteo' as const, label: 'Sorteo', icon: Trophy, count: currentRaffle && !raffleEntries[currentRaffle?.id] ? 1 : 0 },
     { id: 'notif' as const, label: 'Alertas', icon: Bell, count: unreadNotifs },
   ];
 
@@ -467,7 +465,7 @@ const SubscriberDashboard: React.FC = () => {
               style={{ background:'rgba(20,24,36,0.5)', border:'1px solid rgba(212,197,176,0.07)', minHeight:'280px' }}
             >
               {/* TRANSMISIONES */}
-              {(activeSection === 'mensajes' || activeSection === 'encuesta' || activeSection === 'sorteo') && (
+              {activeSection === 'mensajes' && (
                 <div>
                   <div className="px-6 py-5 flex items-center justify-between"
                     style={{ borderBottom:'1px solid rgba(212,197,176,0.06)' }}>
