@@ -322,17 +322,113 @@ const SubscriberDashboard: React.FC = () => {
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6 xl:gap-8">
 
         {/* LEFT — Content area */}
-        <div className="space-y-6">
+        <div className="space-y-5">
 
-          {/* Section nav tabs */}
-          <div className="flex items-center gap-1 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
-            {navItems.map(({ id, label, icon: Icon, count }) => (
+          {/* ── ENCUESTA + SORTEO — always visible at top ── */}
+          {(currentPoll || currentRaffle) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              {/* ENCUESTA */}
+              {currentPoll && (
+                <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}
+                  className="rounded-sm overflow-hidden cursor-pointer group"
+                  style={{ background:'linear-gradient(135deg, rgba(18,24,40,0.7) 0%, rgba(12,16,26,0.5) 100%)', border:'1px solid rgba(138,155,196,0.2)' }}
+                  onClick={() => !pollCompleted && setActivePollPage(currentPoll.id)}>
+                  {currentPoll.bannerUrl
+                    ? <img src={currentPoll.bannerUrl} alt={currentPoll.question} className="w-full h-32 object-cover" />
+                    : (
+                      <div className="px-5 pt-5 pb-2"
+                        style={{ background:'linear-gradient(135deg, rgba(138,155,196,0.08) 0%, transparent 70%)' }}>
+                        <div className="flex items-center gap-2 mb-3">
+                          <motion.div animate={{ scale:[1,1.4,1], opacity:[0.6,1,0.6] }} transition={{ duration:2, repeat:Infinity }}
+                            className="w-2 h-2 rounded-full flex-shrink-0"
+                            style={{ background:'rgba(138,155,196,0.8)', boxShadow:'0 0 6px rgba(138,155,196,0.5)' }} />
+                          <span className="text-soda-accent/60 text-[9px] tracking-[0.35em] uppercase">Encuesta activa</span>
+                        </div>
+                        <h4 className="font-serif text-lg text-soda-lamp/85 leading-snug mb-1">{currentPoll.question}</h4>
+                      </div>
+                    )
+                  }
+                  <div className="px-5 py-4">
+                    {pollCompleted ? (
+                      <p className="text-emerald-400/60 text-[11px] flex items-center gap-2">
+                        <span>✓</span> Ya votaste · +3 soditas sumadas
+                      </p>
+                    ) : (
+                      <div className="flex items-center justify-between">
+                        <span className="text-soda-accent/45 text-[10px]">Tu voto vale +3 soditas</span>
+                        <span className="text-soda-lamp/60 text-[10px] tracking-[0.15em] uppercase flex items-center gap-1.5 group-hover:text-soda-lamp/90 transition-colors">
+                          Votar <BarChart3 size={10} />
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* SORTEO */}
+              {currentRaffle && (
+                <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, delay:0.08 }}
+                  className="rounded-sm overflow-hidden"
+                  style={{ background:'linear-gradient(135deg, rgba(22,16,28,0.7) 0%, rgba(14,10,20,0.5) 100%)', border:'1px solid rgba(196,85,85,0.2)' }}>
+                  {currentRaffle.bannerUrl
+                    ? <img src={currentRaffle.bannerUrl} alt={currentRaffle.title} className="w-full h-32 object-cover" />
+                    : (
+                      <div className="px-5 pt-5 pb-2"
+                        style={{ background:'linear-gradient(135deg, rgba(196,85,85,0.08) 0%, transparent 70%)' }}>
+                        <div className="flex items-center gap-2 mb-3">
+                          <motion.div animate={{ scale:[1,1.4,1], opacity:[0.6,1,0.6] }} transition={{ duration:1.8, repeat:Infinity }}
+                            className="w-2 h-2 rounded-full flex-shrink-0"
+                            style={{ background:'rgba(196,85,85,0.8)', boxShadow:'0 0 6px rgba(196,85,85,0.5)' }} />
+                          <span className="text-soda-red/60 text-[9px] tracking-[0.35em] uppercase">Sorteo activo</span>
+                        </div>
+                        <h4 className="font-serif text-lg text-soda-lamp/85 leading-snug mb-1">{currentRaffle.title}</h4>
+                        {currentRaffle.description && <p className="text-soda-lamp/35 text-[12px]">{currentRaffle.description}</p>}
+                      </div>
+                    )
+                  }
+                  <div className="px-5 py-4">
+                    {raffleEntries[currentRaffle.id] ? (
+                      <p className="text-emerald-400/60 text-[11px] flex items-center gap-2">
+                        <span>✓</span> ¡Ya participás! Te avisamos si ganaste.
+                      </p>
+                    ) : (
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-soda-lamp/35 text-[10px]">Costo: </span>
+                          <span className="text-soda-lamp/65 text-[10px] font-serif">{currentRaffle.soditasCost || 5} soditas</span>
+                          {soditas < (currentRaffle.soditasCost || 5) && (
+                            <span className="text-soda-red/45 text-[9px] ml-2 block mt-0.5">No tenés suficientes</span>
+                          )}
+                        </div>
+                        <button onClick={() => enterRaffle(currentRaffle.id)}
+                          disabled={soditas < (currentRaffle.soditasCost || 5)}
+                          className={`px-4 py-2 rounded-sm text-[10px] tracking-[0.15em] uppercase transition-all duration-500 ${
+                            soditas >= (currentRaffle.soditasCost || 5)
+                              ? 'text-soda-lamp/70 hover:text-soda-glow hover:bg-soda-red/10'
+                              : 'text-soda-lamp/18 cursor-not-allowed'
+                          }`}
+                          style={{ border:`1px solid rgba(196,85,85,${soditas >= (currentRaffle.soditasCost || 5) ? '0.3' : '0.1'})` }}>
+                          Participar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          )}
+
+          {/* Section nav tabs — mensajes + alertas */}
+          <div className="flex items-center gap-1">
+            {([
+              { id: 'mensajes' as const, label: 'Transmisiones', icon: Radio, count: messages.length },
+              { id: 'notif' as const, label: 'Alertas', icon: Bell, count: unreadNotifs },
+            ] as const).map(({ id, label, icon: Icon, count }) => (
               <button key={id}
-                onClick={() => setActiveSection(id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-sm text-[10px] tracking-[0.15em] uppercase whitespace-nowrap transition-all duration-400 flex-shrink-0 ${
-                  activeSection === id
-                    ? 'text-soda-glow/80'
-                    : 'text-soda-lamp/30 hover:text-soda-lamp/55'
+                onClick={() => setActiveSection(id as any)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-sm text-[10px] tracking-[0.15em] uppercase transition-all duration-400 ${
+                  activeSection === id ? 'text-soda-glow/80' : 'text-soda-lamp/30 hover:text-soda-lamp/55'
                 }`}
                 style={{
                   background: activeSection === id ? 'rgba(196,85,85,0.08)' : 'transparent',
@@ -341,10 +437,8 @@ const SubscriberDashboard: React.FC = () => {
                 <Icon size={10} className={activeSection === id ? 'text-soda-red/60' : 'text-soda-lamp/25'} />
                 {label}
                 {count > 0 && (
-                  <span className="w-4 h-4 rounded-full text-[8px] flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(196,85,85,0.7)', color: 'white' }}>
-                    {count}
-                  </span>
+                  <span className="w-4 h-4 rounded-full text-[8px] flex items-center justify-center"
+                    style={{ background:'rgba(196,85,85,0.7)', color:'white' }}>{count}</span>
                 )}
               </button>
             ))}
@@ -353,22 +447,19 @@ const SubscriberDashboard: React.FC = () => {
           {/* Section content */}
           <AnimatePresence mode="wait">
             <motion.div key={activeSection}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-6 }}
+              transition={{ duration:0.28 }}
               className="rounded-sm overflow-hidden"
-              style={{ background: 'rgba(20,24,36,0.5)', border: '1px solid rgba(212,197,176,0.07)', minHeight: '380px' }}
+              style={{ background:'rgba(20,24,36,0.5)', border:'1px solid rgba(212,197,176,0.07)', minHeight:'280px' }}
             >
-
-              {/* ── TRANSMISIONES ── */}
-              {activeSection === 'mensajes' && (
+              {/* TRANSMISIONES */}
+              {(activeSection === 'mensajes' || activeSection === 'encuesta' || activeSection === 'sorteo') && (
                 <div>
                   <div className="px-6 py-5 flex items-center justify-between"
-                    style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
+                    style={{ borderBottom:'1px solid rgba(212,197,176,0.06)' }}>
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-sm flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'rgba(196,85,85,0.1)', border: '1px solid rgba(196,85,85,0.18)' }}>
+                      <div className="w-6 h-6 rounded-sm flex items-center justify-center"
+                        style={{ background:'rgba(196,85,85,0.1)', border:'1px solid rgba(196,85,85,0.18)' }}>
                         <Radio size={11} className="text-soda-red/65" />
                       </div>
                       <div>
@@ -376,35 +467,29 @@ const SubscriberDashboard: React.FC = () => {
                         <p className="text-soda-lamp/20 text-[9px] mt-0.5">Mensajes exclusivos del equipo</p>
                       </div>
                     </div>
-                    {messages.length > 0 && (
-                      <span className="text-soda-lamp/15 text-[9px] font-mono tabular-nums">{String(messages.length).padStart(2,'0')}</span>
-                    )}
+                    {messages.length > 0 && <span className="text-soda-lamp/15 text-[9px] font-mono">{String(messages.length).padStart(2,'0')}</span>}
                   </div>
                   {messages.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-                      <motion.div
-                        animate={{ opacity: [0.1, 0.3, 0.1] }}
-                        transition={{ duration: 3.5, repeat: Infinity }}>
-                        <Radio size={32} className="text-soda-red/25 mb-5" />
+                    <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+                      <motion.div animate={{ opacity:[0.1,0.3,0.1] }} transition={{ duration:3.5, repeat:Infinity }}>
+                        <Radio size={28} className="text-soda-red/25 mb-4" />
                       </motion.div>
-                      <p className="font-serif italic text-soda-lamp/35 text-base mb-2">Silencio en la frecuencia...</p>
-                      <p className="text-soda-lamp/18 text-[10px] leading-relaxed max-w-xs">
-                        Los próximos mensajes del equipo aparecen aquí primero
-                      </p>
+                      <p className="font-serif italic text-soda-lamp/35 text-base mb-1">Silencio en la frecuencia...</p>
+                      <p className="text-soda-lamp/18 text-[10px] max-w-xs">Los próximos mensajes del equipo aparecen aquí primero</p>
                     </div>
                   ) : (
-                    <div className="divide-y" style={{ borderColor: 'rgba(212,197,176,0.05)' }}>
+                    <div className="divide-y" style={{ borderColor:'rgba(212,197,176,0.05)' }}>
                       {messages.slice().reverse().map((msg: any) => (
-                        <div key={msg.id} className="px-6 py-5 group hover:bg-white/[0.01] transition-colors">
+                        <div key={msg.id} className="px-6 py-5 hover:bg-white/[0.01] transition-colors">
                           <div className="flex items-start gap-4">
                             <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm mt-0.5"
-                              style={{ background: 'rgba(196,85,85,0.07)', border: '1px solid rgba(196,85,85,0.1)' }}>
+                              style={{ background:'rgba(196,85,85,0.07)', border:'1px solid rgba(196,85,85,0.1)' }}>
                               {msg.emoji || '📡'}
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <div className="flex-1">
                               <p className="text-soda-lamp/65 text-sm leading-[1.7] mb-2">{msg.text}</p>
                               <p className="text-soda-lamp/18 text-[9px]">
-                                {new Date(msg.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                {new Date(msg.date).toLocaleDateString('es-AR', { day:'numeric', month:'long', year:'numeric' })}
                               </p>
                             </div>
                           </div>
@@ -415,138 +500,38 @@ const SubscriberDashboard: React.FC = () => {
                 </div>
               )}
 
-              {/* ── ENCUESTA ── */}
-              {activeSection === 'encuesta' && (
-                <div>
-                  {currentPoll ? (
-                    <>
-                      {currentPoll.bannerUrl
-                        ? <img src={currentPoll.bannerUrl} alt={currentPoll.question} className="w-full h-auto cursor-pointer" onClick={() => setActivePollPage(currentPoll.id)} />
-                        : (
-                          <div className="px-6 py-8"
-                            style={{ background: 'linear-gradient(135deg, rgba(138,155,196,0.06) 0%, transparent 60%)', borderBottom: '1px solid rgba(138,155,196,0.08)' }}>
-                            <div className="flex items-center gap-2 mb-4">
-                              <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }}
-                                className="w-2 h-2 rounded-full" style={{ background: 'rgba(138,155,196,0.7)', boxShadow: '0 0 6px rgba(138,155,196,0.4)' }} />
-                              <span className="text-soda-accent/55 text-[9px] tracking-[0.35em] uppercase">Encuesta activa</span>
-                            </div>
-                            <h4 className="font-serif text-xl text-soda-lamp/80 leading-snug mb-2">{currentPoll.question}</h4>
-                            <p className="text-soda-accent/40 text-[10px]">Tu voto vale +3 soditas 🥤</p>
-                          </div>
-                        )
-                      }
-                      <div className="px-6 py-6">
-                        {pollCompleted ? (
-                          <p className="text-emerald-400/55 text-sm flex items-center gap-2">
-                            <span className="text-emerald-400/70">✓</span> Ya votaste · +3 soditas sumadas
-                          </p>
-                        ) : (
-                          <button onClick={() => setActivePollPage(currentPoll.id)}
-                            className="w-full py-4 rounded-sm text-soda-lamp/60 text-[10px] tracking-[0.2em] uppercase flex items-center justify-center gap-3 transition-all duration-500 hover:text-soda-lamp/90"
-                            style={{ background: 'rgba(138,155,196,0.06)', border: '1px solid rgba(138,155,196,0.15)' }}>
-                            <BarChart3 size={13} className="text-soda-accent/50" />
-                            Votar ahora
-                          </button>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-                      <BarChart3 size={28} className="text-soda-accent/15 mb-5" />
-                      <p className="font-serif italic text-soda-lamp/30 text-base mb-2">Sin encuestas activas</p>
-                      <p className="text-soda-lamp/15 text-[10px]">Cuando haya una, aparece acá y sumás soditas</p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* ── SORTEO ── */}
-              {activeSection === 'sorteo' && (
-                <div>
-                  {currentRaffle ? (
-                    <>
-                      {currentRaffle.bannerUrl
-                        ? <img src={currentRaffle.bannerUrl} alt={currentRaffle.title} className="w-full h-auto" />
-                        : (
-                          <div className="px-6 py-8"
-                            style={{ background: 'linear-gradient(135deg, rgba(196,85,85,0.06) 0%, transparent 60%)', borderBottom: '1px solid rgba(196,85,85,0.08)' }}>
-                            <div className="flex items-center gap-2 mb-4">
-                              <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }}
-                                className="w-2 h-2 rounded-full" style={{ background: 'rgba(196,85,85,0.7)', boxShadow: '0 0 6px rgba(196,85,85,0.4)' }} />
-                              <span className="text-soda-red/55 text-[9px] tracking-[0.35em] uppercase">Sorteo activo</span>
-                            </div>
-                            <h4 className="font-serif text-xl text-soda-lamp/80 mb-1">{currentRaffle.title}</h4>
-                            {currentRaffle.description && <p className="text-soda-lamp/35 text-sm">{currentRaffle.description}</p>}
-                          </div>
-                        )
-                      }
-                      <div className="px-6 py-6">
-                        {raffleEntries[currentRaffle.id] ? (
-                          <p className="text-emerald-400/55 text-sm flex items-center gap-2">
-                            <span>🎉</span> ¡Ya estás participando! Te avisamos si ganaste.
-                          </p>
-                        ) : (
-                          <div className="flex items-center justify-between">
-                            <p className="text-soda-lamp/30 text-sm">
-                              Costo: <span className="text-soda-lamp/55">{currentRaffle.soditasCost || 5} soditas</span>
-                              {soditas < (currentRaffle.soditasCost || 5) && <span className="text-soda-red/45 text-[10px] ml-2">(no alcanza)</span>}
-                            </p>
-                            <button onClick={() => enterRaffle(currentRaffle.id)}
-                              disabled={soditas < (currentRaffle.soditasCost || 5)}
-                              className={`px-5 py-2.5 rounded-sm text-[10px] tracking-[0.15em] uppercase transition-all duration-500 ${
-                                soditas >= (currentRaffle.soditasCost || 5)
-                                  ? 'text-soda-lamp/65 hover:text-soda-lamp/90'
-                                  : 'text-soda-lamp/18 cursor-not-allowed'
-                              }`}
-                              style={{ border: `1px solid rgba(196,85,85,${soditas >= (currentRaffle.soditasCost || 5) ? '0.3' : '0.1'})` }}>
-                              Participar
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-                      <Trophy size={28} className="text-soda-red/12 mb-5" />
-                      <p className="font-serif italic text-soda-lamp/30 text-base mb-2">Sin sorteos activos</p>
-                      <p className="text-soda-lamp/15 text-[10px]">Guardá soditas para cuando aparezca uno</p>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* ── NOTIFICACIONES ── */}
+              {/* NOTIFICACIONES */}
               {activeSection === 'notif' && (
                 <div>
                   <div className="px-6 py-5 flex items-center justify-between"
-                    style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
+                    style={{ borderBottom:'1px solid rgba(212,197,176,0.06)' }}>
                     <p className="text-soda-lamp/50 text-[10px] tracking-[0.2em] uppercase">Alertas</p>
                     {unreadNotifs > 0 && (
                       <span className="text-[8px] px-2 py-0.5 rounded-full"
-                        style={{ background: 'rgba(196,85,85,0.5)', color: 'white' }}>{unreadNotifs} nuevas</span>
+                        style={{ background:'rgba(196,85,85,0.5)', color:'white' }}>{unreadNotifs} nuevas</span>
                     )}
                   </div>
                   {notifications.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 text-center px-6">
-                      <Bell size={26} className="text-soda-lamp/10 mb-4" />
+                    <div className="flex flex-col items-center justify-center py-16 text-center px-6">
+                      <Bell size={24} className="text-soda-lamp/10 mb-4" />
                       <p className="text-soda-lamp/20 text-[11px]">Sin notificaciones por ahora</p>
                     </div>
                   ) : (
-                    <div className="divide-y" style={{ borderColor: 'rgba(212,197,176,0.05)' }}>
+                    <div className="divide-y" style={{ borderColor:'rgba(212,197,176,0.05)' }}>
                       {notifications.slice().reverse().map((n: any) => (
                         <div key={n.id} onClick={() => markNotifRead(n.id)}
                           className={`px-6 py-4 cursor-pointer transition-colors hover:bg-white/[0.01] ${!n.read ? 'bg-soda-red/[0.02]' : ''}`}>
                           <div className="flex items-start gap-3">
                             <span className="text-sm flex-shrink-0 mt-0.5">
-                              {n.type === 'winner' ? '🏆' : n.type === 'birthday' ? '🎂' : n.type === 'payment' ? '💳' : n.type === 'gift' ? '🎁' : '📬'}
+                              {n.type==='winner'?'🏆':n.type==='birthday'?'🎂':n.type==='payment'?'💳':n.type==='gift'?'🎁':'📬'}
                             </span>
-                            <div className="flex-1 min-w-0">
-                              <p className={`text-[12px] leading-relaxed ${!n.read ? 'text-soda-lamp/60' : 'text-soda-lamp/28'}`}>{n.text}</p>
+                            <div className="flex-1">
+                              <p className={`text-[12px] leading-relaxed ${!n.read?'text-soda-lamp/60':'text-soda-lamp/28'}`}>{n.text}</p>
                               <p className="text-soda-lamp/15 text-[9px] mt-1">
-                                {new Date(n.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}
+                                {new Date(n.date).toLocaleDateString('es-AR', { day:'numeric', month:'short' })}
                               </p>
                             </div>
-                            {!n.read && <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-2" style={{ background: 'rgba(196,85,85,0.7)' }} />}
+                            {!n.read && <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background:'rgba(196,85,85,0.7)' }} />}
                           </div>
                         </div>
                       ))}

@@ -12,6 +12,7 @@ import { ShopPage } from './pages/ShopPage';
 import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
+import { AuthCallbackPage } from './pages/AuthCallbackPage';
 import { CustomCursor } from './effects/CustomCursor';
 import { getContent, loadContentFromDB } from './data/content';
 import { initDemoUsers } from './data/auth';
@@ -307,6 +308,7 @@ function App() {
             </React.Suspense>
           } />
           <Route path="/unirse" element={<UnirsePage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
         </Route>
       </Routes>
     </Router>
