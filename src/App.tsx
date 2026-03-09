@@ -13,13 +13,18 @@ import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
 import { CustomCursor } from './effects/CustomCursor';
-import { getContent } from './data/content';
+import { getContent, loadContentFromDB } from './data/content';
 import { initDemoUsers } from './data/auth';
 import { demoEpisodes } from './data/episodes';
 import './styles/globals.css';
 
 const AdminPage = React.lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
 initDemoUsers();
+// Sincronizar contenido desde Supabase al iniciar (en background)
+loadContentFromDB().then(() => {
+  // Forzar re-render de componentes que leen getContent() si el contenido cambió
+  window.dispatchEvent(new Event('sodaroja-content-updated'));
+}).catch(() => {/* silencioso, localStorage es el fallback */});
 
 // ===== AIRPORT COUNTER — split-flap style =====
 const AirportDigit: React.FC<{ char: string; delay: number }> = ({ char, delay }) => (

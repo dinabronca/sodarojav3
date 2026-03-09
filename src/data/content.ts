@@ -487,8 +487,10 @@ export const defaultContent: SiteContent = {
 };
 
 // ============================================================
-// FUNCIONES HELPER
+// FUNCIONES HELPER — Supabase + localStorage fallback
 // ============================================================
+
+// Lectura sincrónica desde localStorage (para primer render)
 export const getContent = (): SiteContent => {
   try {
     const stored = localStorage.getItem('sodaroja-content');
@@ -501,10 +503,38 @@ export const getContent = (): SiteContent => {
   return defaultContent;
 };
 
+// Escritura: guarda en localStorage Y en Supabase
 export const saveContent = (content: SiteContent): void => {
+  // 1. Guardar en localStorage inmediatamente (para que la UI responda rápido)
   try {
     localStorage.setItem('sodaroja-content', JSON.stringify(content));
   } catch (e) {
     console.warn('Error saving content to localStorage');
   }
+
+  // 2. Persistir en Supabase en background
+  import('./supabase').then(({ saveContentToDB }) => {
+    saveContentToDB(content).then(({ error }) => {
+      if (error) {
+        console.warn('Error saving to Supabase, content is safe in localStorage:', error);
+      }
+    });
+  });
+};
+
+// Carga asíncrona desde Supabase (llamar al iniciar la app)
+// Retorna el contenido más actualizado y sincroniza localStorage
+export const loadContentFromDB = async (): Promise<SiteContent> => {
+  try {
+    const { getContentFromDB } = await import('./supabase');
+    const dbContent = await getContentFromDB();
+    if (dbContent) {
+      // Sincronizar localStorage con la versión de Supabase
+      localStorage.setItem('sodaroja-content', JSON.stringify(dbContent));
+      return { ...defaultContent, ...dbContent };
+    }
+  } catch (e) {
+    console.warn('Could not load from Supabase, using localStorage:', e);
+  }
+  return getContent();
 };

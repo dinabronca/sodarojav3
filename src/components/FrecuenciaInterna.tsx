@@ -207,7 +207,7 @@ const SubscriberDashboard: React.FC = () => {
   // Sorteo banner: 800×200 px
 
 
-  const memberNumber = user?.memberNumber || user?.id?.slice(-4) || '0042';
+  const memberNumber = user?.memberNumber || '0042';
 
   return (
     <div className="relative vhs-glitch" style={{ zIndex: 2 }}>

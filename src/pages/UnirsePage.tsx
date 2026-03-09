@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, Lock, Image, ArrowRight, AlertCircle } from 'lucide-react';
+import { User, Mail, Lock, Link2, ArrowRight, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { initDemoUsers, findUser, registerUser, loginUser, getCurrentUser } from '../data/auth';
 
@@ -77,14 +77,14 @@ export const UnirsePage: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === 'register' && (
-              <div><label className="block text-soda-lamp text-sm mb-2"><User size={14} className="inline mr-2" />Nombre</label><input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={ic} placeholder="¿Cómo te llamás?" /></div>
+              <div><label className="block text-soda-lamp text-sm mb-2"><User size={14} className="inline mr-2" />Nombre</label><input type="text" value={formData.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })} className={ic} placeholder="¿Cómo te llamás?" /></div>
             )}
-            <div><label className="block text-soda-lamp text-sm mb-2"><Mail size={14} className="inline mr-2" />Email</label><input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={ic} placeholder="tu@email.com" /></div>
-            <div><label className="block text-soda-lamp text-sm mb-2"><Lock size={14} className="inline mr-2" />Contraseña</label><input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} className={ic} placeholder={mode === 'register' ? 'Mínimo 6 caracteres' : 'Tu contraseña'} /></div>
+            <div><label className="block text-soda-lamp text-sm mb-2"><Mail size={14} className="inline mr-2" />Email</label><input type="email" value={formData.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })} className={ic} placeholder="tu@email.com" /></div>
+            <div><label className="block text-soda-lamp text-sm mb-2"><Lock size={14} className="inline mr-2" />Contraseña</label><input type="password" value={formData.password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })} className={ic} placeholder={mode === 'register' ? 'Mínimo 6 caracteres' : 'Tu contraseña'} /></div>
             {mode === 'register' && (
               <>
-                <div><label className="block text-soda-lamp text-sm mb-2"><Lock size={14} className="inline mr-2" />Repetir contraseña</label><input type="password" value={formData.confirmPassword} onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })} className={ic} placeholder="Repetí la contraseña" /></div>
-                <div><label className="block text-soda-lamp text-sm mb-2"><Image size={14} className="inline mr-2" />Foto de perfil (URL, opcional)</label><input type="url" value={formData.photoUrl} onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })} className={ic} placeholder="https://... (máx 200×200px)" /><p className="text-soda-fog text-xs mt-1">Pegá un link a tu foto. No almacenamos imágenes.</p></div>
+                <div><label className="block text-soda-lamp text-sm mb-2"><Lock size={14} className="inline mr-2" />Repetir contraseña</label><input type="password" value={formData.confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, confirmPassword: e.target.value })} className={ic} placeholder="Repetí la contraseña" /></div>
+                <div><label className="block text-soda-lamp text-sm mb-2"><Link2 size={14} className="inline mr-2" />Foto de perfil (URL, opcional)</label><input type="url" value={formData.photoUrl} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, photoUrl: e.target.value })} className={ic} placeholder="https://... (máx 200×200px)" /><p className="text-soda-fog text-xs mt-1">Pegá un link a tu foto. No almacenamos imágenes.</p></div>
               </>
             )}
             {error && <div className="flex items-center gap-2 text-soda-red text-sm"><AlertCircle size={14} />{error}</div>}
