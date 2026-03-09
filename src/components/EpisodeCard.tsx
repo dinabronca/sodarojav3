@@ -71,8 +71,8 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
       const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
       const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
       // Clamp para evitar que se salga de los 30px de margen
-      const tx = Math.max(-18, Math.min(18, dx * 18));
-      const ty = Math.max(-14, Math.min(14, dy * 14));
+      const tx = Math.max(-7, Math.min(7, dx * 7));
+      const ty = Math.max(-5, Math.min(5, dy * 5));
       parallaxRef.current.style.transform = `translate(${tx}px, ${ty}px)`;
     });
   };

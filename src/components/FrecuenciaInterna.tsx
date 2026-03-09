@@ -36,14 +36,14 @@ const AuroraEffect: React.FC = () => {
         background: 'radial-gradient(ellipse at 30% 50%, rgba(196,85,85,0.12) 0%, rgba(139,58,58,0.05) 40%, transparent 70%)',
         filter: 'blur(60px)' }}
         animate={{ x: [0, 100, -40, 0], y: [0, 40, -25, 0], opacity: [0.5, 0.8, 0.6, 0.5] }}
-        transition={{ duration: isMobile ? 25 : 14, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: isMobile ? 35 : 22, repeat: Infinity, ease: 'easeInOut' }}
       />
       {/* Aurora azul */}
       <motion.div className="absolute" style={{ right: '-10%', top: '5%', width: '65%', height: '55%',
         background: 'radial-gradient(ellipse at 60% 40%, rgba(138,155,196,0.10) 0%, rgba(100,130,180,0.04) 40%, transparent 70%)',
         filter: 'blur(55px)' }}
         animate={{ x: [0, -70, 50, 0], y: [0, -35, 25, 0], opacity: [0.4, 0.7, 0.5, 0.4] }}
-        transition={{ duration: isMobile ? 28 : 17, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+        transition={{ duration: isMobile ? 38 : 25, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
       />
       {/* Aurora verde tenue */}
       {!isMobile && <motion.div className="absolute" style={{ left: '15%', bottom: '-5%', width: '70%', height: '40%',
@@ -64,7 +64,7 @@ const AuroraEffect: React.FC = () => {
             opacity: [0, 0.8, 0.3, 0.9, 0],
             scaleX: [1, 1.5, 1, 2, 1],
           }}
-          transition={{ duration: 6 + i * 1.5, repeat: Infinity, delay: i * 2.5, ease: 'easeInOut' }}
+          transition={{ duration: 12 + i * 3, repeat: Infinity, delay: i * 3.5, ease: 'easeInOut' }}
         />
       ))}
       {/* Rayos diagonales anchos */}
@@ -210,8 +210,7 @@ const SubscriberDashboard: React.FC = () => {
   const memberNumber = user?.memberNumber || '0042';
 
   return (
-    <div className="relative vhs-glitch" style={{ zIndex: 2 }}>
-      <div className="glitch-bar" />
+    <div className="relative" style={{ zIndex: 2 }}>
 
       {/* ===== HERO HEADER ===== */}
       <motion.div
@@ -222,8 +221,8 @@ const SubscriberDashboard: React.FC = () => {
       >
         {/* Número de miembro — de fondo, decorativo */}
         <div className="absolute right-0 top-0 select-none pointer-events-none overflow-hidden" style={{ lineHeight: 1 }}>
-          <span className="font-serif italic text-soda-red/[0.035]" style={{ fontSize: 'clamp(5rem, 20vw, 16rem)' }}>
-            #{String(memberNumber).padStart(4,'0')}
+          <span className="font-serif italic text-soda-red/[0.03]" style={{ fontSize: 'clamp(5rem, 20vw, 16rem)' }}>
+            {String(memberNumber).padStart(4,'0')}
           </span>
         </div>
 

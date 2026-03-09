@@ -1,227 +1,171 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { getContent } from '../data/content';
-import { EditorialHeader } from './Editorial';
 
-const colorMap: Record<string, { border: string; text: string }> = {
-  red: { border: 'border-soda-red', text: 'text-soda-red' },
-  accent: { border: 'border-soda-accent', text: 'text-soda-accent' },
-  lamp: { border: 'border-soda-lamp', text: 'text-soda-lamp' },
-  glow: { border: 'border-soda-glow', text: 'text-soda-glow' },
+const colorMap: Record<string, { border: string; text: string; bg: string }> = {
+  red:    { border: 'border-soda-red/40',    text: 'text-soda-red',    bg: 'bg-soda-red/5' },
+  accent: { border: 'border-soda-accent/30', text: 'text-soda-accent', bg: 'bg-soda-accent/5' },
+  lamp:   { border: 'border-soda-lamp/30',   text: 'text-soda-lamp',   bg: 'bg-soda-lamp/5' },
+  glow:   { border: 'border-soda-glow/20',   text: 'text-soda-glow',   bg: 'bg-soda-glow/3' },
 };
-
-// Posiciones de lucecitas mapeadas a donde estan las antenas en la imagen
-const antennaLights = [
-  { x: 6, y: 28 }, { x: 12, y: 18 }, { x: 16, y: 24 }, { x: 20, y: 14 },
-  { x: 26, y: 20 }, { x: 31, y: 26 }, { x: 36, y: 16 }, { x: 40, y: 22 },
-  { x: 46, y: 12 }, { x: 50, y: 20 }, { x: 55, y: 18 }, { x: 60, y: 14 },
-  { x: 65, y: 22 }, { x: 70, y: 16 }, { x: 75, y: 20 }, { x: 80, y: 24 },
-  { x: 85, y: 18 }, { x: 90, y: 22 }, { x: 94, y: 16 },
-];
 
 export const QueEsEsto: React.FC = () => {
   const content = getContent();
   const { queEsEsto } = content;
-  const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window);
-
-  const lightsToShow = isMobile ? antennaLights.filter((_, i) => i % 3 === 0) : antennaLights;
 
   return (
-    <section id="que-es-esto" className="relative py-28 sm:py-36 px-6 overflow-hidden">
-      
+    <section id="que-es-esto" className="relative py-28 sm:py-40 px-6 overflow-hidden">
 
-      {/* ===== CAPA 0: FONDO ANTENAS — treated ===== */}
+      {/* Background */}
       <div className="absolute inset-0">
-        {/* La imagen con tratamiento para suavizar pixelación */}
-        <img
-          src="/antenas-bg.jpg"
-          alt=""
+        <img src="/antenas-bg.jpg" alt=""
           className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            filter: 'saturate(0.1) brightness(0.2) contrast(1.5) blur(1.5px)',
-            opacity: 1,
-            imageRendering: 'auto',
-          }}
+          style={{ filter: 'saturate(0.08) brightness(0.15) contrast(1.6) blur(2px)', opacity: 1 }}
         />
-        {/* Color overlay oscuro */}
-        <div className="absolute inset-0 bg-soda-night/75" />
-        {/* Fade arriba y abajo */}
+        <div className="absolute inset-0 bg-soda-night/80" />
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to bottom, #0a0e1a 0%, transparent 12%, transparent 88%, #0a0e1a 100%)',
+          background: 'linear-gradient(to bottom, #0a0e1a 0%, transparent 10%, transparent 90%, #0a0e1a 100%)',
         }} />
-        {/* Tinte rojizo sutil */}
-        <div className="absolute inset-0 bg-soda-red/[0.02]" />
+        {/* Vertical red glow */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px"
+          style={{ background: 'linear-gradient(to bottom, transparent, rgba(196,85,85,0.12) 30%, rgba(196,85,85,0.08) 70%, transparent)' }} />
       </div>
 
-      {/* ===== CAPA 1: LUCECITAS DE ANTENA ===== */}
+      {/* Antenna lights */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
-        {lightsToShow.map((pos, i) => (
-          <motion.div
-            key={`alight-${i}`}
-            className="absolute rounded-full"
-            style={{
-              left: `${pos.x}%`,
-              top: `${pos.y + 20}%`,
-              width: '5px',
-              height: '5px',
-              background: '#c45555',
-              boxShadow: '0 0 8px rgba(196,85,85,0.7), 0 0 20px rgba(196,85,85,0.3)',
-            }}
-            animate={{
-              opacity: [0.3, 1, 0.3],
-              boxShadow: [
-                '0 0 6px rgba(196,85,85,0.4), 0 0 15px rgba(196,85,85,0.15)',
-                '0 0 12px rgba(196,85,85,0.8), 0 0 30px rgba(196,85,85,0.4)',
-                '0 0 6px rgba(196,85,85,0.4), 0 0 15px rgba(196,85,85,0.15)',
-              ],
-            }}
-            transition={{
-              duration: 1.5 + (i % 5) * 0.4,
-              repeat: Infinity,
-              delay: (i % 7) * 0.3,
-              ease: 'easeInOut',
-            }}
+        {[
+          { x: 8, y: 25 }, { x: 18, y: 16 }, { x: 29, y: 22 }, { x: 40, y: 13 },
+          { x: 52, y: 19 }, { x: 63, y: 15 }, { x: 74, y: 21 }, { x: 85, y: 17 }, { x: 93, y: 23 },
+        ].map((pos, i) => (
+          <motion.div key={i}
+            className="absolute rounded-full hidden sm:block"
+            style={{ left: `${pos.x}%`, top: `${pos.y + 15}%`, width: 4, height: 4,
+              background: '#c45555', boxShadow: '0 0 8px rgba(196,85,85,0.7)' }}
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1.5 + (i % 4) * 0.5, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
           />
         ))}
       </div>
 
-      {/* ===== CAPA 2: HUMO SUTIL ===== */}
-      {!isMobile && (
-        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
-          {[0, 1, 2].map(i => (
-            <motion.div
-              key={`smoke-${i}`}
-              className="absolute"
-              style={{
-                left: `${-10 + i * 35}%`,
-                bottom: '5%',
-                width: '45%',
-                height: '150px',
-                background: `radial-gradient(ellipse, rgba(${i % 2 === 0 ? '10, 14, 26' : '20, 25, 40'}, 0.4) 0%, transparent 70%)`,
-                filter: 'blur(40px)',
-              }}
-              animate={{ x: [0, 40 + i * 15, 0], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 14 + i * 4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          ))}
-        </div>
-      )}
+      <div className="max-w-6xl mx-auto relative" style={{ zIndex: 10 }}>
 
-      {/* ===== CAPA 10: CONTENIDO ===== */}
-      <div className="max-w-5xl mx-auto relative" style={{ zIndex: 10 }}>
-        <EditorialHeader
-          label="Sobre el proyecto"
-          title="¿Qué es"
-          titleAccent="sodaroja?"
-          center
-        />
-
-        {/* Giant editorial quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="relative max-w-3xl mx-auto text-center mb-20 sm:mb-28 px-4"
-        >
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-soda-red/25 text-[120px] sm:text-[180px] font-serif leading-none select-none pointer-events-none" style={{ fontFamily: 'Georgia, serif' }}>&ldquo;</span>
-          <p className="relative z-10 text-2xl sm:text-3xl md:text-4xl font-serif text-soda-glow/80 leading-[1.3] italic">
-            Cada ciudad tiene una historia que nadie cuenta. Nosotros la encontramos.
-          </p>
-          <div className="mt-6 flex items-center justify-center gap-3">
-            <div className="w-8 h-px bg-soda-red/30" />
-            <span className="text-soda-red/40 text-[10px] tracking-[0.3em] uppercase">sodaroja</span>
-            <div className="w-8 h-px bg-soda-red/30" />
-          </div>
+        {/* Editorial label */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="flex items-center gap-4 justify-center mb-6">
+          <div className="w-12 h-px bg-soda-red/40" />
+          <span className="text-soda-red/55 text-[10px] tracking-[0.4em] uppercase">Sobre el proyecto</span>
+          <div className="w-12 h-px bg-soda-red/40" />
         </motion.div>
 
-        {/* Description */}
-        {queEsEsto.description && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-soda-fog/50 text-base font-light leading-relaxed max-w-2xl mx-auto text-center mb-16"
-          >
+        {/* Giant serif title */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.9 }}
+          className="text-center mb-20">
+          <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl text-soda-glow/90 leading-[0.95] mb-2">
+            ¿Qué es
+          </h2>
+          <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl italic leading-[0.95]"
+            style={{ color: 'rgba(196,85,85,0.8)' }}>
+            sodaroja?
+          </h2>
+        </motion.div>
+
+        {/* Pull quote */}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="relative max-w-2xl mx-auto text-center mb-24 px-4">
+          <span className="absolute -top-10 left-4 text-soda-red/15 text-[100px] font-serif leading-none select-none" style={{ fontFamily: 'Georgia, serif' }}>&ldquo;</span>
+          <p className="relative z-10 text-xl sm:text-2xl font-serif text-soda-lamp/75 leading-[1.5] italic">
             {queEsEsto.description}
-          </motion.p>
-        )}
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
-        >
-          <div className="flex items-center gap-3 justify-center mb-4">
-            <div className="w-6 h-px bg-soda-accent/40" />
-            <span className="text-soda-accent/60 text-[11px] tracking-[0.2em] uppercase">{queEsEsto.structureTitle}</span>
-            <div className="w-6 h-px bg-soda-accent/40" />
+          </p>
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <div className="w-6 h-px bg-soda-red/30" />
+            <span className="text-soda-red/35 text-[9px] tracking-[0.35em] uppercase">sodaroja</span>
+            <div className="w-6 h-px bg-soda-red/30" />
           </div>
-          <p className="text-soda-fog/50 text-[11px] tracking-wider text-center">{queEsEsto.structureSubtitle}</p>
         </motion.div>
 
-        <div className="space-y-6">
-          {queEsEsto.estructura.map((item, index) => {
-            const colors = colorMap[item.color] || colorMap.accent;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                className={`relative rounded-sm p-8 border transition-all duration-500 group ${
-                  item.destacado
-                    ? 'bg-soda-night/80 border-soda-red/30 hover:border-soda-red/45'
-                    : 'bg-soda-night/70 border-soda-mist/15 hover:border-soda-accent/30'
-                }`}
-              >
-                <div className="flex items-start gap-6">
-                  <div className={`flex-shrink-0 w-16 h-16 rounded-sm border-2 flex items-center justify-center font-serif text-2xl ${colors.border} ${colors.text}`}>
-                    {item.numero}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">{item.emoji}</span>
-                      <div>
-                        <h4 className="text-2xl font-serif text-soda-glow">{item.titulo}</h4>
-                        {item.subtitulo && (
-                          <p className={`text-sm ${colors.text}`}>{item.subtitulo}</p>
-                        )}
+        {/* Structure section label */}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          className="text-center mb-14">
+          <p className="text-soda-accent/50 text-[10px] tracking-[0.35em] uppercase mb-2">{queEsEsto.structureTitle}</p>
+          <p className="text-soda-lamp/30 text-xs tracking-wide italic">{queEsEsto.structureSubtitle}</p>
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />
+        </motion.div>
+
+        {/* Episodes structure — editorial timeline */}
+        <div className="relative">
+          {/* Vertical timeline line */}
+          <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-px sm:-translate-x-1/2"
+            style={{ background: 'linear-gradient(to bottom, transparent, rgba(107,122,158,0.15) 10%, rgba(107,122,158,0.15) 90%, transparent)' }} />
+
+          <div className="space-y-4 sm:space-y-0">
+            {queEsEsto.estructura.map((item, index) => {
+              const colors = colorMap[item.color] || colorMap.accent;
+              const isEven = index % 2 === 0;
+              return (
+                <motion.div key={index}
+                  initial={{ opacity: 0, x: isEven ? -24 : 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: index * 0.05 }}
+                  className={`relative flex sm:items-center gap-0 sm:gap-8 ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'} pl-16 sm:pl-0 mb-4 sm:mb-0 sm:py-5`}
+                >
+                  {/* Content card */}
+                  <div className={`flex-1 ${isEven ? 'sm:text-right' : 'sm:text-left'}`}>
+                    <div className={`inline-block rounded-sm border p-5 sm:p-6 transition-all duration-500 hover:border-opacity-60 group cursor-default ${
+                      item.destacado ? `bg-soda-night/90 ${colors.border} ${colors.bg}` : 'bg-soda-night/70 border-soda-mist/10 hover:border-soda-accent/20'
+                    }`} style={{ maxWidth: '440px' }}>
+                      <div className={`flex items-start gap-3 mb-3 ${isEven ? 'sm:flex-row-reverse' : ''}`}>
+                        <span className="text-2xl flex-shrink-0">{item.emoji}</span>
+                        <div className={isEven ? 'sm:text-right' : ''}>
+                          <h4 className="text-base font-serif text-soda-glow leading-tight">{item.titulo}</h4>
+                          {item.subtitulo && <p className={`text-xs mt-0.5 ${colors.text}`}>{item.subtitulo}</p>}
+                        </div>
                       </div>
+                      <p className="text-soda-lamp/65 text-sm leading-relaxed">{item.descripcion}</p>
+                      {item.detalles && (
+                        <p className="text-soda-fog/45 text-xs leading-relaxed mt-2 italic">{item.detalles}</p>
+                      )}
                     </div>
-                    <p className="text-soda-lamp text-base leading-relaxed font-light mb-3">{item.descripcion}</p>
-                    <p className="text-soda-fog text-sm leading-relaxed font-light italic">{item.detalles}</p>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+
+                  {/* Center node */}
+                  <div className="absolute left-4 sm:static sm:flex-shrink-0 flex items-center justify-center sm:w-14">
+                    <div className={`w-8 h-8 rounded-sm border-2 flex items-center justify-center font-serif text-xs font-bold ${colors.border} ${colors.text} bg-soda-night`}>
+                      {item.numero}
+                    </div>
+                  </div>
+
+                  {/* Spacer for alternate side */}
+                  <div className="hidden sm:block flex-1" />
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20"
-        >
-          <h3 className="font-serif text-2xl text-soda-glow mb-2 text-center">Temas que <em className="text-soda-red/80">exploramos</em></h3>
-          <div className="w-8 h-px bg-soda-red/30 mx-auto mb-8" />
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Temas grid */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-24">
+          <div className="text-center mb-10">
+            <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow mb-2">
+              Temas que <em className="text-soda-red/80">exploramos</em>
+            </h3>
+            <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
             {queEsEsto.temas.map((tema, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
+              <motion.span key={i}
+                initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="px-4 py-3 bg-soda-night/80 border border-soda-accent/30 rounded-sm text-soda-accent text-sm text-center cursor-default"
+                transition={{ duration: 0.35, delay: i * 0.04 }}
+                className="px-4 py-2 bg-soda-night/80 border border-soda-accent/20 hover:border-soda-accent/40 rounded-sm text-soda-accent/75 text-xs tracking-wide cursor-default transition-all duration-500 hover:text-soda-accent"
               >
                 {tema}
-              </motion.div>
+              </motion.span>
             ))}
           </div>
         </motion.div>
