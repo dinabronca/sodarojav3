@@ -692,8 +692,6 @@ const SubscriberDashboard: React.FC = () => {
           }} />
         )}
       </AnimatePresence>
-        </div>
-      </div>
     </div>
   );
 };
