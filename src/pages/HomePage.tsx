@@ -28,17 +28,13 @@ const TestimoniosSection: React.FC = () => {
 
   return (
     <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
-      {/* Glow de fondo */}
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(196,85,85,0.03) 0%, transparent 70%)' }} />
 
       <div className="max-w-5xl mx-auto relative z-10">
 
-        {/* Header editorial */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-px bg-soda-red/50" />
@@ -48,38 +44,30 @@ const TestimoniosSection: React.FC = () => {
               Lo que <em className="text-soda-red/70">dicen</em>
             </h2>
           </div>
-          {/* Contador de páginas — estilo tipográfico */}
           <span className="text-soda-lamp/20 text-[10px] tracking-[0.3em] font-mono">
             {String(page + 1).padStart(2,'0')} / {String(totalPages).padStart(2,'0')}
           </span>
         </motion.div>
 
-        {/* Layout: cita destacada grande + dos pequeñas */}
         <AnimatePresence mode="wait">
-          <motion.div
-            key={page}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <motion.div key={page} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5 mb-12"
-          >
-            {/* Cita principal — ocupa 3 columnas, más grande */}
-            <div
-              className="lg:col-span-3 relative p-8 sm:p-10 rounded-sm border border-soda-mist/10 overflow-hidden group"
-              style={{ background: 'linear-gradient(135deg, rgba(22,28,42,0.7) 0%, rgba(14,18,28,0.5) 100%)' }}
-            >
-              {/* Número de cita decorativo */}
-              <span className="absolute top-4 right-6 font-serif text-[5rem] sm:text-[7rem] leading-none text-soda-red/5 select-none pointer-events-none"
-                style={{ fontStyle: 'italic' }}>
+            className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5 mb-12">
+
+            {/* Cita principal */}
+            <div className="lg:col-span-3 relative p-8 sm:p-10 rounded-sm border border-soda-mist/10 overflow-hidden group"
+              style={{ background: 'linear-gradient(135deg, rgba(22,28,42,0.7) 0%, rgba(14,18,28,0.5) 100%)' }}>
+              {/* Comillas gigantes — visibles y elegantes */}
+              <span className="absolute -top-2 left-5 font-serif leading-none select-none pointer-events-none"
+                style={{ fontSize: '9rem', color: 'rgba(196,85,85,0.18)', fontStyle: 'italic', lineHeight: 1 }}>
                 &ldquo;
               </span>
-              <div className="w-6 h-px bg-soda-red/40 mb-6" />
-              <p className="text-soda-lamp/75 text-base sm:text-lg font-light leading-[1.8] mb-8 relative z-10">
+              <div className="w-6 h-px bg-soda-red/40 mb-6 mt-6" />
+              <p className="text-soda-lamp/80 text-base sm:text-lg font-light leading-[1.8] mb-8 relative z-10">
                 {current[0].quote}
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono text-soda-red/60 border border-soda-red/20"
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono text-soda-red/60 border border-soda-red/20 flex-shrink-0"
                   style={{ background: 'rgba(196,85,85,0.06)' }}>
                   {current[0].author.charAt(0)}
                 </div>
@@ -93,12 +81,13 @@ const TestimoniosSection: React.FC = () => {
             {/* Dos citas secundarias */}
             <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-5">
               {current.slice(1).map((t, i) => (
-                <div key={i}
-                  className="flex-1 relative p-6 rounded-sm border border-soda-mist/8 overflow-hidden"
-                  style={{ background: 'linear-gradient(135deg, rgba(18,22,34,0.6) 0%, rgba(12,15,24,0.4) 100%)' }}
-                >
-                  <p className="text-soda-lamp/50 text-[12px] font-light leading-[1.75] mb-5 line-clamp-4">
-                    &ldquo;{t.quote}&rdquo;
+                <div key={i} className="flex-1 relative p-6 rounded-sm border border-soda-mist/8 overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg, rgba(18,22,34,0.6) 0%, rgba(12,15,24,0.4) 100%)' }}>
+                  {/* Comillas visibles en secundarias también */}
+                  <span className="block font-serif text-soda-red/25 leading-none mb-2 select-none"
+                    style={{ fontSize: '3rem', lineHeight: 1 }}>&ldquo;</span>
+                  <p className="text-soda-lamp/55 text-[12px] font-light leading-[1.75] mb-5 line-clamp-4">
+                    {t.quote}
                   </p>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-px bg-soda-red/30" />
@@ -112,7 +101,6 @@ const TestimoniosSection: React.FC = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Navegación — minimal, a la derecha */}
         <div className="flex items-center justify-end gap-4">
           <div className="flex gap-1.5 mr-2">
             {Array.from({ length: totalPages }).map((_, i) => (
@@ -120,11 +108,9 @@ const TestimoniosSection: React.FC = () => {
                 className="transition-all duration-400"
                 style={{
                   width: i === page ? '20px' : '6px',
-                  height: '2px',
-                  borderRadius: '1px',
+                  height: '2px', borderRadius: '1px',
                   background: i === page ? 'rgba(196,85,85,0.6)' : 'rgba(212,197,176,0.18)',
-                }}
-              />
+                }} />
             ))}
           </div>
           <button onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}

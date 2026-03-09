@@ -53,9 +53,10 @@ export const ElEquipo: React.FC = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="text-center mb-20">
-          <h2 className="font-serif text-5xl sm:text-7xl text-soda-glow/90 leading-[0.95] mb-2">El</h2>
-          <h2 className="font-serif text-5xl sm:text-7xl italic leading-[0.95]"
-            style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</h2>
+          <h2 className="font-serif leading-[0.95] mb-0">
+            <span className="text-soda-glow/90 text-5xl sm:text-7xl">El </span>
+            <em className="text-5xl sm:text-7xl italic" style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</em>
+          </h2>
           <p className="text-soda-lamp/30 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
         </motion.div>
 

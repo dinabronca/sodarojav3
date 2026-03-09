@@ -217,39 +217,42 @@ const SubscriberDashboard: React.FC = () => {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mb-14 pb-14 border-b border-soda-mist/8"
+        className="relative mb-16 pb-16 border-b border-soda-mist/8"
       >
-        {/* Número de miembro — de fondo, decorativo */}
+        {/* Decorative background number — only digits, no # */}
         <div className="absolute right-0 top-0 select-none pointer-events-none overflow-hidden" style={{ lineHeight: 1 }}>
-          <span className="font-serif italic text-soda-red/[0.03]" style={{ fontSize: 'clamp(5rem, 20vw, 16rem)' }}>
+          <span className="font-serif italic" style={{ fontSize: 'clamp(5rem, 20vw, 16rem)', color: 'rgba(139,58,58,0.028)' }}>
             {String(memberNumber).padStart(4,'0')}
           </span>
         </div>
 
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-soda-red/50" />
-              <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Frecuencia Interna</span>
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl text-soda-glow/90 leading-[1.1] mb-2">
-              Bienvenido/a, <em className="text-soda-red/75">{user?.name || 'suscriptor'}</em>
-            </h2>
-            <p className="text-soda-lamp/30 text-[10px] tracking-[0.12em] font-light">
-              Socio Nº {String(memberNumber).padStart(4,'0')} · Plan {plans.find(p => p.id === userPlan)?.name || 'Soda'}
-            </p>
+        <div className="relative z-10">
+          {/* Label */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-px bg-soda-red/50" />
+            <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Frecuencia Interna</span>
           </div>
 
+          {/* Welcome */}
+          <h2 className="font-serif text-4xl sm:text-5xl text-soda-glow/90 leading-[1.05] mb-3">
+            Bienvenido/a,{' '}
+            <em className="text-soda-red/75">{user?.name || 'suscriptor'}</em>
+          </h2>
+          <p className="text-soda-lamp/30 text-[11px] tracking-[0.12em] font-light mb-8">
+            Socio Nº {String(memberNumber).padStart(4,'0')} · Plan {plans.find(p => p.id === userPlan)?.name || 'Soda'}
+          </p>
+
+          {/* Status chips */}
           <div className="flex items-center gap-3 flex-wrap">
             <motion.div
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 2.5, repeat: Infinity }}
+              animate={{ opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 3, repeat: Infinity }}
               className="inline-flex items-center gap-2 border border-soda-red/18 rounded-sm px-3 py-1.5"
               style={{ background: 'rgba(196,85,85,0.05)' }}
             >
               <motion.div
                 animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 1.8, repeat: Infinity }}
+                transition={{ duration: 2.2, repeat: Infinity }}
                 className="w-1.5 h-1.5 bg-soda-red rounded-full"
                 style={{ boxShadow: '0 0 5px rgba(196,85,85,0.5)' }}
               />
@@ -516,9 +519,10 @@ const SubscriberDashboard: React.FC = () => {
             )}
           </div>
 
-          {/* Tus números */}
-          <div className="rounded-sm border border-soda-mist/6 p-5" style={{ background: 'rgba(12,16,24,0.28)' }}>
-            <div className="flex items-center gap-2 mb-4">
+          {/* Tus números — más elegante */}
+          <div className="rounded-sm border border-soda-mist/8 p-5 overflow-hidden relative"
+            style={{ background: 'linear-gradient(135deg, rgba(14,18,28,0.6) 0%, rgba(10,13,22,0.4) 100%)' }}>
+            <div className="flex items-center gap-2 mb-5">
               <div className="w-4 h-px bg-soda-red/35" />
               <span className="text-soda-lamp/28 text-[9px] tracking-[0.25em] uppercase">Tus números</span>
             </div>
@@ -529,9 +533,11 @@ const SubscriberDashboard: React.FC = () => {
                 { n: Object.keys(userVotes).length, l: 'Votos', e: '📊' },
                 { n: Object.keys(raffleEntries).filter(k => raffleEntries[k]).length, l: 'Sorteos', e: '🎰' },
               ].map((s, i) => (
-                <div key={i} className="text-center py-3 rounded-sm" style={{ background: 'rgba(10,14,26,0.35)' }}>
-                  <div className="text-soda-glow/75 text-xl font-serif leading-none mb-1">{s.n}</div>
-                  <div className="text-soda-lamp/22 text-[8px]">{s.l}</div>
+                <div key={i} className="text-center py-3 rounded-sm border border-soda-mist/8"
+                  style={{ background: 'rgba(10,14,26,0.5)' }}>
+                  <div className="text-[9px] mb-1.5 opacity-60">{s.e}</div>
+                  <div className="text-soda-glow/80 text-xl font-serif leading-none mb-1">{s.n}</div>
+                  <div className="text-soda-lamp/22 text-[8px] tracking-wide">{s.l}</div>
                 </div>
               ))}
             </div>
@@ -542,14 +548,23 @@ const SubscriberDashboard: React.FC = () => {
         <div className="lg:col-span-3">
           <div className="rounded-sm border border-soda-mist/8 overflow-hidden h-full"
             style={{ background: 'linear-gradient(160deg, rgba(16,20,32,0.5) 0%, rgba(10,14,22,0.3) 100%)' }}>
-            <div className="px-5 py-5 border-b border-soda-mist/6">
-              <div className="flex items-center justify-between mb-4">
+
+            {/* Plan header */}
+            <div className="px-5 py-6 border-b border-soda-mist/6 relative overflow-hidden">
+              {/* Subtle red glow behind plan name */}
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(196,85,85,0.05) 0%, transparent 70%)' }} />
+              <div className="flex items-center justify-between mb-4 relative z-10">
                 <span className="text-soda-lamp/35 text-[9px] tracking-[0.2em] uppercase">Plan activo</span>
-                <span className="text-emerald-400/50 text-[8px] border border-emerald-500/12 rounded-sm px-2 py-0.5">Activo</span>
+                <span className="text-emerald-400/55 text-[8px] border border-emerald-500/15 rounded-sm px-2 py-0.5">Activo</span>
               </div>
-              <h4 className="text-soda-glow/75 font-serif text-xl mb-0.5">{plans.find(p => p.id === userPlan)?.name || 'Soda'}</h4>
-              <div className="flex items-baseline gap-1">
-                <span className="text-soda-lamp/55 text-base font-light">${(plans.find(p => p.id === userPlan)?.priceARS || 5000).toLocaleString('es-AR')}</span>
+              <h4 className="text-soda-glow/80 font-serif text-2xl mb-1 relative z-10">
+                {plans.find(p => p.id === userPlan)?.name || 'Soda'}
+              </h4>
+              <div className="flex items-baseline gap-1 relative z-10">
+                <span className="text-soda-lamp/55 text-lg font-light">
+                  ${(plans.find(p => p.id === userPlan)?.priceARS || 5000).toLocaleString('es-AR')}
+                </span>
                 <span className="text-soda-lamp/22 text-[9px]">ARS/mes</span>
               </div>
             </div>
@@ -562,7 +577,7 @@ const SubscriberDashboard: React.FC = () => {
               ].map(({ key, label, icon: Icon }) => (
                 <div key={key}>
                   <button onClick={() => setOpenPanel(openPanel === key ? null : key)}
-                    className="w-full flex items-center justify-between px-5 py-3 text-soda-lamp/35 hover:text-soda-lamp/58 hover:bg-soda-mist/3 transition-all">
+                    className="w-full flex items-center justify-between px-5 py-3.5 text-soda-lamp/35 hover:text-soda-lamp/58 hover:bg-soda-mist/3 transition-all">
                     <div className="flex items-center gap-2">
                       {Icon && <Icon size={10} className="text-soda-lamp/20" />}
                       <span className="text-[10px] tracking-[0.1em]">{label}</span>
@@ -612,7 +627,7 @@ const SubscriberDashboard: React.FC = () => {
                 </div>
               ))}
 
-              <button className="w-full flex items-center gap-2 px-5 py-3 text-soda-lamp/18 hover:text-red-400/45 transition-all text-[10px] tracking-[0.1em]">
+              <button className="w-full flex items-center gap-2 px-5 py-3.5 text-soda-lamp/18 hover:text-red-400/45 transition-all text-[10px] tracking-[0.1em]">
                 <LogOut size={10} /> Dar de baja
               </button>
             </div>

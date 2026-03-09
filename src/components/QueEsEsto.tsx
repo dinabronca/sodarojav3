@@ -61,12 +61,9 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.9 }}
           className="text-center mb-20">
-          <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl text-soda-glow/90 leading-[0.95] mb-2">
-            ¿Qué es
-          </h2>
-          <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl italic leading-[0.95]"
-            style={{ color: 'rgba(196,85,85,0.8)' }}>
-            sodaroja?
+          <h2 className="font-serif leading-[0.95] mb-0">
+            <span className="text-soda-glow/90 text-5xl sm:text-7xl md:text-8xl">¿Qué es </span>
+            <em className="text-5xl sm:text-7xl md:text-8xl italic" style={{ color: 'rgba(196,85,85,0.8)' }}>sodaroja?</em>
           </h2>
         </motion.div>
 
