@@ -206,69 +206,115 @@ const SubscriberDashboard: React.FC = () => {
   // Encuesta banner: 800×200 px
   // Sorteo banner: 800×200 px
 
+
+  const memberNumber = user?.memberNumber || user?.id?.slice(-4) || '0042';
+
   return (
-    <div className="space-y-10 relative vhs-glitch" style={{ zIndex: 2 }}>
+    <div className="relative vhs-glitch" style={{ zIndex: 2 }}>
       <div className="glitch-bar" />
-      {/* ===== HEADER — Editorial style ===== */}
-      <div className="text-center">
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-          {/* Red line + label */}
-          <div className="flex items-center gap-3 justify-center">
-            <div className="w-8 h-px bg-soda-red" />
-            <span className="text-soda-red text-[11px] tracking-[0.25em] uppercase font-light">Contenido exclusivo</span>
-            <div className="w-8 h-px bg-soda-red" />
+
+      {/* ===== HERO HEADER ===== */}
+      <motion.div
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        className="relative mb-14 pb-14 border-b border-soda-mist/8"
+      >
+        {/* Número de miembro — de fondo, decorativo */}
+        <div className="absolute right-0 top-0 select-none pointer-events-none overflow-hidden" style={{ lineHeight: 1 }}>
+          <span className="font-serif italic text-soda-red/[0.035]" style={{ fontSize: 'clamp(5rem, 20vw, 16rem)' }}>
+            #{String(memberNumber).padStart(4,'0')}
+          </span>
+        </div>
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-px bg-soda-red/50" />
+              <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Frecuencia Interna</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl text-soda-glow/90 leading-[1.1] mb-2">
+              Bienvenido/a, <em className="text-soda-red/75">{user?.name || 'suscriptor'}</em>
+            </h2>
+            <p className="text-soda-lamp/30 text-[10px] tracking-[0.12em] font-light">
+              Socio Nº {String(memberNumber).padStart(4,'0')} · Plan {plans.find(p => p.id === userPlan)?.name || 'Soda'}
+            </p>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif text-soda-glow leading-tight">
-            Frecuencia <em className="text-soda-red/85">Interna</em>
-          </h2>
-
-          <p className="text-soda-fog text-base font-light">
-            Bienvenido/a, <span className="text-soda-lamp font-medium">{user?.name || 'suscriptor'}</span>
-          </p>
-
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <motion.div animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 2, repeat: Infinity }}
-              className="inline-flex items-center gap-2 bg-soda-red/8 border border-soda-red/25 rounded-sm px-4 py-2">
-              <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} className="w-2 h-2 bg-soda-red rounded-full" style={{ boxShadow: '0 0 8px rgba(196,85,85,0.4)' }} />
-              <span className="text-soda-red text-[10px] tracking-[0.2em] uppercase font-medium">Señal activa</span>
+          <div className="flex items-center gap-3 flex-wrap">
+            <motion.div
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+              className="inline-flex items-center gap-2 border border-soda-red/18 rounded-sm px-3 py-1.5"
+              style={{ background: 'rgba(196,85,85,0.05)' }}
+            >
+              <motion.div
+                animate={{ scale: [1, 1.4, 1], opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 1.8, repeat: Infinity }}
+                className="w-1.5 h-1.5 bg-soda-red rounded-full"
+                style={{ boxShadow: '0 0 5px rgba(196,85,85,0.5)' }}
+              />
+              <span className="text-soda-red/70 text-[9px] tracking-[0.25em] uppercase">Señal activa</span>
             </motion.div>
-            <button onClick={() => setShowMissions(!showMissions)}
-              className="inline-flex items-center gap-2 bg-soda-accent/8 border border-soda-accent/20 rounded-sm px-4 py-2 hover:bg-soda-accent/12 transition-all duration-500">
-              <span className="text-sm">🥤</span>
-              <span className="text-soda-lamp text-sm font-serif">{soditas}</span>
-              <span className="text-soda-fog/60 text-[10px] tracking-wider">soditas</span>
-              <ChevronRight size={12} className={`text-soda-fog/40 transition-transform duration-300 ${showMissions ? 'rotate-90' : ''}`} />
-            </button>
-          </div>
-        </motion.div>
-      </div>
 
-      {/* ===== MISIONES SODITAS (expandible) ===== */}
+            <button
+              onClick={() => setShowMissions(!showMissions)}
+              className="inline-flex items-center gap-2 border border-soda-accent/15 rounded-sm px-3 py-1.5 transition-all duration-500 hover:border-soda-accent/30"
+              style={{ background: 'rgba(138,155,196,0.05)' }}
+            >
+              <span className="text-sm leading-none">🥤</span>
+              <div className="flex items-baseline gap-1">
+                <span className="text-soda-lamp/85 text-sm font-serif">{soditas}</span>
+                <span className="text-soda-lamp/28 text-[9px] tracking-[0.1em]">soditas</span>
+              </div>
+              <ChevronRight size={10} className={`text-soda-lamp/22 transition-transform duration-300 ${showMissions ? 'rotate-90' : ''}`} />
+            </button>
+
+            {unreadNotifs > 0 && (
+              <div className="inline-flex items-center gap-1.5 border border-soda-lamp/10 rounded-sm px-3 py-1.5"
+                style={{ background: 'rgba(212,197,176,0.04)' }}>
+                <Bell size={10} className="text-soda-lamp/40" />
+                <span className="text-soda-lamp/40 text-[9px]">{unreadNotifs}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ===== MISIONES (expandible) ===== */}
       <AnimatePresence>
         {showMissions && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden">
-            <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-accent/15 rounded-sm p-6 max-w-3xl mx-auto">
-              <h3 className="text-soda-glow font-serif text-base mb-5 flex items-center gap-2">🥤 Cómo ganar <em className="text-soda-red/85">soditas</em></h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <motion.div
+            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden mb-10"
+          >
+            <div className="border border-soda-accent/10 rounded-sm p-6" style={{ background: 'rgba(138,155,196,0.03)' }}>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-5 h-px bg-soda-accent/35" />
+                <span className="text-soda-lamp/35 text-[9px] tracking-[0.3em] uppercase">Cómo ganar soditas</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {missions.map(m => {
                   const Icon = m.icon;
                   const isSocial = m.id.startsWith('follow-');
                   return (
                     <div key={m.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-sm border transition-all ${
-                      m.completed ? 'border-emerald-500/20 bg-emerald-500/5' : 'border-soda-mist/10 hover:border-soda-accent/20'
+                      m.completed ? 'border-emerald-500/12 bg-emerald-500/3' : 'border-soda-mist/8 hover:border-soda-accent/15'
                     }`}>
-                      <Icon size={14} className={m.completed ? 'text-emerald-400' : 'text-soda-fog'} />
+                      <Icon size={12} className={m.completed ? 'text-emerald-400/60' : 'text-soda-lamp/30'} />
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs ${m.completed ? 'text-emerald-400/80 line-through' : 'text-soda-lamp'}`}>{m.label}</p>
+                        <p className={`text-[11px] ${m.completed ? 'text-emerald-400/60 line-through' : 'text-soda-lamp/60'}`}>{m.label}</p>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-soda-accent text-[11px] font-medium">+{m.soditas} 🥤</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-soda-accent/55 text-[9px]">+{m.soditas} 🥤</span>
                         {isSocial && !m.completed && (
-                          <button onClick={() => claimSocialMission(m.id)} className="text-[10px] text-soda-accent border border-soda-accent/30 rounded-sm px-2 py-0.5 hover:bg-soda-accent/10">Hecho</button>
+                          <button onClick={() => claimSocialMission(m.id)}
+                            className="text-[9px] text-soda-accent/60 border border-soda-accent/20 rounded-sm px-2 py-0.5 hover:bg-soda-accent/8 transition-all">
+                            Hecho
+                          </button>
                         )}
-                        {m.completed && <span className="text-emerald-400 text-[10px]">✓</span>}
+                        {m.completed && <span className="text-emerald-400/55 text-[9px]">✓</span>}
                       </div>
                     </div>
                   );
@@ -279,273 +325,306 @@ const SubscriberDashboard: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* ===== Editorial divider ===== */}
-      <div className="w-24 h-px bg-gradient-to-r from-transparent via-soda-red/30 to-transparent mx-auto" />
+      {/* ===== GRID PRINCIPAL ===== */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
 
-      {/* ===== GRID 3 COLUMNAS ===== */}
-      <div className="relative">
-        {/* Atmospheric glow behind panels */}
-        <motion.div className="absolute" style={{ left: '20%', top: '10%', width: '60%', height: '80%', background: 'radial-gradient(ellipse, rgba(196,85,85,0.04) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0 }}
-          animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} />
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 relative" style={{ zIndex: 1 }}>
-
-        {/* ===== COL IZQUIERDA — Plan + Opciones ===== */}
-        <div className="lg:col-span-3 space-y-4">
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-mist/15 rounded-sm p-5">
-            <h3 className="text-soda-glow font-serif text-base mb-5 flex items-center gap-2"><Settings size={14} className="text-soda-accent" />Tu <em className="text-soda-red/85">Plan</em></h3>
-            <div className="flex items-center justify-between mb-4">
-              <div><div className="text-soda-lamp text-sm font-medium">Plan {plans.find(p => p.id === userPlan)?.name || 'Soda'}</div><div className="text-soda-fog text-xs">${(plans.find(p => p.id === userPlan)?.priceARS || 5000).toLocaleString('es-AR')} ARS / mes</div></div>
-              <div className="bg-emerald-500/20 border border-emerald-500/30 rounded-sm px-2.5 py-1"><span className="text-emerald-400 text-[11px]">Activo</span></div>
+        {/* ===== TRANSMISIONES — COL IZQUIERDA ===== */}
+        <div className="lg:col-span-5 space-y-5">
+          <div className="rounded-sm border border-soda-mist/10 overflow-hidden"
+            style={{ background: 'linear-gradient(160deg, rgba(22,28,42,0.55) 0%, rgba(14,18,28,0.35) 100%)' }}>
+            <div className="px-6 py-5 border-b border-soda-mist/8 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-sm flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'rgba(196,85,85,0.1)', border: '1px solid rgba(196,85,85,0.18)' }}>
+                  <Radio size={10} className="text-soda-red/65" />
+                </div>
+                <div>
+                  <h3 className="text-soda-lamp/70 text-[10px] tracking-[0.15em] uppercase">Transmisiones</h3>
+                  <p className="text-soda-lamp/22 text-[9px] mt-0.5">Mensajes exclusivos del equipo</p>
+                </div>
+              </div>
+              {messages.length > 0 && <span className="text-soda-lamp/20 text-[9px] font-mono">{messages.length}</span>}
             </div>
-            <div className="space-y-1">
-              <button onClick={() => setOpenPanel(openPanel === 'plan' ? null : 'plan')} className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-soda-fog hover:text-soda-lamp hover:bg-soda-mist/5 transition-all"><ArrowRight size={12} className="text-soda-accent/50" />Cambiar plan</button>
-              <AnimatePresence>{openPanel === 'plan' && (
-                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                  <div className="py-2 space-y-2">
-                    {plans.map(p => (
-                      <button key={p.id} onClick={() => { setUserPlan(p.id); localStorage.setItem('sodaroja-user-plan', p.id); setOpenPanel(null); }}
-                        className={`w-full text-left px-3 py-2.5 rounded-sm border text-xs transition-all ${userPlan === p.id ? 'border-soda-red/40 bg-soda-red/10 text-soda-lamp' : 'border-soda-mist/10 text-soda-fog hover:border-soda-accent/20'}`}>
-                        <div className="font-medium">{p.name} <span className="text-soda-fog font-normal">— ${p.priceARS.toLocaleString('es-AR')}/mes</span></div>
-                        <div className="text-[10px] text-soda-fog/60 mt-0.5">{p.description}</div>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}</AnimatePresence>
-
-              <button onClick={() => setOpenPanel(openPanel === 'payment' ? null : 'payment')} className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-soda-fog hover:text-soda-lamp hover:bg-soda-mist/5 transition-all"><CreditCard size={12} className="text-soda-accent/50" />Medio de pago</button>
-              <AnimatePresence>{openPanel === 'payment' && (
-                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                  <div className="py-2 space-y-2">
-                    {['Visa ****6411', 'Mastercard ****2190', 'Mercado Pago'].map((m, i) => (
-                      <button key={i} onClick={() => { setPayMethod(m); localStorage.setItem('sodaroja-pay-method', m); setOpenPanel(null); }}
-                        className={`w-full text-left px-3 py-2 rounded-sm border text-xs transition-all ${payMethod === m ? 'border-soda-accent/30 bg-soda-accent/5 text-soda-lamp' : 'border-soda-mist/10 text-soda-fog hover:border-soda-accent/20'}`}>
-                        <span>{i === 0 ? '💳' : i === 1 ? '💳' : '📱'} {m}</span>
-                      </button>
-                    ))}
-                    <p className="text-soda-fog/40 text-[10px] px-1">En producción se conecta con tu pasarela de pagos.</p>
-                  </div>
-                </motion.div>
-              )}</AnimatePresence>
-
-              <button onClick={() => setOpenPanel(openPanel === 'history' ? null : 'history')} className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-soda-fog hover:text-soda-lamp hover:bg-soda-mist/5 transition-all"><BarChart3 size={12} className="text-soda-accent/50" />Historial de pagos</button>
-              <AnimatePresence>{openPanel === 'history' && (
-                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                  <div className="py-2 space-y-1.5">
-                    {[
-                      { date: '01/02/2026', amount: 5000, method: payMethod, status: 'Pagado' },
-                      { date: '01/01/2026', amount: 5000, method: payMethod, status: 'Pagado' },
-                      { date: '01/12/2025', amount: 5000, method: payMethod, status: 'Pagado' },
-                    ].map((h, i) => (
-                      <div key={i} className="px-3 py-2 border border-soda-mist/5 rounded-sm">
-                        <div className="flex justify-between text-xs"><span className="text-soda-lamp">{h.date}</span><span className="text-emerald-400/70">{h.status}</span></div>
-                        <div className="flex justify-between text-[10px] text-soda-fog mt-0.5"><span>${h.amount.toLocaleString('es-AR')} ARS</span><span>{h.method}</span></div>
+            <div className="max-h-[380px] overflow-y-auto scrollbar-hide">
+              {messages.length === 0 ? (
+                <div className="px-6 py-14 text-center">
+                  <motion.div animate={{ opacity: [0.08, 0.25, 0.08] }} transition={{ duration: 4, repeat: Infinity }}>
+                    <Radio size={26} className="text-soda-red/30 mx-auto mb-4" />
+                  </motion.div>
+                  <p className="text-soda-lamp/35 font-serif text-sm italic mb-1">Silencio en la frecuencia...</p>
+                  <p className="text-soda-lamp/18 text-[10px]">Los próximos mensajes aparecen acá primero</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-soda-mist/5">
+                  {messages.slice().reverse().map((msg: any) => (
+                    <div key={msg.id} className="px-6 py-4 hover:bg-soda-mist/3 transition-colors">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center mt-0.5 text-xs"
+                          style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.12)' }}>
+                          {msg.emoji || '📡'}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-soda-lamp/65 text-[13px] leading-[1.65]">{msg.text}</p>
+                          <p className="text-soda-lamp/18 text-[9px] mt-2 font-light">
+                            {new Date(msg.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          </p>
+                        </div>
                       </div>
-                    ))}
-                    <p className="text-soda-fog/40 text-[10px] px-1">En producción estos datos vienen de tu pasarela.</p>
-                  </div>
-                </motion.div>
-              )}</AnimatePresence>
-
-              <button className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs text-soda-fog/40 hover:text-red-400/60 transition-all"><LogOut size={12} className="text-soda-accent/50" />Dar de baja</button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-          {/* Stats */}
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-mist/15 rounded-sm p-5">
-            <h4 className="text-soda-red text-[10px] tracking-[0.2em] uppercase mb-4">Tus números</h4>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { n: listenedCount, l: 'Episodios', e: '🎧' },
-                { n: soditas, l: 'Soditas', e: '🥤' },
-                { n: Object.keys(userVotes).length, l: 'Encuestas', e: '📊' },
-                { n: Object.keys(raffleEntries).filter(k => raffleEntries[k]).length, l: 'Sorteos', e: '🎰' },
-              ].map((s, i) => (
-                <div key={i} className="text-center py-3 bg-soda-night/30 rounded-sm"><div className="text-soda-glow text-xl font-serif">{s.n}</div><div className="text-soda-fog text-[10px] mt-1">{s.e} {s.l}</div></div>
-              ))}
+
+          {/* Notificaciones */}
+          <div className="rounded-sm border border-soda-mist/8 overflow-hidden"
+            style={{ background: 'linear-gradient(160deg, rgba(16,20,32,0.45) 0%, rgba(10,14,22,0.28) 100%)' }}>
+            <div className="px-6 py-4 border-b border-soda-mist/6 flex items-center gap-2">
+              <Bell size={11} className="text-soda-lamp/35" />
+              <h3 className="text-soda-lamp/50 text-[9px] tracking-[0.18em] uppercase flex-1">Notificaciones</h3>
+              {unreadNotifs > 0 && (
+                <span className="bg-soda-red/60 text-white text-[8px] rounded-full w-4 h-4 flex items-center justify-center">{unreadNotifs}</span>
+              )}
+            </div>
+            <div className="max-h-40 overflow-y-auto scrollbar-hide">
+              {notifications.length === 0 ? (
+                <div className="px-6 py-5 text-center">
+                  <p className="text-soda-lamp/18 text-[10px]">Sin notificaciones</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-soda-mist/4">
+                  {notifications.slice().reverse().map((n: any) => (
+                    <div key={n.id} onClick={() => markNotifRead(n.id)}
+                      className={`px-5 py-3 cursor-pointer transition-colors ${!n.read ? 'bg-soda-red/4' : ''} hover:bg-soda-mist/3`}>
+                      <div className="flex items-start gap-2.5">
+                        <span className="text-[12px] flex-shrink-0 mt-0.5">{n.type === 'winner' ? '🏆' : n.type === 'birthday' ? '🎂' : n.type === 'payment' ? '💳' : n.type === 'gift' ? '🎁' : '📬'}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-[11px] leading-relaxed ${!n.read ? 'text-soda-lamp/65' : 'text-soda-lamp/32'}`}>{n.text}</p>
+                          <p className="text-soda-lamp/18 text-[9px] mt-0.5">{new Date(n.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}</p>
+                        </div>
+                        {!n.read && <div className="w-1 h-1 bg-soda-red rounded-full flex-shrink-0 mt-2" />}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* ===== COL CENTRAL — Encuesta + Sorteo + Notificaciones ===== */}
-        <div className="lg:col-span-5 space-y-4">
-          {/* ENCUESTA con imagen/banner */}
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-accent/15 rounded-sm overflow-hidden">
+        {/* ===== CENTRO — Encuesta + Sorteo + Stats ===== */}
+        <div className="lg:col-span-4 space-y-5">
+
+          {/* ENCUESTA */}
+          <div className="rounded-sm border overflow-hidden"
+            style={{
+              background: 'linear-gradient(160deg, rgba(18,24,40,0.55) 0%, rgba(12,16,26,0.35) 100%)',
+              borderColor: currentPoll ? 'rgba(138,155,196,0.16)' : 'rgba(42,49,66,0.35)'
+            }}>
             {currentPoll ? (
               <>
-                {/* Banner image — 800×200px */}
                 {currentPoll.bannerUrl ? (
                   <img src={currentPoll.bannerUrl} alt={currentPoll.question} className="w-full h-auto cursor-pointer" onClick={() => setActivePollPage(currentPoll.id)} />
                 ) : (
-                  <div className="bg-gradient-to-r from-soda-accent/10 via-soda-deep to-soda-red/10 px-5 py-4 border-b border-soda-mist/10">
-                    <div className="text-soda-fog text-[10px] tracking-wider mb-1">ENCUESTA ACTIVA</div>
-                    <h4 className="text-soda-glow font-serif text-base">{currentPoll.question}</h4>
+                  <div className="px-6 py-5 border-b border-soda-mist/6"
+                    style={{ background: 'linear-gradient(90deg, rgba(138,155,196,0.07) 0%, transparent 100%)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-soda-accent/55" style={{ boxShadow: '0 0 4px rgba(138,155,196,0.45)' }} />
+                      <span className="text-soda-accent/55 text-[9px] tracking-[0.3em] uppercase">Encuesta activa</span>
+                    </div>
+                    <h4 className="text-soda-lamp/75 font-serif text-[15px] leading-snug">{currentPoll.question}</h4>
                   </div>
                 )}
                 {userVotes[currentPoll.id] !== undefined ? (
-                  <div className="px-5 py-3">
-                    <p className="text-emerald-400/70 text-xs flex items-center gap-1.5">✓ Ya votaste · +3 🥤 sumadas</p>
+                  <div className="px-6 py-4">
+                    <p className="text-emerald-400/55 text-[10px] flex items-center gap-2">
+                      <span>✓</span> Ya votaste · +3 🥤 sumadas
+                    </p>
                   </div>
                 ) : (
-                  <div className="px-5 py-3">
+                  <div className="px-6 py-4">
                     <button onClick={() => setActivePollPage(currentPoll.id)}
-                      className="w-full py-2.5 bg-soda-accent/15 border border-soda-accent/30 rounded-sm text-soda-lamp text-sm hover:bg-soda-accent/20 transition-all flex items-center justify-center gap-2">
-                      <BarChart3 size={14} />Votar · +3 🥤
+                      className="w-full py-3 rounded-sm text-soda-lamp/60 text-[10px] tracking-[0.15em] uppercase flex items-center justify-center gap-2 transition-all duration-500 hover:text-soda-lamp/80 border border-soda-accent/15 hover:border-soda-accent/30"
+                      style={{ background: 'rgba(138,155,196,0.06)' }}>
+                      <BarChart3 size={12} /> Votar · +3 🥤
                     </button>
                   </div>
                 )}
               </>
             ) : (
-              <div className="px-5 py-10 text-center">
-                <motion.div animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}>
-                  <BarChart3 size={28} className="text-soda-accent/25 mx-auto mb-3" />
-                </motion.div>
-                <p className="text-soda-fog font-serif text-sm mb-1">Sin encuestas activas</p>
-                <p className="text-soda-fog/30 text-[11px]">Cuando haya una encuesta, votá y ganá soditas.</p>
+              <div className="px-6 py-10 text-center">
+                <BarChart3 size={22} className="text-soda-accent/15 mx-auto mb-3" />
+                <p className="text-soda-lamp/32 font-serif text-sm italic">Sin encuestas activas</p>
+                <p className="text-soda-lamp/16 text-[9px] mt-1">Cuando haya una, sumás soditas votando</p>
               </div>
             )}
           </div>
 
-          {/* SORTEO con banner */}
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-red/20 rounded-sm overflow-hidden">
+          {/* SORTEO */}
+          <div className="rounded-sm border overflow-hidden"
+            style={{
+              background: 'linear-gradient(160deg, rgba(20,16,26,0.55) 0%, rgba(12,10,18,0.35) 100%)',
+              borderColor: currentRaffle ? 'rgba(196,85,85,0.18)' : 'rgba(42,49,66,0.35)'
+            }}>
             {currentRaffle ? (
               <>
                 {currentRaffle.bannerUrl ? (
                   <img src={currentRaffle.bannerUrl} alt={currentRaffle.title} className="w-full h-auto" />
                 ) : (
-                  <div className="bg-gradient-to-r from-soda-red/15 via-soda-deep to-soda-accent/10 px-5 py-4 border-b border-soda-mist/10">
+                  <div className="px-6 py-5 border-b border-soda-mist/6"
+                    style={{ background: 'linear-gradient(90deg, rgba(196,85,85,0.07) 0%, transparent 100%)' }}>
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="text-soda-fog text-[10px] tracking-wider mb-1">SORTEO</div>
-                        <h4 className="text-soda-glow font-serif text-base">{currentRaffle.title}</h4>
-                        <p className="text-soda-fog text-xs mt-1">{currentRaffle.description}</p>
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-soda-red/55" style={{ boxShadow: '0 0 4px rgba(196,85,85,0.45)' }} />
+                          <span className="text-soda-red/55 text-[9px] tracking-[0.3em] uppercase">Sorteo</span>
+                        </div>
+                        <h4 className="text-soda-lamp/75 font-serif text-[15px]">{currentRaffle.title}</h4>
+                        {currentRaffle.description && <p className="text-soda-lamp/32 text-[10px] mt-1">{currentRaffle.description}</p>}
                       </div>
-                      <motion.span animate={{ rotate: [0, 5, -5, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-2xl">🎰</motion.span>
+                      <span className="text-xl flex-shrink-0">🎰</span>
                     </div>
                   </div>
                 )}
-                <div className="px-5 py-4">
+                <div className="px-6 py-4">
                   {raffleEntries[currentRaffle.id] ? (
-                    <div className="text-center">
-                      <p className="text-emerald-400 text-sm font-medium mb-1">¡Ya estás participando! 🎉</p>
-                      <p className="text-soda-fog/50 text-[11px]">Buena suerte. Te notificamos si ganaste.</p>
+                    <div className="text-center py-1">
+                      <p className="text-emerald-400/60 text-[10px]">¡Ya estás participando! 🎉</p>
+                      <p className="text-soda-lamp/22 text-[9px] mt-0.5">Te avisamos si ganaste</p>
                     </div>
                   ) : (
                     <div className="flex items-center justify-between">
-                      <div className="text-soda-fog text-xs">Cuesta <span className="text-soda-lamp font-medium">{currentRaffle.soditasCost || 5} 🥤</span></div>
+                      <span className="text-soda-lamp/30 text-[10px]">Costo: <span className="text-soda-lamp/55">{currentRaffle.soditasCost || 5} 🥤</span></span>
                       <button onClick={() => enterRaffle(currentRaffle.id)} disabled={soditas < (currentRaffle.soditasCost || 5)}
-                        className={`px-5 py-2.5 rounded-sm text-sm font-medium transition-all ${
+                        className={`px-4 py-2 rounded-sm text-[10px] tracking-[0.12em] uppercase transition-all duration-500 ${
                           soditas >= (currentRaffle.soditasCost || 5)
-                            ? 'bg-soda-red/20 border border-soda-red/40 text-soda-lamp hover:bg-soda-red/30'
-                            : 'border border-soda-mist/15 text-soda-fog/40 cursor-not-allowed'
-                        }`}>Participar 🎰</button>
+                            ? 'border border-soda-red/25 text-soda-lamp/60 hover:bg-soda-red/10 hover:border-soda-red/45 hover:text-soda-lamp/80'
+                            : 'border border-soda-mist/8 text-soda-lamp/18 cursor-not-allowed'
+                        }`}>
+                        Participar
+                      </button>
                     </div>
                   )}
                 </div>
               </>
             ) : (
-              <div className="px-5 py-10 text-center">
-                <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 3, repeat: Infinity }}>
-                  <Trophy size={28} className="text-soda-red/25 mx-auto mb-3" />
-                </motion.div>
-                <p className="text-soda-fog font-serif text-sm mb-1">Sin sorteos activos</p>
-                <p className="text-soda-fog/30 text-[11px]">Guardá tus soditas 🥤 para cuando haya uno.</p>
+              <div className="px-6 py-10 text-center">
+                <Trophy size={22} className="text-soda-red/12 mx-auto mb-3" />
+                <p className="text-soda-lamp/32 font-serif text-sm italic">Sin sorteos activos</p>
+                <p className="text-soda-lamp/16 text-[9px] mt-1">Guardá soditas para cuando haya uno</p>
               </div>
             )}
           </div>
 
-          {/* NOTIFICACIONES PERSONALES */}
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-lamp/15 rounded-sm overflow-hidden">
-            <div className="px-5 py-4 border-b border-soda-mist/10 flex items-center justify-between">
-              <h3 className="text-soda-glow font-serif text-base flex items-center gap-2">
-                <Bell size={14} className="text-soda-accent" /><em className="text-soda-red/85">Notificaciones</em>
-                {unreadNotifs > 0 && <span className="bg-soda-red text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center">{unreadNotifs}</span>}
-              </h3>
+          {/* Tus números */}
+          <div className="rounded-sm border border-soda-mist/6 p-5" style={{ background: 'rgba(12,16,24,0.28)' }}>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-4 h-px bg-soda-red/35" />
+              <span className="text-soda-lamp/28 text-[9px] tracking-[0.25em] uppercase">Tus números</span>
             </div>
-            <div className="max-h-48 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
-              {notifications.length === 0 ? (
-                <div className="px-5 py-8 text-center">
-                  <Bell size={20} className="text-soda-accent/20 mx-auto mb-2" />
-                  <p className="text-soda-fog/40 text-xs font-serif">Sin notificaciones</p>
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { n: listenedCount, l: 'Eps', e: '🎧' },
+                { n: soditas, l: 'Soditas', e: '🥤' },
+                { n: Object.keys(userVotes).length, l: 'Votos', e: '📊' },
+                { n: Object.keys(raffleEntries).filter(k => raffleEntries[k]).length, l: 'Sorteos', e: '🎰' },
+              ].map((s, i) => (
+                <div key={i} className="text-center py-3 rounded-sm" style={{ background: 'rgba(10,14,26,0.35)' }}>
+                  <div className="text-soda-glow/75 text-xl font-serif leading-none mb-1">{s.n}</div>
+                  <div className="text-soda-lamp/22 text-[8px]">{s.l}</div>
                 </div>
-              ) : (
-                <div className="divide-y divide-soda-mist/5">
-                  {notifications.slice().reverse().map((n: any) => (
-                    <motion.div key={n.id} initial={!n.read ? { x: -5 } : false} animate={{ x: 0 }}
-                      onClick={() => markNotifRead(n.id)}
-                      className={`px-4 py-3 cursor-pointer transition-colors ${!n.read ? 'bg-soda-red/5 hover:bg-soda-red/8' : 'hover:bg-soda-mist/3'}`}>
-                      <div className="flex items-start gap-2.5">
-                        <span className="text-sm flex-shrink-0">
-                          {n.type === 'winner' ? '🏆' : n.type === 'birthday' ? '🎂' : n.type === 'payment' ? '💳' : n.type === 'gift' ? '🎁' : '📬'}
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className={`text-xs leading-relaxed ${!n.read ? 'text-soda-lamp font-medium' : 'text-soda-fog'}`}>{n.text}</p>
-                          <p className="text-soda-fog/30 text-[10px] mt-1">{new Date(n.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}</p>
-                        </div>
-                        {!n.read && <div className="w-1.5 h-1.5 bg-soda-red rounded-full flex-shrink-0 mt-1" />}
-                      </div>
-                      {/* Efecto confeti para winners */}
-                      {n.type === 'winner' && !n.read && (
-                        <motion.div className="flex justify-center gap-1 mt-1"
-                          animate={{ y: [-5, 0], opacity: [0, 1] }} transition={{ duration: 0.5 }}>
-                          {['🎊', '✨', '🎉'].map((e, i) => (
-                            <motion.span key={i} animate={{ y: [0, -8, 0], rotate: [0, 10, -10, 0] }}
-                              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                              className="text-xs">{e}</motion.span>
-                          ))}
-                        </motion.div>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              )}
+              ))}
             </div>
           </div>
         </div>
 
-        {/* ===== COL DERECHA — Mensajes del equipo ===== */}
-        <div className="lg:col-span-4 space-y-4">
-          <div className="bg-soda-slate/30 backdrop-blur-sm border border-soda-mist/15 rounded-sm">
-            <div className="px-5 py-4 border-b border-soda-mist/10">
-              <h3 className="text-soda-glow font-serif text-base flex items-center gap-2"><Radio size={14} className="text-soda-red" /><em className="text-soda-red/85">Transmisiones</em></h3>
-              <p className="text-soda-fog/40 text-[10px] tracking-wider mt-1">Mensajes del equipo sodaroja</p>
+        {/* ===== DERECHA — Plan + Config ===== */}
+        <div className="lg:col-span-3">
+          <div className="rounded-sm border border-soda-mist/8 overflow-hidden h-full"
+            style={{ background: 'linear-gradient(160deg, rgba(16,20,32,0.5) 0%, rgba(10,14,22,0.3) 100%)' }}>
+            <div className="px-5 py-5 border-b border-soda-mist/6">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-soda-lamp/35 text-[9px] tracking-[0.2em] uppercase">Plan activo</span>
+                <span className="text-emerald-400/50 text-[8px] border border-emerald-500/12 rounded-sm px-2 py-0.5">Activo</span>
+              </div>
+              <h4 className="text-soda-glow/75 font-serif text-xl mb-0.5">{plans.find(p => p.id === userPlan)?.name || 'Soda'}</h4>
+              <div className="flex items-baseline gap-1">
+                <span className="text-soda-lamp/55 text-base font-light">${(plans.find(p => p.id === userPlan)?.priceARS || 5000).toLocaleString('es-AR')}</span>
+                <span className="text-soda-lamp/22 text-[9px]">ARS/mes</span>
+              </div>
             </div>
-            <div className="max-h-[480px] overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
-              {messages.length === 0 ? (
-                <div className="px-5 py-14 text-center">
-                  <motion.div animate={{ opacity: [0.15, 0.35, 0.15] }} transition={{ duration: 4, repeat: Infinity }}>
-                    <Radio size={32} className="text-soda-red/20 mx-auto mb-4" />
-                  </motion.div>
-                  <p className="text-soda-fog font-serif text-sm mb-1">Silencio en la frecuencia...</p>
-                  <p className="text-soda-fog/30 text-[11px]">Cuando publiquemos algo, lo ves acá primero.</p>
-                </div>
-              ) : (
-                <div className="divide-y divide-soda-mist/5">
-                  {messages.slice().reverse().map((msg: any) => (
-                    <div key={msg.id} className="px-4 py-3.5 hover:bg-soda-mist/3 transition-colors">
-                      <div className="flex items-start gap-2.5">
-                        <div className="flex-shrink-0 w-7 h-7 bg-soda-red/15 rounded-full flex items-center justify-center mt-0.5">
-                          <span className="text-xs">{msg.emoji || '📡'}</span>
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-soda-lamp text-sm leading-relaxed">{msg.text}</p>
-                          <p className="text-soda-fog/30 text-[10px] mt-1.5">{new Date(msg.date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-                        </div>
-                      </div>
+
+            <div className="divide-y divide-soda-mist/5">
+              {[
+                { key: 'plan', label: 'Cambiar plan', icon: null },
+                { key: 'payment', label: 'Pago', icon: CreditCard },
+                { key: 'history', label: 'Historial', icon: BarChart3 },
+              ].map(({ key, label, icon: Icon }) => (
+                <div key={key}>
+                  <button onClick={() => setOpenPanel(openPanel === key ? null : key)}
+                    className="w-full flex items-center justify-between px-5 py-3 text-soda-lamp/35 hover:text-soda-lamp/58 hover:bg-soda-mist/3 transition-all">
+                    <div className="flex items-center gap-2">
+                      {Icon && <Icon size={10} className="text-soda-lamp/20" />}
+                      <span className="text-[10px] tracking-[0.1em]">{label}</span>
                     </div>
-                  ))}
+                    <ChevronRight size={10} className={`transition-transform duration-300 ${openPanel === key ? 'rotate-90' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {openPanel === key && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                        <div className="px-5 pb-3 space-y-1.5">
+                          {key === 'plan' && plans.map(p => (
+                            <button key={p.id} onClick={() => { setUserPlan(p.id); localStorage.setItem('sodaroja-user-plan', p.id); setOpenPanel(null); }}
+                              className={`w-full text-left px-3 py-2.5 rounded-sm border text-[10px] transition-all ${
+                                userPlan === p.id ? 'border-soda-red/25 text-soda-lamp/65' : 'border-soda-mist/8 text-soda-lamp/32 hover:border-soda-mist/15 hover:text-soda-lamp/50'
+                              }`} style={userPlan === p.id ? { background: 'rgba(196,85,85,0.06)' } : {}}>
+                              <div className="flex justify-between">
+                                <span>{p.name}</span>
+                                <span className="text-soda-lamp/25">${p.priceARS.toLocaleString('es-AR')}</span>
+                              </div>
+                            </button>
+                          ))}
+                          {key === 'payment' && ['Visa ****6411', 'Mastercard ****2190', 'Mercado Pago'].map((m, i) => (
+                            <button key={i} onClick={() => { setPayMethod(m); localStorage.setItem('sodaroja-pay-method', m); setOpenPanel(null); }}
+                              className={`w-full text-left px-3 py-2 rounded-sm border text-[10px] transition-all ${
+                                payMethod === m ? 'border-soda-accent/22 text-soda-lamp/62' : 'border-soda-mist/8 text-soda-lamp/30 hover:border-soda-mist/15'
+                              }`} style={payMethod === m ? { background: 'rgba(138,155,196,0.06)' } : {}}>
+                              {i === 2 ? '📱' : '💳'} {m}
+                            </button>
+                          ))}
+                          {key === 'history' && [
+                            { date: '01/02/2026', amount: 5000 },
+                            { date: '01/01/2026', amount: 5000 },
+                            { date: '01/12/2025', amount: 5000 },
+                          ].map((h, i) => (
+                            <div key={i} className="flex justify-between items-center px-3 py-2 border border-soda-mist/5 rounded-sm">
+                              <div>
+                                <p className="text-soda-lamp/45 text-[10px]">{h.date}</p>
+                                <p className="text-soda-lamp/22 text-[9px]">${h.amount.toLocaleString('es-AR')} ARS</p>
+                              </div>
+                              <span className="text-emerald-400/45 text-[9px]">Pagado</span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              )}
+              ))}
+
+              <button className="w-full flex items-center gap-2 px-5 py-3 text-soda-lamp/18 hover:text-red-400/45 transition-all text-[10px] tracking-[0.1em]">
+                <LogOut size={10} /> Dar de baja
+              </button>
             </div>
           </div>
         </div>
       </div>
-      </div>
 
-      {/* ===== POLL PAGE (overlay) — multi-question ===== */}
+      {/* ===== POLL PAGE (overlay) ===== */}
       <AnimatePresence>
         {activePollPage && currentPoll && !pollCompleted && (
           <PollPage poll={currentPoll} onClose={() => setActivePollPage(null)} onComplete={(answers) => {
-            // Save all answers
             const questions = currentPoll.questions || [{ question: currentPoll.question, options: currentPoll.options }];
             const nv = { ...pollVotes };
             questions.forEach((_: any, qi: number) => {
@@ -564,6 +643,7 @@ const SubscriberDashboard: React.FC = () => {
     </div>
   );
 };
+
 
 // Multi-question poll page component
 const PollPage: React.FC<{ poll: any; onClose: () => void; onComplete: (answers: Record<number, number>) => void }> = ({ poll, onClose, onComplete }) => {
@@ -626,6 +706,24 @@ const PollPage: React.FC<{ poll: any; onClose: () => void; onComplete: (answers:
   );
 };
 
+// Partículas con posiciones fijas — evita recalcular en cada render
+const PARTICLES_MOBILE = [
+  { x: 12, y: 18, dur: 6.2, delay: 0.3 }, { x: 45, y: 72, dur: 8.1, delay: 2.1 },
+  { x: 78, y: 35, dur: 5.7, delay: 1.4 }, { x: 33, y: 55, dur: 7.3, delay: 3.8 },
+];
+const PARTICLES_DESKTOP = [
+  { x: 8, y: 12, dur: 6.2, delay: 0.3 }, { x: 23, y: 68, dur: 8.1, delay: 2.1 },
+  { x: 45, y: 33, dur: 5.7, delay: 1.4 }, { x: 67, y: 78, dur: 9.4, delay: 0.8 },
+  { x: 82, y: 22, dur: 7.3, delay: 3.8 }, { x: 15, y: 45, dur: 6.8, delay: 1.9 },
+  { x: 55, y: 15, dur: 5.3, delay: 4.2 }, { x: 91, y: 55, dur: 8.6, delay: 2.7 },
+  { x: 38, y: 88, dur: 7.1, delay: 0.6 }, { x: 72, y: 42, dur: 6.4, delay: 3.3 },
+  { x: 5, y: 75, dur: 9.2, delay: 1.1 }, { x: 48, y: 58, dur: 5.9, delay: 4.7 },
+  { x: 85, y: 85, dur: 7.8, delay: 2.4 }, { x: 28, y: 25, dur: 6.1, delay: 0.9 },
+  { x: 62, y: 62, dur: 8.9, delay: 3.6 }, { x: 18, y: 92, dur: 5.4, delay: 1.7 },
+  { x: 93, y: 30, dur: 7.6, delay: 4.1 }, { x: 42, y: 48, dur: 9.8, delay: 0.4 },
+  { x: 75, y: 18, dur: 6.7, delay: 2.9 }, { x: 35, y: 72, dur: 8.3, delay: 3.1 },
+];
+
 // ============================================================
 // PUBLIC VIEW (unchanged)
 // ============================================================
@@ -643,11 +741,12 @@ const PublicView: React.FC = () => {
           transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.5 }}
         />
       ))}
-      {[...Array(isMobile ? 4 : 20)].map((_, i) => (
+      {/* Partículas con posiciones fijas — Math.random() en render directo causa posiciones distintas en cada re-render */}
+      {(isMobile ? PARTICLES_MOBILE : PARTICLES_DESKTOP).map((p, i) => (
         <motion.div key={`p-${i}`} className="absolute w-1 h-1 bg-soda-red rounded-full opacity-40"
-          style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
+          style={{ left: `${p.x}%`, top: `${p.y}%` }}
           animate={{ y: [0, -50, 0], opacity: [0.1, 0.4, 0.1] }}
-          transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, delay: Math.random() * 5 }}
+          transition={{ duration: p.dur, repeat: Infinity, delay: p.delay }}
         />
       ))}
       <div className="max-w-7xl mx-auto relative z-10">

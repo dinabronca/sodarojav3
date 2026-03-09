@@ -24,8 +24,10 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   const [listened, setListened] = useState(false);
   const [showListenPrompt, setShowListenPrompt] = useState(false);
   const [zoomedImg, setZoomedImg] = useState<string | null>(null);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
+  // Parallax via ref directo — sin setState, sin re-renders, sin FPS drop
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
   const formattedDate = formatDate(episode.publishDate);
   const user = getCurrentUser();
   const isPremiumUser = user?.isPremium === true;
@@ -61,17 +63,29 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isLocked || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);
-    const dy = (e.clientY - cy) / (rect.height / 2);
-    setParallax({ x: dx * 3, y: dy * 2 });
+    if (isLocked || !cardRef.current || !parallaxRef.current) return;
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current || !parallaxRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      // Clamp para evitar que se salga de los 30px de margen
+      const tx = Math.max(-18, Math.min(18, dx * 18));
+      const ty = Math.max(-14, Math.min(14, dy * 14));
+      parallaxRef.current.style.transform = `translate(${tx}px, ${ty}px)`;
+    });
   };
 
   const handleMouseLeave = () => {
-    setParallax({ x: 0, y: 0 });
+    cancelAnimationFrame(rafRef.current);
+    if (!parallaxRef.current) return;
+    parallaxRef.current.style.transition = 'transform 900ms cubic-bezier(0.22,1,0.36,1)';
+    parallaxRef.current.style.transform = 'translate(0px, 0px)';
+    // Quitar transition rápida después para que en el siguiente mousemove sea instantáneo
+    setTimeout(() => {
+      if (parallaxRef.current) parallaxRef.current.style.transition = 'transform 60ms linear';
+    }, 950);
   };
 
   // Auto-mark as listened after 60 seconds with modal open (implies user is engaging with embed)
@@ -126,15 +140,20 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-soda-red/40 to-transparent z-10" />
           )}
 
-          {/* Image */}
-          <div className={`relative overflow-hidden ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}>
-            {/* Todo el contenido de imagen va dentro del wrapper que se mueve —
-                así el gradiente se traslada con la imagen y nunca se ve el borde */}
+          {/* Image — translateZ(0) en el contenedor fuerza GPU layer y elimina el subpixel bleed */}
+          <div
+            className={`relative overflow-hidden ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}
+            style={{ transform: 'translateZ(0)', isolation: 'isolate' }}
+          >
+            {/* Wrapper parallax — manipulado directamente por RAF sin pasar por React state */}
             <div
-              className="absolute transition-transform duration-[1000ms] ease-out"
+              ref={parallaxRef}
+              className="absolute"
               style={{
-                top: '-30px', bottom: '-30px', left: '-30px', right: '-30px',
-                transform: `translate(${parallax.x * 0.25}px, ${parallax.y * 0.2}px)`,
+                top: '-36px', bottom: '-36px', left: '-36px', right: '-36px',
+                transform: 'translate(0px, 0px)',
+                transition: 'transform 60ms linear',
+                willChange: 'transform',
               }}
             >
               <img src={episode.imageUrl} alt={episode.city}
@@ -142,8 +161,16 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                 loading="lazy"
                 style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}}
               />
-              {/* Gradiente DENTRO del wrapper — se mueve con la imagen, nunca queda descubierto */}
-              <div className="absolute inset-0 bg-gradient-to-t from-soda-night/65 via-soda-night/10 to-transparent pointer-events-none" />
+              {/* Gradiente que cubre siempre — incluye zona extra debajo */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  left: 0, right: 0,
+                  bottom: '-4px',   // 4px extra por debajo del borde del wrapper
+                  height: '75%',
+                  background: 'linear-gradient(to top, rgba(10,14,26,0.72) 0%, rgba(10,14,26,0.35) 45%, transparent 100%)',
+                }}
+              />
             </div>
 
             {/* Top badges row — same height on both sides */}

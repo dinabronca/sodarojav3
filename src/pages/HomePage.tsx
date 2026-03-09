@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Hero } from '../components/Hero';
 import { EpisodeCard } from '../components/EpisodeCard';
@@ -27,57 +27,113 @@ const TestimoniosSection: React.FC = () => {
   const current = ALL_TESTIMONIOS.slice(page * 3, page * 3 + 3);
 
   return (
-    <section className="relative py-20 sm:py-28 px-6 overflow-hidden">
+    <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
+      {/* Glow de fondo */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(196,85,85,0.03) 0%, transparent 70%)' }} />
+
       <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <p className="text-soda-lamp/30 text-[9px] tracking-[0.4em] uppercase text-center mb-14">Lo que dicen los oyentes</p>
+
+        {/* Header editorial */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16"
+        >
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-px bg-soda-red/50" />
+              <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Oyentes</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl text-soda-glow/85 font-light leading-[1.1]">
+              Lo que <em className="text-soda-red/70">dicen</em>
+            </h2>
+          </div>
+          {/* Contador de páginas — estilo tipográfico */}
+          <span className="text-soda-lamp/20 text-[10px] tracking-[0.3em] font-mono">
+            {String(page + 1).padStart(2,'0')} / {String(totalPages).padStart(2,'0')}
+          </span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {current.map((t, i) => (
-            <motion.div
-              key={`${page}-${i}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="relative p-7 border border-soda-mist/10 rounded-sm hover:border-soda-mist/18 transition-all duration-700 group"
-              style={{ background: 'linear-gradient(145deg, rgba(30,36,51,0.5), rgba(20,24,36,0.3))' }}
-            >
-              {/* Glow sutil en hover */}
-              <div className="absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,85,85,0.04), transparent)' }} />
-              {/* Comillas — más sutiles, integradas */}
-              <span className="block text-soda-red/25 text-5xl font-serif leading-none mb-4 select-none">&ldquo;</span>
-              <p className="text-soda-lamp/55 text-[13px] font-light leading-[1.75] mb-6 relative z-10">{t.quote}</p>
-              <div className="flex items-center gap-2 pt-4 border-t border-soda-mist/8">
-                <div className="w-4 h-px bg-soda-red/35" />
-                <span className="text-soda-lamp/55 text-[10px] tracking-[0.08em]">{t.author}</span>
-                <span className="text-soda-lamp/20 text-[9px]">·</span>
-                <span className="text-soda-lamp/30 text-[10px] font-light italic">{t.from}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-center gap-6">
-          <button
-            onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}
-            className="w-9 h-9 rounded-full border border-soda-mist/15 flex items-center justify-center text-soda-lamp/40 hover:border-soda-red/30 hover:text-soda-lamp transition-all duration-500"
+        {/* Layout: cita destacada grande + dos pequeñas */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5 mb-12"
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-          <div className="flex gap-2">
+            {/* Cita principal — ocupa 3 columnas, más grande */}
+            <div
+              className="lg:col-span-3 relative p-8 sm:p-10 rounded-sm border border-soda-mist/10 overflow-hidden group"
+              style={{ background: 'linear-gradient(135deg, rgba(22,28,42,0.7) 0%, rgba(14,18,28,0.5) 100%)' }}
+            >
+              {/* Número de cita decorativo */}
+              <span className="absolute top-4 right-6 font-serif text-[5rem] sm:text-[7rem] leading-none text-soda-red/5 select-none pointer-events-none"
+                style={{ fontStyle: 'italic' }}>
+                &ldquo;
+              </span>
+              <div className="w-6 h-px bg-soda-red/40 mb-6" />
+              <p className="text-soda-lamp/75 text-base sm:text-lg font-light leading-[1.8] mb-8 relative z-10">
+                {current[0].quote}
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono text-soda-red/60 border border-soda-red/20"
+                  style={{ background: 'rgba(196,85,85,0.06)' }}>
+                  {current[0].author.charAt(0)}
+                </div>
+                <div>
+                  <p className="text-soda-lamp/65 text-[11px] tracking-[0.05em]">{current[0].author}</p>
+                  <p className="text-soda-lamp/30 text-[9px] font-light italic mt-0.5">{current[0].from}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dos citas secundarias */}
+            <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-5">
+              {current.slice(1).map((t, i) => (
+                <div key={i}
+                  className="flex-1 relative p-6 rounded-sm border border-soda-mist/8 overflow-hidden"
+                  style={{ background: 'linear-gradient(135deg, rgba(18,22,34,0.6) 0%, rgba(12,15,24,0.4) 100%)' }}
+                >
+                  <p className="text-soda-lamp/50 text-[12px] font-light leading-[1.75] mb-5 line-clamp-4">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-px bg-soda-red/30" />
+                    <span className="text-soda-lamp/45 text-[9px] tracking-[0.06em]">{t.author}</span>
+                    <span className="text-soda-lamp/20 text-[8px]">·</span>
+                    <span className="text-soda-lamp/28 text-[9px] italic font-light">{t.from}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navegación — minimal, a la derecha */}
+        <div className="flex items-center justify-end gap-4">
+          <div className="flex gap-1.5 mr-2">
             {Array.from({ length: totalPages }).map((_, i) => (
               <button key={i} onClick={() => setPage(i)}
-                className={`rounded-full transition-all duration-300 ${i === page ? 'w-5 h-1.5 bg-soda-red/60' : 'w-1.5 h-1.5 bg-soda-mist/20 hover:bg-soda-mist/40'}`}
+                className="transition-all duration-400"
+                style={{
+                  width: i === page ? '20px' : '6px',
+                  height: '2px',
+                  borderRadius: '1px',
+                  background: i === page ? 'rgba(196,85,85,0.6)' : 'rgba(212,197,176,0.18)',
+                }}
               />
             ))}
           </div>
-          <button
-            onClick={() => setPage(p => (p + 1) % totalPages)}
-            className="w-9 h-9 rounded-full border border-soda-mist/15 flex items-center justify-center text-soda-lamp/40 hover:border-soda-red/30 hover:text-soda-lamp transition-all duration-500"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <button onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}
+            className="w-8 h-8 rounded-full border border-soda-mist/12 flex items-center justify-center text-soda-lamp/35 hover:border-soda-red/25 hover:text-soda-lamp/70 transition-all duration-500">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <button onClick={() => setPage(p => (p + 1) % totalPages)}
+            className="w-8 h-8 rounded-full border border-soda-mist/12 flex items-center justify-center text-soda-lamp/35 hover:border-soda-red/25 hover:text-soda-lamp/70 transition-all duration-500">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </div>
       </div>
