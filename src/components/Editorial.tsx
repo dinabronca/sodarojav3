@@ -21,8 +21,8 @@ export const EditorialHeader: React.FC<{
   >
     {/* Red line + label */}
     <div className={`flex items-center gap-3 mb-5 ${center ? 'justify-center' : ''}`}>
-      <div className="w-10 h-px bg-soda-red/60" />
-      <span className="text-soda-red/80 text-[10px] tracking-[0.3em] uppercase font-light">{label}</span>
+      <div className="w-12 h-px bg-gradient-to-r from-soda-red/80 to-soda-red/40" />
+      <span className="text-soda-red/70 text-[9px] tracking-[0.35em] uppercase font-light">{label}</span>
     </div>
 
     {/* Title with optional italic accent */}

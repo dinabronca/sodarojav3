@@ -33,22 +33,27 @@ const TestimoniosSection: React.FC = () => {
           <p className="text-soda-lamp/30 text-[9px] tracking-[0.4em] uppercase text-center mb-14">Lo que dicen los oyentes</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {current.map((t, i) => (
             <motion.div
               key={`${page}-${i}`}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="relative p-8 border border-soda-mist/10 rounded-sm hover:border-soda-mist/20 transition-all duration-700"
+              transition={{ delay: i * 0.08, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="relative p-7 border border-soda-mist/10 rounded-sm hover:border-soda-mist/18 transition-all duration-700 group"
+              style={{ background: 'linear-gradient(145deg, rgba(30,36,51,0.5), rgba(20,24,36,0.3))' }}
             >
-              <span className="absolute -top-3 left-6 text-soda-red/40 text-6xl font-serif leading-none select-none">&ldquo;</span>
-              <p className="text-soda-lamp/60 text-sm font-light leading-relaxed mb-6 relative z-10">{t.quote}</p>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-px bg-soda-red/40" />
-                <span className="text-soda-lamp/60 text-[10px] tracking-wider">{t.author}</span>
-                <span className="text-soda-lamp/30 text-[10px]">·</span>
-                <span className="text-soda-lamp/35 text-[10px]">{t.from}</span>
+              {/* Glow sutil en hover */}
+              <div className="absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(196,85,85,0.04), transparent)' }} />
+              {/* Comillas — más sutiles, integradas */}
+              <span className="block text-soda-red/25 text-5xl font-serif leading-none mb-4 select-none">&ldquo;</span>
+              <p className="text-soda-lamp/55 text-[13px] font-light leading-[1.75] mb-6 relative z-10">{t.quote}</p>
+              <div className="flex items-center gap-2 pt-4 border-t border-soda-mist/8">
+                <div className="w-4 h-px bg-soda-red/35" />
+                <span className="text-soda-lamp/55 text-[10px] tracking-[0.08em]">{t.author}</span>
+                <span className="text-soda-lamp/20 text-[9px]">·</span>
+                <span className="text-soda-lamp/30 text-[10px] font-light italic">{t.from}</span>
               </div>
             </motion.div>
           ))}
@@ -152,9 +157,11 @@ export const HomePage: React.FC = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2, duration: 0.6 }} className="text-center mt-14 sm:mt-20">
-            <Link to="/episodios" className="group inline-flex items-center gap-3 px-10 py-4 border border-soda-mist/20 text-soda-lamp/60 rounded-sm hover:border-soda-mist/35 hover:text-soda-lamp transition-all duration-700 tracking-[0.25em] text-[10px] uppercase">
-              Ver todos los episodios
-              <ArrowRight size={13} className="text-soda-fog/40 group-hover:text-soda-lamp/60 group-hover:translate-x-1 transition-all duration-700" />
+            <Link to="/episodios" className="group relative inline-flex items-center gap-3 px-10 py-4 border border-soda-mist/15 text-soda-lamp/50 rounded-sm hover:border-soda-red/25 hover:text-soda-lamp transition-all duration-700 tracking-[0.25em] text-[10px] uppercase overflow-hidden">
+              {/* Fondo que aparece en hover */}
+              <span className="absolute inset-0 bg-gradient-to-r from-soda-red/0 via-soda-red/5 to-soda-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <span className="relative">Ver todos los episodios</span>
+              <ArrowRight size={13} className="relative text-soda-fog/30 group-hover:text-soda-lamp/50 group-hover:translate-x-1.5 transition-all duration-500" />
             </Link>
           </motion.div>
         </div>

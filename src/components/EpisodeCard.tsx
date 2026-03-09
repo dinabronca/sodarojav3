@@ -127,33 +127,24 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           )}
 
           {/* Image */}
-          <div className={`relative overflow-hidden ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}
-            style={{ background: 'transparent' }}>
-            {/* inset en px fijos — % sobre aspect-ratio se calcula solo sobre el ancho, insuficiente en vertical */}
+          <div className={`relative overflow-hidden ${featured ? 'md:w-3/5 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}>
+            {/* Todo el contenido de imagen va dentro del wrapper que se mueve —
+                así el gradiente se traslada con la imagen y nunca se ve el borde */}
             <div
               className="absolute transition-transform duration-[1000ms] ease-out"
               style={{
                 top: '-30px', bottom: '-30px', left: '-30px', right: '-30px',
-                transform: `translate(${parallax.x * 0.28}px, ${parallax.y * 0.22}px)`,
+                transform: `translate(${parallax.x * 0.25}px, ${parallax.y * 0.2}px)`,
               }}
             >
               <img src={episode.imageUrl} alt={episode.city}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
                 style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}}
               />
+              {/* Gradiente DENTRO del wrapper — se mueve con la imagen, nunca queda descubierto */}
+              <div className="absolute inset-0 bg-gradient-to-t from-soda-night/65 via-soda-night/10 to-transparent pointer-events-none" />
             </div>
-
-            {/* VHS scanline for premium */}
-            {(isUnlockedPremium || isLocked) && (
-              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 10, overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', left: 0, width: '100%', height: '30%', background: 'linear-gradient(transparent, rgba(196,85,85,0.06) 40%, rgba(196,85,85,0.12) 50%, rgba(196,85,85,0.06) 60%, transparent)', animation: 'vhsScan 5s linear infinite' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)' }} />
-              </div>
-            )}
-
-            {/* Bottom gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-soda-night/60 via-transparent to-transparent" />
 
             {/* Top badges row — same height on both sides */}
             <div className="absolute top-3 left-3 right-3 z-20 flex justify-between items-start">
@@ -212,32 +203,32 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           <div className={`relative z-10 ${featured ? 'md:w-2/5 p-6 sm:p-8 md:p-10 flex flex-col justify-center' : 'p-5 sm:p-6'}`}>
             {/* City + Date row */}
             <div className="flex items-center justify-between mb-3">
-              <span className={`text-[10px] tracking-[0.2em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/80' : 'text-soda-accent/70'}`}>
+              <span className={`text-[9px] tracking-[0.25em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/70' : 'text-soda-accent/65'}`}>
                 {episode.city}
               </span>
               {formattedDate && !isLocked && (
-                <span className="text-soda-lamp/40 text-[10px] tracking-wider">{formattedDate}</span>
+                <span className="text-soda-lamp/30 text-[9px] font-light tracking-[0.05em]">{formattedDate}</span>
               )}
             </div>
 
             {/* Title */}
-            <h3 className={`font-serif text-soda-glow mb-3 leading-snug group-hover:text-soda-glow/85 transition-colors duration-700 ${featured ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`}>
+            <h3 className={`font-serif text-soda-glow/90 mb-3 leading-[1.25] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-2xl sm:text-3xl' : 'text-[1.05rem] sm:text-lg'}`}>
               &ldquo;{episode.title}&rdquo;
             </h3>
 
             {/* Description */}
-            <p className={`text-soda-lamp/55 font-light leading-relaxed mb-5 ${featured ? 'text-sm line-clamp-4' : 'text-[13px] line-clamp-2'}`}>
+            <p className={`text-soda-lamp/42 font-light leading-[1.7] mb-5 ${featured ? 'text-sm line-clamp-4' : 'text-[12px] line-clamp-2'}`}>
               {episode.description}
             </p>
 
             {/* CTA */}
             {isLocked ? (
-              <Link to="/frecuencia-interna" onClick={e => e.stopPropagation()} className="inline-flex items-center gap-2 text-soda-red/60 text-[10px] tracking-[0.15em] uppercase hover:text-soda-red transition-colors duration-700 group/cta">
-                Desbloquear <ChevronRight size={11} className="group-hover/cta:translate-x-1 transition-transform duration-500" />
+              <Link to="/frecuencia-interna" onClick={e => e.stopPropagation()} className="inline-flex items-center gap-2 text-soda-red/50 text-[9px] tracking-[0.18em] uppercase hover:text-soda-red/80 transition-colors duration-700 group/cta">
+                Desbloquear <ChevronRight size={10} className="group-hover/cta:translate-x-1 transition-transform duration-500" />
               </Link>
             ) : (
-              <span className="inline-flex items-center gap-2 text-soda-lamp/45 text-[10px] tracking-[0.15em] uppercase group-hover:text-soda-lamp/80 transition-colors duration-700">
-                Escuchar <ChevronRight size={11} className="group-hover:translate-x-1 transition-transform duration-500" />
+              <span className="inline-flex items-center gap-2 text-soda-lamp/38 text-[9px] tracking-[0.18em] uppercase group-hover:text-soda-lamp/70 transition-colors duration-700">
+                Escuchar <ChevronRight size={10} className="group-hover:translate-x-1 transition-transform duration-500" />
               </span>
             )}
           </div>

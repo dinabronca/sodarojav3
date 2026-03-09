@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -13,7 +13,6 @@ import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
 import { CustomCursor } from './effects/CustomCursor';
-import { PageTransition } from './effects/PageTransition';
 import { getContent } from './data/content';
 import { initDemoUsers } from './data/auth';
 import { demoEpisodes } from './data/episodes';
@@ -247,8 +246,28 @@ const ScrollProgress: React.FC = () => {
 };
 
 
-// ===== APP =====
-function AppContent() {
+// ===== ANIMATED OUTLET — el único patrón correcto para transiciones con React Router v6 =====
+// El key va en el motion.div que wrappea el Outlet, y se basa en location.key (no pathname)
+// Así AnimatePresence puede hacer exit del componente viejo ANTES de montar el nuevo
+const AnimatedOutlet: React.FC = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.key}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -6 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// ===== APP LAYOUT =====
+function AppLayout() {
   return (
     <div className="relative min-h-screen bg-soda-night overflow-x-hidden">
       <CustomCursor />
@@ -256,8 +275,19 @@ function AppContent() {
       <div className="vhs-global-band" />
       <div className="grain-overlay" />
       <Navbar />
-      <PageTransition>
-        <Routes>
+      <AnimatedOutlet />
+      <Footer />
+    </div>
+  );
+}
+
+// ===== APP =====
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/que-es-esto" element={<QueEsEstoPage />} />
           <Route path="/equipo" element={<EquipoPage />} />
@@ -266,20 +296,14 @@ function AppContent() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/mi-cuenta" element={<MiCuentaPage />} />
-          <Route path="/admin" element={<React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader" /></div>}><AdminPage /></React.Suspense>} />
+          <Route path="/admin" element={
+            <React.Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="loader" /></div>}>
+              <AdminPage />
+            </React.Suspense>
+          } />
           <Route path="/unirse" element={<UnirsePage />} />
-        </Routes>
-      </PageTransition>
-      <Footer />
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <ScrollToTop />
-      <AppContent />
+        </Route>
+      </Routes>
     </Router>
   );
 }

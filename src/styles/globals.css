@@ -132,7 +132,21 @@ body.effects-reduced .grain-overlay { opacity: 0 !important; transition: opacity
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(196, 85, 85, 0.12); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(196, 85, 85, 0.22); }
-::selection { background: rgba(196, 85, 85, 0.12); color: #fef8ed; }
+::selection { background: rgba(196, 85, 85, 0.15); color: #fef8ed; }
+
+/* Tipografía optimizada */
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+/* Focus visible accesible pero sin feo outline por defecto */
+:focus-visible {
+  outline: 1px solid rgba(196, 85, 85, 0.4);
+  outline-offset: 3px;
+}
+:focus:not(:focus-visible) { outline: none; }
 
 /* Ocultar scrollbar horizontal en tabs */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
