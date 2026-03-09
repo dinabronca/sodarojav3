@@ -22,8 +22,9 @@ export default {
         },
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Crimson Pro', 'Georgia', 'serif'],
         'serif': ['Crimson Pro', 'Georgia', 'serif'],
+        'display': ['Cormorant Garamond', 'Georgia', 'serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
       animation: {

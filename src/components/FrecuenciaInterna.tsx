@@ -213,63 +213,76 @@ const SubscriberDashboard: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-16 pb-10"
+        className="mb-14 pb-10"
         style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}
       >
-        {/* Identity */}
-        <div className="flex items-center gap-5">
-          {/* Avatar ring */}
-          <div className="relative flex-shrink-0">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center font-serif text-xl text-soda-glow/80"
-              style={{
-                background: 'radial-gradient(circle at 40% 35%, rgba(196,85,85,0.25) 0%, rgba(10,14,26,0.9) 70%)',
-                border: '1px solid rgba(196,85,85,0.25)',
-                boxShadow: '0 0 20px rgba(196,85,85,0.1), inset 0 0 20px rgba(196,85,85,0.05)',
-              }}>
-              {(user?.name || 'S').charAt(0).toUpperCase()}
-            </div>
-            <motion.div
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.5, repeat: Infinity }}
-              className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-soda-deep"
-              style={{ background: 'rgba(80,200,120,0.9)', boxShadow: '0 0 6px rgba(80,200,120,0.5)' }}
-            />
-          </div>
-          <div>
-            <p className="text-[9px] tracking-[0.4em] uppercase text-soda-red/50 mb-1">Frecuencia Interna</p>
-            <h2 className="font-serif text-2xl sm:text-3xl text-soda-glow/90 leading-none">
-              {user?.name || 'Suscriptor'}
-            </h2>
-            <p className="text-soda-lamp/28 text-[10px] tracking-[0.08em] mt-1.5">
-              Nº {String(memberNumber).padStart(4, '0')} · {planData.name}
-            </p>
-          </div>
+        {/* Label */}
+        <div className="flex items-center gap-3 mb-8">
+          <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2.5, repeat: Infinity }}
+            className="w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(196,85,85,0.9)', boxShadow: '0 0 8px rgba(196,85,85,0.6)' }} />
+          <span className="text-[9px] tracking-[0.45em] uppercase" style={{ color: 'rgba(196,85,85,0.5)' }}>Frecuencia Interna</span>
         </div>
 
-        {/* Stats strip */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          {[
-            { n: listenedCount, l: 'escuchados' },
-            { n: soditas, l: 'soditas' },
-            { n: Object.keys(userVotes).length, l: 'votos' },
-          ].map((s, i) => (
-            <div key={i}
-              className="flex flex-col items-center px-4 py-3 rounded-sm"
-              style={{ background: 'rgba(212,197,176,0.03)', border: '1px solid rgba(212,197,176,0.07)' }}>
-              <span className="font-serif text-xl text-soda-glow/80 leading-none">{s.n}</span>
-              <span className="text-soda-lamp/25 text-[8px] tracking-[0.12em] mt-1 uppercase">{s.l}</span>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+          {/* Identity */}
+          <div className="flex items-center gap-6">
+            {/* Avatar — larger, more dramatic */}
+            <div className="relative flex-shrink-0">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
+                style={{
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontStyle: 'italic',
+                  color: 'rgba(254,248,237,0.85)',
+                  background: 'radial-gradient(circle at 35% 30%, rgba(196,85,85,0.3) 0%, rgba(10,14,26,0.95) 65%)',
+                  border: '1px solid rgba(196,85,85,0.3)',
+                  boxShadow: '0 0 30px rgba(196,85,85,0.12), inset 0 0 30px rgba(196,85,85,0.06)',
+                }}>
+                {(user?.name || 'S').charAt(0).toUpperCase()}
+              </div>
+              <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+                className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-soda-deep"
+                style={{ background: 'rgba(80,200,120,0.9)', boxShadow: '0 0 8px rgba(80,200,120,0.5)' }}
+              />
             </div>
-          ))}
-          <button
-            onClick={() => setShowMissions(!showMissions)}
-            className="flex items-center gap-2 px-4 py-3 rounded-sm ml-1 transition-all duration-500"
-            style={{
-              background: showMissions ? 'rgba(138,155,196,0.08)' : 'rgba(138,155,196,0.03)',
-              border: `1px solid rgba(138,155,196,${showMissions ? '0.2' : '0.07'})`,
-            }}>
-            <Star size={11} className="text-soda-accent/50" />
-            <span className="text-soda-lamp/40 text-[9px] tracking-[0.15em] uppercase hidden sm:block">Misiones</span>
-          </button>
+            <div>
+              <h2 className="leading-none mb-2" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 400, color: 'rgba(254,248,237,0.92)' }}>
+                {user?.name || 'Suscriptor'}
+              </h2>
+              <div className="flex items-center gap-3">
+                <span className="text-[9px] tracking-[0.2em] font-mono" style={{ color: 'rgba(212,197,176,0.35)' }}>#{String(memberNumber).padStart(4, '0')}</span>
+                <div className="w-px h-3" style={{ background: 'rgba(212,197,176,0.15)' }} />
+                <span className="text-[10px] tracking-[0.08em]" style={{ color: 'rgba(196,85,85,0.55)' }}>{planData.name}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats + missions */}
+          <div className="flex items-stretch gap-2">
+            {[
+              { n: listenedCount, l: 'escuchados', accent: 'rgba(138,155,196,0.6)' },
+              { n: soditas, l: 'soditas', accent: 'rgba(196,85,85,0.6)' },
+              { n: Object.keys(userVotes).length, l: 'votos', accent: 'rgba(212,197,176,0.4)' },
+            ].map((s, i) => (
+              <div key={i}
+                className="flex flex-col items-center justify-center px-4 py-3 rounded-sm"
+                style={{ background: 'rgba(212,197,176,0.02)', border: '1px solid rgba(212,197,176,0.06)', minWidth: '70px' }}>
+                <span className="leading-none mb-1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', color: s.accent }}>{s.n}</span>
+                <span className="text-[8px] tracking-[0.18em] uppercase" style={{ color: 'rgba(212,197,176,0.25)' }}>{s.l}</span>
+              </div>
+            ))}
+            <button
+              onClick={() => setShowMissions(!showMissions)}
+              className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 rounded-sm ml-1 transition-all duration-500"
+              style={{
+                background: showMissions ? 'rgba(138,155,196,0.07)' : 'rgba(138,155,196,0.02)',
+                border: `1px solid rgba(138,155,196,${showMissions ? '0.22' : '0.07'})`,
+              }}>
+              <Star size={11} style={{ color: `rgba(138,155,196,${showMissions ? '0.7' : '0.4'})` }} />
+              <span className="text-[8px] tracking-[0.15em] uppercase hidden sm:block" style={{ color: 'rgba(212,197,176,0.35)' }}>Misiones</span>
+            </button>
+          </div>
         </div>
       </motion.div>
 
@@ -656,19 +669,23 @@ const SubscriberDashboard: React.FC = () => {
           </div>
 
           {/* Nº de socio — decorativo elegante */}
-          <div className="rounded-sm px-6 py-5 text-center relative overflow-hidden"
-            style={{ background: 'rgba(10,14,22,0.5)', border: '1px solid rgba(196,85,85,0.08)' }}>
+          <div className="rounded-sm px-6 py-6 text-center relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, rgba(10,14,22,0.8) 0%, rgba(14,18,28,0.6) 100%)', border: '1px solid rgba(196,85,85,0.1)' }}>
+            {/* Watermark number */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-              <span className="font-serif italic leading-none"
-                style={{ fontSize: '7rem', color: 'rgba(196,85,85,0.04)' }}>
+              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontSize: '6.5rem', color: 'rgba(196,85,85,0.05)', lineHeight: 1 }}>
                 {String(memberNumber).padStart(4, '0')}
               </span>
             </div>
-            <p className="text-[9px] tracking-[0.4em] uppercase text-soda-lamp/18 mb-2 relative z-10">Número de socio</p>
-            <p className="font-serif text-2xl text-soda-glow/60 relative z-10 tracking-[0.15em]">
+            <p className="text-[9px] tracking-[0.4em] uppercase mb-3 relative z-10" style={{ color: 'rgba(212,197,176,0.2)' }}>Número de socio</p>
+            <p className="relative z-10 tracking-[0.18em]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.6rem', fontStyle: 'italic', color: 'rgba(254,248,237,0.65)' }}>
               #{String(memberNumber).padStart(4, '0')}
             </p>
-            <p className="text-soda-lamp/18 text-[9px] mt-2 relative z-10">desde {new Date().getFullYear()}</p>
+            <div className="mt-3 relative z-10 flex items-center justify-center gap-2">
+              <div className="w-6 h-px" style={{ background: 'rgba(196,85,85,0.25)' }} />
+              <p className="text-[9px] tracking-[0.15em]" style={{ color: 'rgba(212,197,176,0.2)' }}>desde {new Date().getFullYear()}</p>
+              <div className="w-6 h-px" style={{ background: 'rgba(196,85,85,0.25)' }} />
+            </div>
           </div>
         </div>
       </div>

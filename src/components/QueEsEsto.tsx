@@ -154,11 +154,9 @@ export const QueEsEsto: React.FC = () => {
                   </div>
 
                   {/* Card */}
-                  <div className={`flex-1 group rounded-sm overflow-hidden transition-all duration-500 hover:-translate-y-0.5 ${
-                    item.destacado ? 'border' : 'border border-transparent hover:border-opacity-20'
-                  }`}
+                  <div className={`flex-1 group rounded-sm overflow-hidden transition-all duration-500 hover:-translate-y-0.5`}
                     style={{
-                      borderColor: item.destacado ? colors.border : 'rgba(212,197,176,0.07)',
+                      border: `1px solid ${item.destacado ? colors.border : 'rgba(212,197,176,0.06)'}`,
                       background: item.destacado
                         ? 'linear-gradient(135deg, rgba(22,28,42,0.8) 0%, rgba(14,18,28,0.6) 100%)'
                         : 'linear-gradient(135deg, rgba(16,20,30,0.55) 0%, rgba(10,14,22,0.35) 100%)',

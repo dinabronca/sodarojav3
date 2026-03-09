@@ -100,9 +100,9 @@ export const ElEquipo: React.FC = () => {
                   </div>
 
                   {/* Member vitals — top right corner */}
-                  <div className="absolute top-4 right-4 text-right">
-                    <p className="text-soda-lamp/35 text-[9px] tracking-[0.08em]">{member.cityBorn} · {member.birthYear}</p>
-                    <p className="text-soda-lamp/25 text-[9px]">{member.zodiac}</p>
+                  <div className="absolute top-4 right-4 text-right px-2.5 py-1.5 rounded-sm" style={{ background: 'rgba(8,10,18,0.65)', backdropFilter: 'blur(8px)', border: '1px solid rgba(212,197,176,0.08)' }}>
+                    <p className="text-soda-lamp/70 text-[9px] tracking-[0.12em]">{member.cityBorn} · {member.birthYear}</p>
+                    <p className="text-soda-accent/55 text-[9px] italic mt-0.5">{member.zodiac}</p>
                   </div>
                 </div>
 

@@ -267,72 +267,155 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
       {/* === MODAL === */}
       {isExpanded && !isLocked && (
-        <div className="fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4 md:p-8" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
+        <div className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
+          {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-soda-night/95 backdrop-blur-sm"
+            className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.4 }}
+            style={{ background: 'rgba(6,8,14,0.92)', backdropFilter: 'blur(12px)' }}
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.88, y: 24 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.93, y: 16 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-soda-deep border border-soda-mist/15 rounded-sm"
-            style={{ WebkitOverflowScrolling: 'touch' }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-2xl max-h-[96vh] sm:max-h-[90vh] overflow-y-auto rounded-t-sm sm:rounded-sm"
+            style={{
+              background: 'linear-gradient(165deg, rgba(16,20,32,0.98) 0%, rgba(10,13,22,0.99) 100%)',
+              border: '1px solid rgba(212,197,176,0.08)',
+              boxShadow: '0 -20px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(196,85,85,0.05)',
+              WebkitOverflowScrolling: 'touch',
+            }}
             onClick={e => e.stopPropagation()}
           >
-            <button onClick={() => setIsExpanded(false)} className="absolute top-4 right-4 z-50 w-9 h-9 rounded-full flex items-center justify-center text-soda-fog/50 hover:text-soda-lamp transition-colors duration-500 bg-soda-night/60"><X size={18} /></button>
+            {/* Close */}
+            <button
+              onClick={() => setIsExpanded(false)}
+              className="absolute top-4 right-4 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
+              style={{ background: 'rgba(10,13,22,0.7)', border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.4)' }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.9)'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.4)'}
+            >
+              <X size={14} />
+            </button>
 
-            <div className="relative h-56 sm:h-72 overflow-hidden">
-              <img src={episode.imageUrl} alt={episode.city} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-soda-deep via-soda-deep/50 to-transparent" />
+            {/* Hero image — full bleed, cinematic */}
+            <div className="relative overflow-hidden" style={{ height: '240px' }}>
+              <img src={episode.imageUrl} alt={episode.city} className="w-full h-full object-cover" style={{ filter: 'brightness(0.75) saturate(1.1)' }} />
+              {/* Cinematic vignette */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 35%, transparent 50%, rgba(10,13,22,0.85) 80%, rgba(10,13,22,1) 100%)' }} />
+              {/* Left fade */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,13,22,0.4) 0%, transparent 40%)' }} />
               {isUnlockedPremium && (
                 <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', left: 0, width: '100%', height: '30%', background: 'linear-gradient(transparent, rgba(196,85,85,0.06) 40%, rgba(196,85,85,0.1) 50%, rgba(196,85,85,0.06) 60%, transparent)', animation: 'vhsScan 5s linear infinite' }} />
                 </div>
               )}
+              {/* Badges over image */}
+              <div className="absolute top-4 left-5 flex items-center gap-2">
+                {episodeNumber !== undefined && (
+                  <span className="text-[10px] font-mono tracking-[0.2em] px-2 py-1 rounded-sm" style={{ background: 'rgba(10,13,22,0.7)', border: '1px solid rgba(212,197,176,0.12)', color: 'rgba(212,197,176,0.6)' }}>{epNum(episodeNumber)}</span>
+                )}
+                {isNewest && (
+                  <span className="text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 rounded-sm font-medium" style={{ background: 'rgba(196,85,85,0.85)', color: 'rgba(254,248,237,0.95)' }}>NUEVO</span>
+                )}
+                {isUnlockedPremium && (
+                  <span className="text-[9px] tracking-[0.15em] uppercase px-2 py-1 rounded-sm" style={{ background: 'rgba(196,85,85,0.15)', border: '1px solid rgba(196,85,85,0.35)', color: 'rgba(196,85,85,0.85)' }}>FRECUENCIA INTERNA</span>
+                )}
+              </div>
+              {/* City + meta overlaid on bottom of image */}
+              <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className={`text-[10px] tracking-[0.3em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/80' : 'text-soda-accent/80'}`}>{episode.city}{(episode as any).country ? `, ${(episode as any).country}` : ''}</span>
+                  <div className="w-px h-3" style={{ background: 'rgba(212,197,176,0.2)' }} />
+                  {formattedDate && <span className="text-soda-lamp/45 text-[10px]">{formattedDate}</span>}
+                  {(episode as any).durationMin && <span className="text-soda-lamp/35 text-[10px]">{(episode as any).durationMin} min</span>}
+                </div>
+              </div>
             </div>
 
-            <div className="p-5 sm:p-8 -mt-16 relative z-10">
-              <div className="flex items-center gap-3 mb-3 flex-wrap">
-                {episodeNumber !== undefined && <span className="text-soda-red/80 text-[10px] font-mono tracking-wider bg-soda-red/10 px-2.5 py-1 rounded-sm">{epNum(episodeNumber)}</span>}
-                <span className={`text-[11px] tracking-wider ${isUnlockedPremium ? 'text-soda-red' : 'text-soda-accent'}`}>{episode.city}{(episode as any).country ? `, ${(episode as any).country}` : ''}</span>
-                {formattedDate && <span className="text-soda-lamp/45 text-[11px]">{formattedDate}</span>}
-                {(episode as any).durationMin && <span className="text-soda-lamp/35 text-[11px]">{(episode as any).durationMin} min</span>}
-                {isUnlockedPremium && <span className="text-soda-red text-[9px] tracking-wider bg-soda-red/10 px-2 py-0.5 rounded-sm">FRECUENCIA INTERNA</span>}
-                {isNewest && <span className="text-soda-glow text-[9px] tracking-wider bg-soda-red/80 px-2 py-0.5 rounded-sm">NUEVO</span>}
-              </div>
+            {/* Content */}
+            <div className="px-6 pt-2 pb-8">
+              {/* Title */}
+              <h2 className="font-serif leading-[1.15] mb-3" style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', color: 'rgba(254,248,237,0.92)' }}>
+                &ldquo;{episode.title}&rdquo;
+              </h2>
 
-              <h2 className="text-3xl sm:text-4xl font-serif text-soda-glow mb-2">&ldquo;{episode.title}&rdquo;</h2>
-              <p className="text-soda-lamp/75 text-sm font-light leading-relaxed mb-6">{episode.description}</p>
+              {/* Description */}
+              <p className="text-[13px] leading-[1.8] mb-7" style={{ color: 'rgba(212,197,176,0.55)', fontFamily: "'Crimson Pro', Georgia, serif" }}>{episode.description}</p>
+
+              {/* Thin rule */}
+              <div className="mb-6" style={{ height: '1px', background: 'linear-gradient(to right, rgba(196,85,85,0.2), rgba(212,197,176,0.08), transparent)' }} />
 
               {/* Embeds */}
               <div className="space-y-5 mb-6">
-                {(embeds as any).youtube && (<div><span className="text-soda-lamp/45 text-[10px] tracking-[0.2em] block mb-2">YOUTUBE</span><div className="relative w-full rounded-sm overflow-hidden" style={{ paddingBottom: '56.25%' }}><iframe src={(embeds as any).youtube} className="absolute inset-0 w-full h-full" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy" /></div></div>)}
-                {embeds.spotify && (<div><span className="text-soda-lamp/45 text-[10px] tracking-[0.2em] block mb-2">SPOTIFY</span><iframe src={embeds.spotify} width="100%" height={isMobile ? "152" : "232"} frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ borderRadius: '8px' }} /></div>)}
-                {embeds.applePodcasts && (<div><span className="text-soda-lamp/45 text-[10px] tracking-[0.2em] block mb-2">APPLE PODCASTS</span><iframe src={embeds.applePodcasts} width="100%" height={isMobile ? "150" : "175"} frameBorder="0" allow="autoplay *;" loading="lazy" style={{ borderRadius: '10px' }} /></div>)}
-                {embeds.ivoox && (<div><span className="text-soda-lamp/45 text-[10px] tracking-[0.2em] block mb-2">IVOOX</span><iframe src={embeds.ivoox} width="100%" height={isMobile ? "150" : "200"} frameBorder="0" loading="lazy" /></div>)}
-                {embeds.soundcloud && (<div><span className="text-soda-lamp/45 text-[10px] tracking-[0.2em] block mb-2">SOUNDCLOUD</span><iframe src={embeds.soundcloud} width="100%" height={isMobile ? "120" : "166"} frameBorder="0" allow="autoplay" loading="lazy" /></div>)}
+                {(embeds as any).youtube && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
+                      <span className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(212,197,176,0.35)' }}>YouTube</span>
+                    </div>
+                    <div className="relative w-full rounded-sm overflow-hidden" style={{ paddingBottom: '56.25%', border: '1px solid rgba(212,197,176,0.06)' }}>
+                      <iframe src={(embeds as any).youtube} className="absolute inset-0 w-full h-full" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy" />
+                    </div>
+                  </div>
+                )}
+                {embeds.spotify && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-px" style={{ background: 'rgba(29,185,84,0.5)' }} />
+                      <span className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(212,197,176,0.35)' }}>Spotify</span>
+                    </div>
+                    <iframe src={embeds.spotify} width="100%" height={isMobile ? "152" : "232"} frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ borderRadius: '6px' }} />
+                  </div>
+                )}
+                {embeds.applePodcasts && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-px" style={{ background: 'rgba(212,197,176,0.3)' }} />
+                      <span className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(212,197,176,0.35)' }}>Apple Podcasts</span>
+                    </div>
+                    <iframe src={embeds.applePodcasts} width="100%" height={isMobile ? "150" : "175"} frameBorder="0" allow="autoplay *;" loading="lazy" style={{ borderRadius: '10px' }} />
+                  </div>
+                )}
+                {embeds.ivoox && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-px" style={{ background: 'rgba(212,197,176,0.3)' }} />
+                      <span className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(212,197,176,0.35)' }}>iVoox</span>
+                    </div>
+                    <iframe src={embeds.ivoox} width="100%" height={isMobile ? "150" : "200"} frameBorder="0" loading="lazy" />
+                  </div>
+                )}
+                {embeds.soundcloud && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-3 h-px" style={{ background: 'rgba(255,85,0,0.5)' }} />
+                      <span className="text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(212,197,176,0.35)' }}>SoundCloud</span>
+                    </div>
+                    <iframe src={embeds.soundcloud} width="100%" height={isMobile ? "120" : "166"} frameBorder="0" allow="autoplay" loading="lazy" />
+                  </div>
+                )}
               </div>
 
-              {/* External links */}
+              {/* External links — refined pill style */}
               {Object.values(links).some(v => v) && (
-                <div className="mb-6">
-                  <span className="text-soda-lamp/50 text-[10px] tracking-[0.2em] block mb-3">ESCUCHAR EN</span>
+                <div className="mb-7">
+                  <p className="text-[9px] tracking-[0.3em] uppercase mb-3" style={{ color: 'rgba(212,197,176,0.28)' }}>Escuchar en</p>
                   <div className="flex flex-wrap gap-2">
-                    {links.spotify && <a href={links.spotify} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-soda-mist/15 rounded-sm text-soda-lamp/65 text-[11px] tracking-wider hover:border-soda-lamp/30 hover:text-soda-lamp transition-all duration-500"><ExternalLink size={11} />Spotify</a>}
-                    {links.applePodcasts && <a href={links.applePodcasts} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-soda-mist/15 rounded-sm text-soda-lamp/65 text-[11px] tracking-wider hover:border-soda-lamp/30 hover:text-soda-lamp transition-all duration-500"><ExternalLink size={11} />Apple Podcasts</a>}
-                    {links.youtube && <a href={links.youtube} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-soda-mist/15 rounded-sm text-soda-lamp/65 text-[11px] tracking-wider hover:border-soda-lamp/30 hover:text-soda-lamp transition-all duration-500"><ExternalLink size={11} />YouTube</a>}
-                    {links.ivoox && <a href={links.ivoox} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-soda-mist/15 rounded-sm text-soda-lamp/65 text-[11px] tracking-wider hover:border-soda-lamp/30 hover:text-soda-lamp transition-all duration-500"><ExternalLink size={11} />iVoox</a>}
-                    {links.soundcloud && <a href={links.soundcloud} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-soda-mist/15 rounded-sm text-soda-lamp/65 text-[11px] tracking-wider hover:border-soda-lamp/30 hover:text-soda-lamp transition-all duration-500"><ExternalLink size={11} />SoundCloud</a>}
+                    {links.spotify && <a href={links.spotify} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] tracking-wider transition-all duration-400" style={{ border: '1px solid rgba(29,185,84,0.2)', color: 'rgba(212,197,176,0.5)', background: 'rgba(29,185,84,0.04)' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(29,185,84,0.4)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.85)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(29,185,84,0.2)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.5)'; }}>Spotify</a>}
+                    {links.applePodcasts && <a href={links.applePodcasts} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] tracking-wider transition-all duration-400" style={{ border: '1px solid rgba(212,197,176,0.12)', color: 'rgba(212,197,176,0.5)' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(212,197,176,0.3)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.85)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(212,197,176,0.12)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.5)'; }}>Apple Podcasts</a>}
+                    {links.youtube && <a href={links.youtube} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] tracking-wider transition-all duration-400" style={{ border: '1px solid rgba(255,50,50,0.2)', color: 'rgba(212,197,176,0.5)', background: 'rgba(255,50,50,0.03)' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(255,50,50,0.4)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.85)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(255,50,50,0.2)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.5)'; }}>YouTube</a>}
+                    {links.ivoox && <a href={links.ivoox} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] tracking-wider transition-all duration-400" style={{ border: '1px solid rgba(212,197,176,0.12)', color: 'rgba(212,197,176,0.5)' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(212,197,176,0.3)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.85)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(212,197,176,0.12)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.5)'; }}>iVoox</a>}
+                    {links.soundcloud && <a href={links.soundcloud} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] tracking-wider transition-all duration-400" style={{ border: '1px solid rgba(255,85,0,0.2)', color: 'rgba(212,197,176,0.5)' }} onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(255,85,0,0.4)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.85)'; }} onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(255,85,0,0.2)'; (e.currentTarget as HTMLElement).style.color='rgba(212,197,176,0.5)'; }}>SoundCloud</a>}
                   </div>
                 </div>
               )}
 
-              {/* Gallery — layout editorial cinematográfico */}
+              {/* Gallery */}
               {gallery.length > 0 && (
                 <div className="mb-7">
                   <div className="flex items-center gap-2 mb-4">
@@ -378,14 +461,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
                   {gallery.length >= 4 && (
                     <div className="space-y-1.5">
-                      {/* Portada ancha */}
                       <div className="relative aspect-[16/7] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
                         onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
                         <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
                         <div className="absolute inset-0 bg-gradient-to-t from-soda-night/40 via-transparent to-transparent pointer-events-none" />
                         <span className="absolute top-2.5 left-3 text-soda-glow/25 text-[8px] font-mono tracking-widest">01</span>
                       </div>
-                      {/* Tira horizontal del resto */}
                       <div className="flex gap-1.5 overflow-x-auto scrollbar-hide" style={{ scrollSnapType:'x mandatory' }}>
                         {gallery.slice(1).map((img, gi) => (
                           <div key={gi} className="flex-shrink-0 relative overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
@@ -404,18 +485,18 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
               {/* Listen prompt */}
               {showListenPrompt && !listened && (
-                <div className="border-t border-soda-mist/10 pt-5 mt-4">
-                  <p className="text-soda-lamp/65 text-sm text-center mb-3">Ya escuchaste este episodio?</p>
+                <div className="pt-5 mt-4" style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
+                  <p className="text-[13px] text-center mb-4" style={{ color: 'rgba(212,197,176,0.5)', fontFamily: "'Crimson Pro', Georgia, serif", fontStyle: 'italic' }}>¿Ya escuchaste este episodio?</p>
                   <div className="flex justify-center gap-3">
-                    <button onClick={() => markListened(true)} className="px-5 py-2.5 bg-soda-red/10 border border-soda-red/30 rounded-sm text-soda-lamp text-sm hover:bg-soda-red/20 transition-all duration-500">Si, ya lo escuche</button>
-                    <button onClick={() => setShowListenPrompt(false)} className="px-5 py-2.5 border border-soda-mist/15 rounded-sm text-soda-fog text-sm hover:text-soda-lamp transition-all duration-500">Todavia no</button>
+                    <button onClick={() => markListened(true)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.25)', color: 'rgba(212,197,176,0.75)' }}>Sí, ya lo escuché</button>
+                    <button onClick={() => setShowListenPrompt(false)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.35)' }}>Todavía no</button>
                   </div>
                 </div>
               )}
               {listened && !showListenPrompt && (
-                <div className="border-t border-soda-mist/10 pt-4 mt-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-400/70" /><span className="text-emerald-400/60 text-xs">Escuchado</span></div>
-                  <button onClick={() => markListened(false)} className="text-soda-fog/30 text-[10px] hover:text-soda-fog/50 transition-colors">desmarcar</button>
+                <div className="pt-4 mt-4 flex items-center justify-between" style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
+                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400/70" /><span className="text-emerald-400/55 text-[10px] tracking-wider">Escuchado</span></div>
+                  <button onClick={() => markListened(false)} className="text-soda-fog/25 text-[10px] hover:text-soda-fog/50 transition-colors">desmarcar</button>
                 </div>
               )}
             </div>
