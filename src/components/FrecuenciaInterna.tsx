@@ -673,7 +673,7 @@ const SubscriberDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* ── POLL OVERLAY ─────────────────────────────────────── */}
+      {/* POLL OVERLAY */}
       <AnimatePresence>
         {activePollPage && currentPoll && !pollCompleted && (
           <PollPage poll={currentPoll} onClose={() => setActivePollPage(null)} onComplete={(answers) => {
@@ -692,8 +692,8 @@ const SubscriberDashboard: React.FC = () => {
           }} />
         )}
       </AnimatePresence>
-        </div>{/* end space-y-5 left col */}
-      </div>{/* end xl:grid */}
+        </div>
+      </div>
     </div>
   );
 };
