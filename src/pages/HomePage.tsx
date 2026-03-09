@@ -29,10 +29,10 @@ const TestimoniosSection: React.FC = () => {
   return (
     <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(196,85,85,0.03) 0%, transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(196,85,85,0.025) 0%, transparent 70%)' }} />
 
       <div className="max-w-5xl mx-auto relative z-10">
-
+        {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
           <div>
@@ -49,68 +49,57 @@ const TestimoniosSection: React.FC = () => {
           </span>
         </motion.div>
 
+        {/* Uniform 3-col grid — all same height */}
         <AnimatePresence mode="wait">
-          <motion.div key={page} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          <motion.div key={page}
+            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-5 mb-12">
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            {current.map((t, i) => (
+              <motion.div key={i}
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.07 }}
+                className="relative flex flex-col p-7 rounded-sm overflow-hidden"
+                style={{
+                  background: 'linear-gradient(145deg, rgba(20,24,36,0.65) 0%, rgba(12,15,24,0.45) 100%)',
+                  border: '1px solid rgba(212,197,176,0.08)',
+                  minHeight: '220px',
+                }}>
+                {/* Big red opening quote */}
+                <span className="block font-serif leading-none select-none mb-3 flex-shrink-0"
+                  style={{ fontSize: '4rem', color: 'rgba(196,85,85,0.55)', lineHeight: 1, marginTop: '-0.5rem' }}>
+                  &ldquo;
+                </span>
 
-            {/* Cita principal */}
-            <div className="lg:col-span-3 relative p-8 sm:p-10 rounded-sm border border-soda-mist/10 overflow-hidden group"
-              style={{ background: 'linear-gradient(135deg, rgba(22,28,42,0.7) 0%, rgba(14,18,28,0.5) 100%)' }}>
-              {/* Comillas gigantes — visibles y elegantes */}
-              <span className="absolute -top-2 left-5 font-serif leading-none select-none pointer-events-none"
-                style={{ fontSize: '9rem', color: 'rgba(196,85,85,0.18)', fontStyle: 'italic', lineHeight: 1 }}>
-                &ldquo;
-              </span>
-              <div className="w-6 h-px bg-soda-red/40 mb-6 mt-6" />
-              <p className="text-soda-lamp/80 text-base sm:text-lg font-light leading-[1.8] mb-8 relative z-10">
-                {current[0].quote}
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono text-soda-red/60 border border-soda-red/20 flex-shrink-0"
-                  style={{ background: 'rgba(196,85,85,0.06)' }}>
-                  {current[0].author.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-soda-lamp/65 text-[11px] tracking-[0.05em]">{current[0].author}</p>
-                  <p className="text-soda-lamp/30 text-[9px] font-light italic mt-0.5">{current[0].from}</p>
-                </div>
-              </div>
-            </div>
+                {/* Quote text — grows to fill */}
+                <p className="text-soda-lamp/65 text-sm font-light leading-[1.75] flex-1">
+                  {t.quote}
+                </p>
 
-            {/* Dos citas secundarias */}
-            <div className="lg:col-span-2 flex flex-col gap-4 sm:gap-5">
-              {current.slice(1).map((t, i) => (
-                <div key={i} className="flex-1 relative p-6 rounded-sm border border-soda-mist/8 overflow-hidden"
-                  style={{ background: 'linear-gradient(135deg, rgba(18,22,34,0.6) 0%, rgba(12,15,24,0.4) 100%)' }}>
-                  {/* Comillas visibles en secundarias también */}
-                  <span className="block font-serif text-soda-red/25 leading-none mb-2 select-none"
-                    style={{ fontSize: '3rem', lineHeight: 1 }}>&ldquo;</span>
-                  <p className="text-soda-lamp/55 text-[12px] font-light leading-[1.75] mb-5 line-clamp-4">
-                    {t.quote}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-px bg-soda-red/30" />
-                    <span className="text-soda-lamp/45 text-[9px] tracking-[0.06em]">{t.author}</span>
-                    <span className="text-soda-lamp/20 text-[8px]">·</span>
-                    <span className="text-soda-lamp/28 text-[9px] italic font-light">{t.from}</span>
+                {/* Author */}
+                <div className="flex items-center gap-3 mt-6 pt-5"
+                  style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-mono flex-shrink-0"
+                    style={{ background: 'rgba(196,85,85,0.07)', border: '1px solid rgba(196,85,85,0.15)', color: 'rgba(196,85,85,0.6)' }}>
+                    {t.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-soda-lamp/60 text-[11px] tracking-[0.04em]">{t.author}</p>
+                    <p className="text-soda-lamp/28 text-[9px] italic mt-0.5">{t.from}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </motion.div>
         </AnimatePresence>
 
+        {/* Navigation */}
         <div className="flex items-center justify-end gap-4">
           <div className="flex gap-1.5 mr-2">
             {Array.from({ length: totalPages }).map((_, i) => (
-              <button key={i} onClick={() => setPage(i)}
-                className="transition-all duration-400"
-                style={{
-                  width: i === page ? '20px' : '6px',
-                  height: '2px', borderRadius: '1px',
-                  background: i === page ? 'rgba(196,85,85,0.6)' : 'rgba(212,197,176,0.18)',
-                }} />
+              <button key={i} onClick={() => setPage(i)} className="transition-all duration-400"
+                style={{ width: i === page ? '20px' : '6px', height: '2px', borderRadius: '1px',
+                  background: i === page ? 'rgba(196,85,85,0.6)' : 'rgba(212,197,176,0.18)' }} />
             ))}
           </div>
           <button onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}

@@ -163,11 +163,7 @@ export const ElEquipo: React.FC = () => {
                 </div>
               </div>
 
-              {/* Index number — decorative, outside card */}
-              <div className="absolute -top-4 -left-3 font-serif italic text-soda-mist/15 text-6xl leading-none select-none pointer-events-none">
-                {String(index + 1).padStart(2, '0')}
-              </div>
-            </motion.div>
+        </motion.div>
           ))}
         </div>
 

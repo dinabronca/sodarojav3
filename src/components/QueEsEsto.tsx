@@ -90,56 +90,59 @@ export const QueEsEsto: React.FC = () => {
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />
         </motion.div>
 
-        {/* Episodes structure — editorial timeline */}
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-px sm:-translate-x-1/2"
-            style={{ background: 'linear-gradient(to bottom, transparent, rgba(107,122,158,0.15) 10%, rgba(107,122,158,0.15) 90%, transparent)' }} />
+        {/* Episodes structure — editorial cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {queEsEsto.estructura.map((item, index) => {
+            const colors = colorMap[item.color] || colorMap.accent;
+            return (
+              <motion.div key={index}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                className="group relative"
+              >
+                <div className={`relative h-full rounded-sm p-6 overflow-hidden transition-all duration-700 group-hover:translate-y-[-2px] ${
+                  item.destacado ? `border ${colors.border}` : 'border border-soda-mist/8 hover:border-soda-mist/18'
+                }`}
+                  style={{
+                    background: item.destacado
+                      ? 'linear-gradient(145deg, rgba(22,28,42,0.85) 0%, rgba(14,18,28,0.65) 100%)'
+                      : 'linear-gradient(145deg, rgba(18,22,34,0.6) 0%, rgba(12,15,24,0.4) 100%)',
+                  }}>
 
-          <div className="space-y-4 sm:space-y-0">
-            {queEsEsto.estructura.map((item, index) => {
-              const colors = colorMap[item.color] || colorMap.accent;
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div key={index}
-                  initial={{ opacity: 0, x: isEven ? -24 : 24 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.55, delay: index * 0.05 }}
-                  className={`relative flex sm:items-center gap-0 sm:gap-8 ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'} pl-16 sm:pl-0 mb-4 sm:mb-0 sm:py-5`}
-                >
-                  {/* Content card */}
-                  <div className={`flex-1 ${isEven ? 'sm:text-right' : 'sm:text-left'}`}>
-                    <div className={`inline-block rounded-sm border p-5 sm:p-6 transition-all duration-500 hover:border-opacity-60 group cursor-default ${
-                      item.destacado ? `bg-soda-night/90 ${colors.border} ${colors.bg}` : 'bg-soda-night/70 border-soda-mist/10 hover:border-soda-accent/20'
-                    }`} style={{ maxWidth: '440px' }}>
-                      <div className={`flex items-start gap-3 mb-3 ${isEven ? 'sm:flex-row-reverse' : ''}`}>
-                        <span className="text-2xl flex-shrink-0">{item.emoji}</span>
-                        <div className={isEven ? 'sm:text-right' : ''}>
-                          <h4 className="text-base font-serif text-soda-glow leading-tight">{item.titulo}</h4>
-                          {item.subtitulo && <p className={`text-xs mt-0.5 ${colors.text}`}>{item.subtitulo}</p>}
-                        </div>
-                      </div>
-                      <p className="text-soda-lamp/65 text-sm leading-relaxed">{item.descripcion}</p>
-                      {item.detalles && (
-                        <p className="text-soda-fog/45 text-xs leading-relaxed mt-2 italic">{item.detalles}</p>
-                      )}
-                    </div>
+                  {/* Subtle corner glow on destacado */}
+                  {item.destacado && (
+                    <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none"
+                      style={{ background: `radial-gradient(circle at 100% 0%, rgba(196,85,85,0.08) 0%, transparent 70%)` }} />
+                  )}
+
+                  {/* Top row: number + emoji */}
+                  <div className="flex items-start justify-between mb-5">
+                    <span className={`text-[9px] tracking-[0.3em] font-mono ${colors.text} opacity-70`}>
+                      {String(item.numero).padStart(2,'0')}
+                    </span>
+                    <span className="text-2xl leading-none">{item.emoji}</span>
                   </div>
 
-                  {/* Center node */}
-                  <div className="absolute left-4 sm:static sm:flex-shrink-0 flex items-center justify-center sm:w-14">
-                    <div className={`w-8 h-8 rounded-sm border-2 flex items-center justify-center font-serif text-xs font-bold ${colors.border} ${colors.text} bg-soda-night`}>
-                      {item.numero}
-                    </div>
-                  </div>
+                  {/* Title */}
+                  <h4 className="font-serif text-base text-soda-glow/85 leading-snug mb-2">{item.titulo}</h4>
+                  {item.subtitulo && (
+                    <p className={`text-[10px] tracking-[0.08em] mb-3 ${colors.text} opacity-60`}>{item.subtitulo}</p>
+                  )}
 
-                  {/* Spacer for alternate side */}
-                  <div className="hidden sm:block flex-1" />
-                </motion.div>
-              );
-            })}
-          </div>
+                  {/* Divider */}
+                  <div className={`w-8 h-px mb-3 ${colors.text} opacity-20`} style={{ background: 'currentColor' }} />
+
+                  {/* Description */}
+                  <p className="text-soda-lamp/55 text-[12px] leading-[1.7]">{item.descripcion}</p>
+                  {item.detalles && (
+                    <p className="text-soda-fog/35 text-[11px] leading-relaxed mt-2 italic">{item.detalles}</p>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Temas grid */}
