@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Heart, Radio, MessageCircle, BarChart3, Trophy, Settings, CreditCard, LogOut, ArrowRight, Bell, Gift, Instagram, Youtube, Twitter, Headphones, Calendar, Zap, Star, ExternalLink, ChevronRight } from 'lucide-react';
 import { getCurrentUser } from '../data/auth';
+import { SocialLoginPanel } from './SocialLoginPanel';
 
 // ============================================================
 // PLANES & BENEFICIOS
@@ -325,11 +326,10 @@ const SubscriberDashboard: React.FC = () => {
         <div className="space-y-5">
 
           {/* ── ENCUESTA + SORTEO — always visible at top ── */}
-          {(currentPoll || currentRaffle) && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
               {/* ENCUESTA */}
-              {currentPoll && (
+              {currentPoll ? (
                 <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}
                   className="rounded-sm overflow-hidden cursor-pointer group"
                   style={{ background:'linear-gradient(135deg, rgba(18,24,40,0.7) 0%, rgba(12,16,26,0.5) 100%)', border:'1px solid rgba(138,155,196,0.2)' }}
@@ -364,10 +364,17 @@ const SubscriberDashboard: React.FC = () => {
                     )}
                   </div>
                 </motion.div>
+              ) : (
+                <div className="rounded-sm flex flex-col items-center justify-center py-10 px-5 text-center"
+                  style={{ background:'rgba(14,18,30,0.4)', border:'1px solid rgba(138,155,196,0.08)' }}>
+                  <BarChart3 size={20} className="mb-3" style={{ color:'rgba(138,155,196,0.2)' }} />
+                  <p className="font-serif italic text-soda-lamp/25 text-sm mb-1">Sin encuesta activa</p>
+                  <p className="text-soda-lamp/13 text-[10px]">Cuando haya una, aparece acá</p>
+                </div>
               )}
 
               {/* SORTEO */}
-              {currentRaffle && (
+              {currentRaffle ? (
                 <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5, delay:0.08 }}
                   className="rounded-sm overflow-hidden"
                   style={{ background:'linear-gradient(135deg, rgba(22,16,28,0.7) 0%, rgba(14,10,20,0.5) 100%)', border:'1px solid rgba(196,85,85,0.2)' }}>
@@ -415,9 +422,16 @@ const SubscriberDashboard: React.FC = () => {
                     )}
                   </div>
                 </motion.div>
+              ) : (
+                <div className="rounded-sm flex flex-col items-center justify-center py-10 px-5 text-center"
+                  style={{ background:'rgba(14,18,30,0.4)', border:'1px solid rgba(196,85,85,0.08)' }}>
+                  <Trophy size={20} className="mb-3" style={{ color:'rgba(196,85,85,0.2)' }} />
+                  <p className="font-serif italic text-soda-lamp/25 text-sm mb-1">Sin sorteo activo</p>
+                  <p className="text-soda-lamp/13 text-[10px]">Guardá soditas para cuando aparezca uno</p>
+                </div>
               )}
             </div>
-          )}
+          </div>
 
           {/* Section nav tabs — mensajes + alertas */}
           <div className="flex items-center gap-1">
@@ -834,7 +848,7 @@ const PublicView: React.FC = () => {
         </div>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16">
           <div className="mb-6 text-center"><div className="text-soda-lamp text-sm mb-1">Plan seleccionado: <span className="text-soda-red font-medium">{currentPlan.name}</span></div><div className="text-soda-fog text-xs">${currentPlan.priceARS.toLocaleString('es-AR')} ARS / USD ${currentPlan.priceUSD} por mes</div></div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto mb-12">
             <button className="w-full sm:w-auto px-10 py-5 bg-soda-red/10 border border-soda-red/50 text-soda-glow rounded-sm hover:bg-soda-red/20 hover:border-soda-red/70 transition-all duration-500 tracking-wider">
               <span className="flex items-center justify-center gap-2"><Heart size={18} />SUSCRIBIRME (ARGENTINA)</span>
               <span className="block text-xs text-soda-lamp mt-1 opacity-70">Mercado Pago · ${currentPlan.priceARS.toLocaleString('es-AR')} ARS/mes</span>
@@ -844,7 +858,17 @@ const PublicView: React.FC = () => {
               <span className="block text-xs text-soda-lamp mt-1 opacity-70">USD ${currentPlan.priceUSD}/mes</span>
             </button>
           </div>
-          <p className="text-soda-fog text-xs mt-8 font-light text-center">Cancelá cuando quieras, sin compromiso ni letra chica</p>
+          <p className="text-soda-fog text-xs font-light text-center mb-16">Cancelá cuando quieras, sin compromiso ni letra chica</p>
+
+          {/* ── LOGIN SOCIAL ── */}
+          <div className="max-w-sm mx-auto">
+            <div className="flex items-center gap-4 mb-8 justify-center">
+              <div className="w-12 h-px" style={{ background: 'rgba(212,197,176,0.1)' }} />
+              <span className="text-[9px] tracking-[0.35em] uppercase" style={{ color: 'rgba(212,197,176,0.3)' }}>¿ya tenés cuenta?</span>
+              <div className="w-12 h-px" style={{ background: 'rgba(212,197,176,0.1)' }} />
+            </div>
+            <SocialLoginPanel />
+          </div>
         </motion.div>
       </div>
     </>

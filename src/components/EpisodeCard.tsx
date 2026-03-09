@@ -112,13 +112,15 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        whileHover={!isLocked ? { y: -2, transition: { duration: 1.2, ease: 'easeOut' } } : undefined}
         className="relative group h-full"
         onClick={handleCardClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ cursor: isLocked ? 'default' : 'pointer' }}
       >
+        {/* Hover lift wrapper — isolated from parallax RAF to prevent jitter */}
+        <div className="h-full transition-transform duration-700 ease-out group-hover:-translate-y-0.5"
+          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
         <div className={`relative overflow-hidden rounded-sm h-full transition-all duration-700 ${
           featured ? 'flex flex-col md:flex-row' : ''
         } ${
@@ -260,6 +262,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             )}
           </div>
         </div>
+        </div>{/* end hover wrapper */}
       </motion.div>
 
       {/* === MODAL === */}

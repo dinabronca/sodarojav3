@@ -171,9 +171,9 @@ export const ElEquipo: React.FC = () => {
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           transition={{ delay: 0.5 }}
           className="flex items-center gap-6 justify-center mt-20">
-          <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-soda-mist/15" />
-          <span className="text-soda-lamp/18 text-[9px] tracking-[0.3em] uppercase">sodaroja · equipo</span>
-          <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-soda-mist/15" />
+          <div className="h-px flex-1 max-w-32 bg-gradient-to-r from-transparent to-soda-mist/15" />
+          <div className="w-1 h-1 rounded-full bg-soda-red/20" />
+          <div className="h-px flex-1 max-w-32 bg-gradient-to-l from-transparent to-soda-mist/15" />
         </motion.div>
       </div>
     </section>

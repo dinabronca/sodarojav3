@@ -99,8 +99,8 @@ export const QueEsEsto: React.FC = () => {
         {/* ── CABLE TIMELINE ── */}
         <div className="relative">
 
-          {/* The cable — vertical line, left-aligned on mobile, centered on desktop */}
-          <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px"
+          {/* The cable — vertical line */}
+          <div className="absolute left-[20px] top-0 bottom-0 w-px"
             style={{ background: 'rgba(196,85,85,0.08)' }}>
 
             {/* Progress fill — grows as you scroll */}
@@ -125,10 +125,10 @@ export const QueEsEsto: React.FC = () => {
                   whileInView={{ opacity:1, x:0 }}
                   viewport={{ once:true, margin:'-60px' }}
                   transition={{ duration:0.5, delay:0.05 }}
-                  className={`relative flex items-start gap-6 sm:gap-8 pl-16 sm:pl-20 ${isLast ? '' : 'pb-8'}`}
+                  className={`relative flex items-start gap-6 pl-12 ${isLast ? '' : 'pb-8'}`}
                 >
-                  {/* Node on cable */}
-                  <div className="absolute left-[18px] sm:left-[25px] top-5 -translate-x-1/2 z-10">
+                  {/* Node on cable — centered exactly on the cable line */}
+                  <div className="absolute left-[20px] top-5 -translate-x-1/2 z-10">
                     <motion.div
                       initial={{ scale:0 }}
                       whileInView={{ scale:1 }}
@@ -172,25 +172,26 @@ export const QueEsEsto: React.FC = () => {
 
                     <div className="p-5 sm:p-6">
                       {/* Number + title row */}
-                      <div className="flex items-baseline gap-3 mb-3">
-                        <span className="font-mono text-[9px] tracking-[0.3em] flex-shrink-0"
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="font-mono text-[9px] tracking-[0.28em] flex-shrink-0"
                           style={{ color: colors.text }}>
                           {String(item.numero).padStart(2,'0')}
                         </span>
-                        <div className="w-4 h-px flex-shrink-0" style={{ background: colors.border }} />
-                        <h4 className="font-serif text-base sm:text-lg text-soda-glow/85 leading-snug">{item.titulo}</h4>
+                        <div className="w-3 h-px flex-shrink-0" style={{ background: colors.border }} />
+                        <h4 className="font-serif text-base sm:text-[17px] leading-snug"
+                          style={{ color: 'rgba(254,248,237,0.85)' }}>{item.titulo}</h4>
                       </div>
 
                       {item.subtitulo && (
-                        <p className="text-[10px] tracking-[0.08em] mb-3 ml-[3.5rem]"
-                          style={{ color: colors.text, opacity:0.65 }}>
+                        <p className="text-[10px] tracking-[0.1em] mb-3 uppercase"
+                          style={{ color: colors.text, opacity:0.6 }}>
                           {item.subtitulo}
                         </p>
                       )}
 
-                      <p className="text-soda-lamp/52 text-[12px] leading-[1.75] ml-[3.5rem]">{item.descripcion}</p>
+                      <p className="text-[12px] leading-[1.78]" style={{ color: 'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
                       {item.detalles && (
-                        <p className="text-soda-fog/30 text-[11px] leading-relaxed mt-2 italic ml-[3.5rem]">{item.detalles}</p>
+                        <p className="text-[11px] leading-relaxed mt-2 italic" style={{ color: 'rgba(212,197,176,0.28)' }}>{item.detalles}</p>
                       )}
                     </div>
                   </div>
@@ -200,7 +201,7 @@ export const QueEsEsto: React.FC = () => {
           </div>
 
           {/* End cap of cable */}
-          <div className="absolute left-6 sm:left-8 bottom-0 -translate-x-1/2 w-2 h-2 rounded-full"
+          <div className="absolute left-[20px] bottom-0 -translate-x-1/2 w-2 h-2 rounded-full"
             style={{ background:'rgba(196,85,85,0.3)', boxShadow:'0 0 4px rgba(196,85,85,0.2)' }} />
         </div>
 
