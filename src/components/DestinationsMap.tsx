@@ -207,7 +207,7 @@ export const DestinationsMap: React.FC = () => {
           marker.getElement()?.querySelector('.sr-dot')?.classList.remove('sr-dot-hover');
         });
 
-        // Click → cinematic zoom + navigate
+        // Click → cinematic zoom + navigate to specific episode
         marker.on('click', () => {
           if (isZoomingRef.current) return;
           isZoomingRef.current = true;
@@ -221,7 +221,7 @@ export const DestinationsMap: React.FC = () => {
 
           setTimeout(() => {
             isZoomingRef.current = false;
-            navigate('/episodios');
+            navigate(`/episodios?ep=${ep.id}`);
           }, 1500);
         });
       });

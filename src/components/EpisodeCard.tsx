@@ -19,13 +19,12 @@ const formatDate = (dateStr?: string): string => {
 
 const epNum = (n?: number) => n !== undefined ? `EP. ${String(n).padStart(3, '0')}` : '';
 
-export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episodeNumber?: number; featured?: boolean }> = ({ episode, isNewest = false, episodeNumber, featured = false }) => {
+export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episodeNumber?: number; featured?: boolean; autoOpen?: boolean }> = ({ episode, isNewest = false, episodeNumber, featured = false, autoOpen = false }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [listened, setListened] = useState(false);
   const [showListenPrompt, setShowListenPrompt] = useState(false);
   const [zoomedImg, setZoomedImg] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  // Parallax via ref directo — sin setState, sin re-renders, sin FPS drop
   const parallaxRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const formattedDate = formatDate(episode.publishDate);
@@ -34,6 +33,17 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
   const isLocked = episode.isPremium && !isPremiumUser;
   const isUnlockedPremium = episode.isPremium && isPremiumUser;
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window);
+
+  // Auto-open from map navigation
+  useEffect(() => {
+    if (autoOpen && !isLocked) {
+      setTimeout(() => {
+        setIsExpanded(true);
+        if (!listened) setShowListenPrompt(true);
+        cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 600);
+    }
+  }, [autoOpen]);
 
   useEffect(() => {
     try { const d = JSON.parse(localStorage.getItem('sodaroja-listened') || '[]'); setListened(d.includes(episode.id)); } catch {}

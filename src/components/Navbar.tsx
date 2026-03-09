@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
                 const active = isActive(item.href);
                 return (
                   <Link key={item.href} to={item.href}
-                    className={`relative text-[9px] tracking-[0.22em] uppercase transition-all duration-500 group ${
+                    className={`relative text-[11px] tracking-[0.15em] uppercase transition-all duration-500 group ${
                       item.highlight
                         ? active ? 'text-soda-red' : 'text-soda-red/45 hover:text-soda-red/80'
                         : active ? 'text-soda-lamp/80' : 'text-soda-lamp/35 hover:text-soda-lamp/65'
@@ -108,12 +108,12 @@ export const Navbar: React.FC = () => {
               <div className="hidden lg:block">
                 {isLoggedIn ? (
                   <Link to="/mi-cuenta"
-                    className="text-[9px] tracking-[0.22em] uppercase text-soda-lamp/30 hover:text-soda-lamp/60 transition-colors duration-500">
+                    className="text-[11px] tracking-[0.15em] uppercase text-soda-lamp/30 hover:text-soda-lamp/60 transition-colors duration-500">
                     Mi Cuenta
                   </Link>
                 ) : (
                   <Link to="/unirse"
-                    className="text-[9px] tracking-[0.22em] uppercase px-4 py-2 rounded-sm transition-all duration-500 hover:scale-[1.02]"
+                    className="text-[11px] tracking-[0.12em] uppercase px-4 py-2 rounded-sm transition-all duration-500 hover:scale-[1.02]"
                     style={{
                       color: 'rgba(196,85,85,0.75)',
                       border: '1px solid rgba(196,85,85,0.2)',

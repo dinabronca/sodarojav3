@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   signInWithGoogle,
   signInWithTwitter,
-  signInWithApple,
+  signInWithSpotify,
   signInWithEmail,
   signUpWithEmail,
   upsertUserProfile,
@@ -28,9 +28,9 @@ const XIcon = () => (
   </svg>
 );
 
-const AppleIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/>
+const SpotifyIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#1DB954">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.371-.721.49-1.101.24-3.021-1.858-6.832-2.278-11.322-1.237-.422.1-.851-.16-.949-.584-.1-.421.16-.85.584-.948 4.911-1.121 9.121-.641 12.502 1.432.371.24.489.72.24 1.1l.046-.003zm1.47-3.27c-.299.469-.939.619-1.408.319-3.459-2.127-8.731-2.743-12.822-1.502-.529.16-1.088-.139-1.248-.669-.161-.529.139-1.088.669-1.248 4.671-1.42 10.471-.73 14.472 1.712.468.299.618.938.318 1.407l.019.001zm.127-3.402C15.503 8.32 8.39 8.1 4.72 9.223c-.637.19-1.307-.166-1.497-.802-.19-.637.166-1.307.802-1.497C8.15 5.637 15.962 5.9 20.441 8.502c.572.333.771 1.065.438 1.637-.333.572-1.065.77-1.637.438l-.124-.009z"/>
   </svg>
 );
 
@@ -63,13 +63,13 @@ export const UnirsePage: React.FC = () => {
     if (getCurrentUser()) navigate('/mi-cuenta');
   }, []);
 
-  const handleOAuth = async (provider: 'google' | 'twitter' | 'apple') => {
+  const handleOAuth = async (provider: 'google' | 'twitter' | 'spotify') => {
     setLoading(provider);
     setError('');
     try {
       if (provider === 'google') await signInWithGoogle();
       else if (provider === 'twitter') await signInWithTwitter();
-      else await signInWithApple();
+      else await signInWithSpotify();
     } catch {
       setError('Error al conectar. Intentá de nuevo.');
       setLoading(null);
@@ -203,9 +203,9 @@ export const UnirsePage: React.FC = () => {
               {[
                 { id: 'google' as const, label: 'Continuar con Google', icon: <GoogleIcon />,
                   border: 'rgba(212,197,176,0.1)', bg: 'rgba(212,197,176,0.025)' },
+                { id: 'spotify' as const, label: 'Continuar con Spotify', icon: <SpotifyIcon />,
+                  border: 'rgba(29,185,84,0.2)', bg: 'rgba(29,185,84,0.04)' },
                 { id: 'twitter' as const, label: 'Continuar con X', icon: <XIcon />,
-                  border: 'rgba(212,197,176,0.1)', bg: 'rgba(212,197,176,0.025)' },
-                { id: 'apple' as const, label: 'Continuar con Apple', icon: <AppleIcon />,
                   border: 'rgba(212,197,176,0.1)', bg: 'rgba(212,197,176,0.025)' },
               ].map(btn => (
                 <button key={btn.id}

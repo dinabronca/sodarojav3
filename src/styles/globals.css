@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,7 +9,7 @@ html { scroll-behavior: smooth; }
 
 body {
   @apply bg-soda-night;
-  font-family: 'Crimson Pro', Georgia, serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
   font-weight: 300;
   color: #e8dcc8;
   line-height: 1.8;
@@ -22,7 +22,7 @@ body {
 
 /* ===== TYPOGRAPHY — refined ===== */
 .font-serif { font-family: 'Crimson Pro', Georgia, serif; }
-h1, h2, h3 { font-family: 'Crimson Pro', Georgia, serif; font-weight: 400; letter-spacing: 0.02em; }
+h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; letter-spacing: 0.02em; }
 p { font-weight: 300; }
 em { font-style: italic; font-family: 'Crimson Pro', Georgia, serif; }
 a { transition: color 0.5s ease, opacity 0.5s ease; }

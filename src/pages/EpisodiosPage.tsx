@@ -1,6 +1,7 @@
-import React, { useState, useMemo, lazy } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { EpisodeCard } from '../components/EpisodeCard';
 import { EpisodeVibes } from '../effects/SectionBackgrounds';
 import { EditorialHeader } from '../components/Editorial';
@@ -10,6 +11,10 @@ import { SEO } from '../components/SEO';
 
 export const EpisodiosPage: React.FC = () => {
   const content = getContent();
+  const location = useLocation();
+  const autoOpenId = new URLSearchParams(location.search).get('ep');
+  const autoOpenedRef = useRef(false);
+
   // Combinar: episodios del admin store + demo fallback
   const storeEps = content.episodios?.items || [];
   const allRaw = (storeEps.length > 0 ? storeEps : demoEpisodes).filter((e: any) => !e.hidden);
@@ -84,7 +89,12 @@ export const EpisodiosPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filtered.map((episode: any, index: number) => (
             <motion.div key={episode.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.8), ease: 'easeOut' }}>
-              <EpisodeCard episode={episode} isNewest={episode.id === newestId} episodeNumber={episodeNumberMap[episode.id]} />
+              <EpisodeCard
+                episode={episode}
+                isNewest={episode.id === newestId}
+                episodeNumber={episodeNumberMap[episode.id]}
+                autoOpen={!autoOpenedRef.current && episode.id === autoOpenId ? (autoOpenedRef.current = true, true) : false}
+              />
             </motion.div>
           ))}
         </div>

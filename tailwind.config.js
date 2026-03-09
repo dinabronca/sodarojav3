@@ -22,7 +22,7 @@ export default {
         },
       },
       fontFamily: {
-        'sans': ['Crimson Pro', 'Georgia', 'serif'],
+        'sans': ['DM Sans', 'system-ui', 'sans-serif'],
         'serif': ['Crimson Pro', 'Georgia', 'serif'],
         'display': ['Cormorant Garamond', 'Georgia', 'serif'],
         'mono': ['JetBrains Mono', 'monospace'],
