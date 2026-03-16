@@ -40,7 +40,7 @@ const TestimoniosSection: React.FC = () => {
               <div className="w-8 h-px bg-soda-red/50" />
               <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Oyentes</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85" leading-[1.1]">
+            <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85 leading-[1.1]">
               Lo que <em className="text-soda-red/70">dicen</em>
             </h2>
           </div>
