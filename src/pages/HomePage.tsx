@@ -41,7 +41,7 @@ const TestimoniosSection: React.FC = () => {
               <span className="font-sans text-soda-red/55 text-[9px] tracking-[0.4em] uppercase">Oyentes</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85 leading-[1.1]">
-              Lo que <span className="text-soda-red/70">dicen</span>
+              Lo que <span className="font-serif italic text-soda-red/70" style={{ fontWeight: 400 }}>dicen</span>
             </h2>
           </div>
           <span className="text-soda-lamp/20 text-[10px] tracking-[0.3em] font-mono">
@@ -177,7 +177,7 @@ export const HomePage: React.FC = () => {
               <span className="font-sans text-soda-red/70 text-[9px] tracking-[0.35em] uppercase">Viajes recientes</span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05]">
-              Los últimos <span className="text-soda-red">destinos</span>
+              Los últimos <span className="font-serif italic text-soda-red" style={{ fontWeight: 400 }}>destinos</span>
             </h2>
           </motion.div>
 

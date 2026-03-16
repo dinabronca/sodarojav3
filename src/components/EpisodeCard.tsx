@@ -12,7 +12,7 @@ interface Episode {
 
 const formatDate = (dateStr?: string): string => {
   if (!dateStr) return '';
-  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const months = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
   const d = new Date(dateStr + 'T00:00:00');
   return `${months[d.getMonth()]} ${d.getFullYear()}`;
 };
@@ -268,7 +268,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                 {episode.city}
               </span>
               {formattedDate && !isLocked && (
-                <span className="text-soda-lamp/30 text-[9px] font-light tracking-[0.05em]">{formattedDate}</span>
+                <span className="font-sans text-soda-lamp/30 text-[9px] tracking-[0.2em] uppercase">{formattedDate}</span>
               )}
             </div>
 
@@ -363,7 +363,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                 <div className="flex items-center gap-3 mb-2">
                   <span className={`text-[10px] tracking-[0.3em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/80' : 'text-soda-accent/80'}`}>{episode.city}{(episode as any).country ? `, ${(episode as any).country}` : ''}</span>
                   <div className="w-px h-3" style={{ background: 'rgba(212,197,176,0.2)' }} />
-                  {formattedDate && <span className="text-soda-lamp/45 text-[10px]">{formattedDate}</span>}
+                  {formattedDate && <span className="font-sans text-soda-lamp/45 text-[10px] tracking-[0.2em] uppercase">{formattedDate}</span>}
                   {(episode as any).durationMin && <span className="text-soda-lamp/35 text-[10px]">{(episode as any).durationMin} min</span>}
                 </div>
               </div>

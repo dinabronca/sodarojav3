@@ -207,22 +207,31 @@ export const DestinationsMap: React.FC = () => {
           marker.getElement()?.querySelector('.sr-dot')?.classList.remove('sr-dot-hover');
         });
 
-        // Click → cinematic zoom + navigate to specific episode
+        // Click → first click zooms, second click navigates
         marker.on('click', () => {
           if (isZoomingRef.current) return;
-          isZoomingRef.current = true;
-          setHoverCard(null);
 
-          map.flyTo([ep.coords.lat, ep.coords.lng], 6, {
-            animate: true,
-            duration: 1.4,
-            easeLinearity: 0.25,
-          });
+          const currentZoom = map.getZoom();
+          const markerPos = [ep.coords.lat, ep.coords.lng] as [number, number];
+          const mapCenter = map.getCenter();
+          const distLat = Math.abs(mapCenter.lat - ep.coords.lat);
+          const distLng = Math.abs(mapCenter.lng - ep.coords.lng);
+          const isAlreadyZoomed = currentZoom >= 5 && distLat < 2 && distLng < 2;
 
-          setTimeout(() => {
-            isZoomingRef.current = false;
+          if (isAlreadyZoomed) {
+            // Second click — navigate
             navigate(`/episodios?ep=${ep.id}`);
-          }, 1500);
+          } else {
+            // First click — zoom in
+            isZoomingRef.current = true;
+            setHoverCard(null);
+            map.flyTo(markerPos, 6, {
+              animate: true,
+              duration: 1.4,
+              easeLinearity: 0.25,
+            });
+            setTimeout(() => { isZoomingRef.current = false; }, 1600);
+          }
         });
       });
 
@@ -276,7 +285,7 @@ export const DestinationsMap: React.FC = () => {
             <div className="w-10 h-px bg-soda-red" />
           </div>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05] text-center mb-10">
-            Donde <span className="text-soda-red">estuvimos</span>
+            Donde <span className="font-serif italic text-soda-red" style={{ fontWeight: 400 }}>estuvimos</span>
           </h2>
         </motion.div>
 

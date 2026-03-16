@@ -55,7 +55,7 @@ export const ElEquipo: React.FC = () => {
           className="text-center mb-20">
           <h2 className="font-display leading-[0.95] mb-0">
             <span className="text-soda-glow/90 text-5xl sm:text-7xl">El </span>
-            <span className="text-5xl sm:text-7xl" style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</span>
+            <span className="font-serif italic text-5xl sm:text-7xl" style={{ color: 'rgba(138,155,196,0.8)', fontWeight: 400 }}>Equipo</span>
           </h2>
           <p className="font-sans text-soda-lamp/40 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
         </motion.div>
@@ -106,9 +106,9 @@ export const ElEquipo: React.FC = () => {
                   </div>
 
                   {/* Member vitals — top right corner */}
-                  <div className="absolute top-4 right-4 text-right px-2.5 py-1.5 rounded-sm" style={{ background: 'rgba(8,10,18,0.65)', backdropFilter: 'blur(8px)', border: '1px solid rgba(212,197,176,0.08)' }}>
-                    <p className="text-soda-lamp/70 text-[9px] tracking-[0.12em]">{member.cityBorn} · {member.birthYear}</p>
-                    <p className="font-mono text-soda-accent/45 text-[9px] mt-0.5">{member.zodiac}</p>
+                  <div className="absolute top-4 right-4 text-right px-3 py-2 rounded-sm" style={{ background: 'rgba(6,8,16,0.75)', backdropFilter: 'blur(10px)', border: '1px solid rgba(212,197,176,0.1)' }}>
+                    <p className="font-sans text-soda-lamp/60 text-[8px] tracking-[0.2em] uppercase">{member.cityBorn}</p>
+                    <p className="font-mono text-soda-lamp/35 text-[8px] tracking-[0.15em] mt-0.5">{member.birthYear}</p>
                   </div>
                 </div>
 
@@ -150,7 +150,7 @@ export const ElEquipo: React.FC = () => {
                       className="space-y-2.5 max-h-52 overflow-y-auto pr-1"
                       style={{ scrollbarWidth: 'none' }}>
                       {getTab(index) === 'perfil'
-                        ? favoriteFields.map((field: any) => (
+                        ? favoriteFields.slice(0, 10).map((field: any) => (
                             member.favorites?.[field.key] != null ? (
                               <div key={field.key} className="flex gap-2 text-[12px]">
                                 <span className="text-soda-accent/45 flex-shrink-0 font-sans" style={{ minWidth: '100px' }}>{field.label}</span>
@@ -158,7 +158,7 @@ export const ElEquipo: React.FC = () => {
                               </div>
                             ) : null
                           ))
-                        : cityFields.map((field: any) => (
+                        : cityFields.slice(0, 10).map((field: any) => (
                             member.cities?.[field.key] ? (
                               <div key={field.key} className="flex gap-2 text-[12px]">
                                 <span className="text-soda-accent/45 flex-shrink-0 font-sans" style={{ minWidth: '130px' }}>{field.label}</span>

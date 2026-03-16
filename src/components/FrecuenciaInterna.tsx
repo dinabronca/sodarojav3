@@ -820,7 +820,7 @@ const PublicView: React.FC = () => {
           <motion.div animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
             <div className="w-3 h-3 rounded-full mx-auto" style={{ background: 'rgba(196,85,85,0.85)', boxShadow: '0 0 20px rgba(196,85,85,0.5), 0 0 40px rgba(196,85,85,0.2)' }} />
           </motion.div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <span className="text-soda-red/85">Interna</span></h2>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <span className="font-serif italic text-soda-red/85" style={{ fontWeight: 400 }}>Interna</span></h2>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
           <p className="font-sans text-lg text-soda-lamp/65 max-w-2xl mx-auto mb-8 leading-relaxed">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
         </motion.div>
@@ -841,7 +841,7 @@ const PublicView: React.FC = () => {
                   {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-soda-red px-4 py-1 rounded-sm text-xs tracking-wider text-soda-glow">M&#193;S ELEGIDO</div>}
                   <div className="flex items-end justify-between pr-8">
                     <div><h4 className="text-2xl font-serif text-soda-glow mb-2">{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
-                    <div className="text-right"><div className="text-3xl font-display text-soda-lamp">${plan.priceARS.toLocaleString('es-AR')}</div><div className="text-sm font-sans text-soda-fog">USD ${plan.priceUSD}/mes</div></div>
+                    <div className="text-right"><div className="font-mono text-2xl text-soda-lamp/90 tracking-tight">${plan.priceARS.toLocaleString('es-AR')}</div><div className="font-sans text-xs text-soda-lamp/40 mt-0.5 tracking-wide">USD ${plan.priceUSD}/mes</div></div>
                   </div>
                 </motion.div>
               ))}

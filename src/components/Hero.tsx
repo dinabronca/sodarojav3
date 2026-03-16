@@ -94,8 +94,8 @@ export const Hero: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Eyebrow — pulso */}
-        <motion.div className="flex items-center gap-4 mb-10 sm:mb-14"
+        {/* Description — ABOVE the title, same style as eyebrow */}
+        <motion.div className="flex items-center gap-4 mb-8 sm:mb-10"
           initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:1.2 }}>
           <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to right, transparent, rgba(196,85,85,0.35))' }} />
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -103,9 +103,9 @@ export const Hero: React.FC = () => {
             animate={{ opacity:[0.4,1,0.4], scale:[0.85,1.15,0.85] }}
             transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
-          <span className="text-[9px] sm:text-[10px] uppercase font-sans"
-            style={{ color:'rgba(196,85,85,0.5)', letterSpacing:'0.45em', fontWeight:300 }}>
-            {subtitle}
+          <span className="font-sans text-center text-[9px] sm:text-[10px] uppercase"
+            style={{ color:'rgba(212,197,176,0.45)', letterSpacing:'0.35em', fontWeight:300 }}>
+            {hero.description || subtitle}
           </span>
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
             style={{ background:'rgba(196,85,85,0.75)', boxShadow:'0 0 8px rgba(196,85,85,0.6)' }}
@@ -122,11 +122,12 @@ export const Hero: React.FC = () => {
             animate={{ y:0, opacity:1 }}
             transition={{ delay:0.35, duration:1.1, ease:[0.16,1,0.3,1] }}
           >
-            <h1 className="font-display tracking-[-0.02em] leading-[0.88] select-none"
+            <h1 className="font-display tracking-[-0.01em] leading-[0.9] select-none"
               style={{
                 fontSize:'clamp(4.5rem,19vw,18rem)',
                 color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
+                paddingBottom:'0.08em',
               }}
             >
               {title}
@@ -134,41 +135,27 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Línea fina + tagline bajo el título */}
-        <motion.div className="w-full flex flex-col items-center gap-5 mb-10"
+        {/* Línea + data strip */}
+        <motion.div className="w-full flex flex-col items-center gap-6 mt-2"
           initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.75, duration:1.2 }}>
           <div style={{ width:'55%', height:'1px',
             background:'linear-gradient(to right, transparent, rgba(196,85,85,0.2) 30%, rgba(212,197,176,0.1) 50%, rgba(196,85,85,0.2) 70%, transparent)' }} />
-          {hero.description ? (
-            <p className="font-sans text-center"
-              style={{ color:'rgba(212,197,176,0.45)', fontSize:'11px',
-                letterSpacing:'0.32em', textTransform:'uppercase', fontWeight:300, maxWidth:'32rem' }}>
-              {hero.description}
-            </p>
-          ) : (
-            <p className="font-sans text-center"
-              style={{ color:'rgba(212,197,176,0.35)', fontSize:'11px',
-                letterSpacing:'0.32em', textTransform:'uppercase', fontWeight:300 }}>
-              historias reales de ciudades lejanas
-            </p>
-          )}
-        </motion.div>
 
-        {/* Editorial data strip */}
-        <motion.div className="flex items-center gap-6 sm:gap-10"
-          initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.1, duration:0.9 }}>
-          {[
-            { label: 'temporada', value: '01' },
-            { label: 'ciudades', value: String(cityCount) },
-          ].map((item, i) => (
-            <React.Fragment key={i}>
-              {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
-              <div className="text-center">
-                <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
-                <div className="font-sans text-[8px] tracking-[0.3em] uppercase mt-0.5" style={{ color:'rgba(212,197,176,0.22)' }}>{item.label}</div>
-              </div>
-            </React.Fragment>
-          ))}
+          {/* Editorial data strip */}
+          <div className="flex items-center gap-6 sm:gap-10">
+            {[
+              { label: 'temporada', value: '01' },
+              { label: 'ciudades', value: String(cityCount) },
+            ].map((item, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
+                <div className="text-center">
+                  <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
+                  <div className="font-sans text-[8px] tracking-[0.3em] uppercase mt-0.5" style={{ color:'rgba(212,197,176,0.22)' }}>{item.label}</div>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
         </motion.div>
 
       </div>
