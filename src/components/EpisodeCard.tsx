@@ -156,12 +156,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           featured ? 'flex flex-col md:flex-row' : ''
         } ${
           isLocked
-            ? 'bg-soda-slate/30 border border-soda-mist/10'
+            ? 'bg-soda-slate/30'
             : isUnlockedPremium
-            ? 'bg-soda-slate/40 border border-soda-red/25 hover:border-soda-red/40'
-            : 'bg-soda-slate/30 border border-soda-mist/8 hover:border-soda-mist/18'
+            ? 'bg-soda-slate/40'
+            : 'bg-soda-slate/30'
         }`}
-          style={isLocked ? { animation: 'premiumBreathe 6s ease-in-out infinite' } : undefined}
+          style={isLocked ? { animation: 'premiumBreathe 6s ease-in-out infinite' } : { boxShadow: '0 1px 0 0 rgba(212,197,176,0.04), 0 4px 24px rgba(0,0,0,0.3)' }}
         >
           {/* Hover glow */}
           <div className={`absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 rounded-sm ${
@@ -457,7 +457,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                   </div>
 
                   {gallery.length === 1 && (
-                    <div className="relative aspect-[16/9] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                    <div className="relative aspect-[16/9] overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500"
                       onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
                       <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                       <div className="absolute inset-0 bg-soda-night/0 group-hover/gal:bg-soda-night/20 transition-all duration-500" />
@@ -467,7 +467,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                   {gallery.length === 2 && (
                     <div className="grid grid-cols-3 gap-1.5">
                       {gallery.map((img, gi) => (
-                        <div key={gi} className={`${gi === 0 ? 'col-span-2' : 'col-span-1'} aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500`}
+                        <div key={gi} className={`${gi === 0 ? 'col-span-2' : 'col-span-1'} aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500`}
                           onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
                           <img src={img} alt={`Foto ${gi+1}`} className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         </div>
@@ -477,12 +477,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
                   {gallery.length === 3 && (
                     <div className="grid grid-cols-2 gap-1.5">
-                      <div className="row-span-2 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                      <div className="row-span-2 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500"
                         onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
                         <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                       </div>
                       {gallery.slice(1).map((img, gi) => (
-                        <div key={gi} className="aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                        <div key={gi} className="aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500"
                           onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
                           <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         </div>
@@ -492,7 +492,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
                   {gallery.length >= 4 && (
                     <div className="space-y-1.5">
-                      <div className="relative aspect-[16/7] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                      <div className="relative aspect-[16/7] overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500"
                         onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
                         <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         <div className="absolute inset-0 bg-gradient-to-t from-soda-night/40 via-transparent to-transparent pointer-events-none" />
@@ -500,7 +500,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                       </div>
                       <div className="flex gap-1.5 overflow-x-auto scrollbar-hide" style={{ scrollSnapType:'x mandatory' }}>
                         {gallery.slice(1).map((img, gi) => (
-                          <div key={gi} className="flex-shrink-0 relative overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
+                          <div key={gi} className="flex-shrink-0 relative overflow-hidden rounded-sm cursor-pointer group/gal hover:border-soda-red/15 border border-transparent transition-colors duration-500"
                             style={{ width:'118px', height:'80px', scrollSnapAlign:'start' }}
                             onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
                             <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.08]" loading="lazy" />

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Users, Radio, ShoppingBag, Mic, Settings, Eye, Save, Plus, Trash2, Image, AlertCircle, Home, HelpCircle, Mail, ChevronDown, ChevronUp, ToggleLeft, ToggleRight, UserCog, Layout, X } from 'lucide-react';
+import { Shield, Users, Radio, ShoppingBag, Mic, Settings, Eye, Save, Plus, Trash2, Image, AlertCircle, Home, HelpCircle, Mail, ChevronDown, ChevronUp, ToggleLeft, ToggleRight, UserCog, Layout, X, Palette, Link } from 'lucide-react';
 import { getContent, saveContent, SiteContent } from '../data/content';
 import { demoEpisodes } from '../data/episodes';
 
 import { verifyAdminPassword } from '../data/auth';
 
-type AdminTab = 'inicio' | 'queesesto' | 'equipo' | 'episodios' | 'frecuencia' | 'shop' | 'contacto' | 'general' | 'micuenta' | 'secciones';
+type AdminTab = 'inicio' | 'queesesto' | 'equipo' | 'episodios' | 'frecuencia' | 'shop' | 'contacto' | 'general' | 'micuenta' | 'secciones' | 'disenio';
 
 export const AdminPage: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -85,6 +85,7 @@ export const AdminPage: React.FC = () => {
     { id: 'micuenta', label: 'Perfil Usuario', icon: <UserCog size={16} />, desc: 'Campos del registro' },
     { id: 'secciones', label: 'Menú / Nombres', icon: <Layout size={16} />, desc: 'Nombres en la nav' },
     { id: 'general', label: 'General', icon: <Settings size={16} />, desc: 'Logos, redes, SEO' },
+    { id: 'disenio', label: 'Diseño / Specs', icon: <Palette size={16} />, desc: 'Paleta, medidas, sistema' },
   ];
 
   const addEpisode = () => {
@@ -621,6 +622,174 @@ export const AdminPage: React.FC = () => {
         )}
 
         {/* ======== NOMBRES DE SECCIONES ======== */}
+
+        {activeTab === 'disenio' && (
+          <div className="space-y-6">
+
+            {/* PALETA DE COLORES */}
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-2">Paleta de Colores</h2>
+              <p className="text-soda-fog text-xs mb-6">Todos los colores del sistema sodaroja. Usalos al preparar imágenes, logos y assets.</p>
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <p className="text-soda-lamp/50 text-[10px] tracking-[0.2em] uppercase mb-3">Fondos</p>
+                  <div className="space-y-2">
+                    {[
+                      { name: 'Night (fondo base)', hex: '#0a0e1a', class: 'bg-soda-night' },
+                      { name: 'Deep (fondo secundario)', hex: '#141824', class: 'bg-soda-deep' },
+                      { name: 'Slate (cards)', hex: '#1e2433', class: 'bg-soda-slate' },
+                      { name: 'Mist (bordes)', hex: '#2a3142', class: 'bg-soda-mist' },
+                    ].map(col => (
+                      <div key={col.hex} className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-sm flex-shrink-0 border border-soda-mist/20" style={{ background: col.hex }} />
+                        <div>
+                          <p className="text-soda-lamp text-xs font-medium">{col.name}</p>
+                          <p className="text-soda-fog font-mono text-[11px]">{col.hex}</p>
+                        </div>
+                        <button onClick={() => navigator.clipboard?.writeText(col.hex)} className="ml-auto text-soda-fog/30 hover:text-soda-accent text-[10px] transition-colors">copiar</button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-soda-lamp/50 text-[10px] tracking-[0.2em] uppercase mb-3">Textos y Accentos</p>
+                  <div className="space-y-2">
+                    {[
+                      { name: 'Glow (blanco puro)', hex: '#ffffff', class: 'bg-white' },
+                      { name: 'Lamp (beige cálido)', hex: '#e8dcc8', class: '' },
+                      { name: 'Fog (gris claro)', hex: '#8a94a6', class: '' },
+                      { name: 'Red (rojo sodaroja)', hex: '#c45555', class: '' },
+                      { name: 'Accent (azul)', hex: '#8a9bc4', class: '' },
+                    ].map(col => (
+                      <div key={col.hex} className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-sm flex-shrink-0 border border-soda-mist/20" style={{ background: col.hex }} />
+                        <div>
+                          <p className="text-soda-lamp text-xs font-medium">{col.name}</p>
+                          <p className="text-soda-fog font-mono text-[11px]">{col.hex}</p>
+                        </div>
+                        <button onClick={() => navigator.clipboard?.writeText(col.hex)} className="ml-auto text-soda-fog/30 hover:text-soda-accent text-[10px] transition-colors">copiar</button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* TIPOGRAFÍAS */}
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-2">Sistema Tipográfico</h2>
+              <p className="text-soda-fog text-xs mb-6">El sitio usa exactamente 4 tipografías. Nada más.</p>
+              <div className="space-y-5">
+                {[
+                  { role: 'Display / H1–H2', font: 'Cormorant Garamond', weight: '300', uso: 'Títulos grandes: sodaroja, ¿Qué es esto?, El Equipo, Frecuencia Interna', ejemplo: 'sodaroja', size: 'clamp(2.5rem, 6vw, 4.5rem)' },
+                  { role: 'H3 / Subtítulos / Palabra roja', font: 'Crimson Pro', weight: '400 italic', uso: 'Subtítulos de sección, nombres de miembros, palabra clave en títulos', ejemplo: 'Interna', size: '1.4rem–2rem' },
+                  { role: 'Cuerpo / UI / Labels', font: 'DM Sans', weight: '300', uso: 'Todo el texto de cuerpo, labels, botones, descripciones, UI', ejemplo: 'un podcast narrativo', size: '10px–14px' },
+                  { role: 'Números / Datos / Código', font: 'JetBrains Mono', weight: '300', uso: 'Números de episodio, fechas, datos, EP. 010, temporada/ciudades', ejemplo: 'EP. 010', size: '9px–16px' },
+                ].map(t => (
+                  <div key={t.font} className="border border-soda-mist/15 rounded-sm p-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <span className="text-soda-red/60 text-[9px] tracking-[0.2em] uppercase">{t.role}</span>
+                        <p className="text-soda-lamp font-medium text-sm mt-0.5">{t.font} — weight {t.weight}</p>
+                      </div>
+                      <span className="text-soda-fog/40 font-mono text-[10px]">{t.size}</span>
+                    </div>
+                    <p className="text-soda-fog text-xs mb-3">{t.uso}</p>
+                    <p className="text-soda-lamp/70 border-t border-soda-mist/10 pt-3 mt-2" style={{ fontFamily: t.font === 'Cormorant Garamond' ? 'Cormorant Garamond, serif' : t.font === 'Crimson Pro' ? 'Crimson Pro, serif' : t.font === 'JetBrains Mono' ? 'JetBrains Mono, monospace' : 'DM Sans, sans-serif', fontStyle: t.font === 'Crimson Pro' ? 'italic' : 'normal', fontWeight: t.font === 'Cormorant Garamond' ? 300 : 400, fontSize: '1.2rem' }}>{t.ejemplo}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* MEDIDAS DE ASSETS */}
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-2">📐 Medidas de Todos los Assets</h2>
+              <p className="text-soda-fog text-xs mb-6">Referencia completa de medidas para cada imagen del sitio. Siempre PNG con fondo transparente salvo que se indique.</p>
+              <div className="space-y-4">
+                {[
+                  { seccion: 'Marca / Logos', items: [
+                    { asset: 'Isotipo (solo ícono)', medida: '512×512 px', formato: 'PNG transparente', uso: 'Navbar, favicon, mini-player', color: '#ffffff o #d4c5b0' },
+                    { asset: 'Logotipo (nombre + ícono)', medida: '600×200 px', formato: 'PNG transparente', uso: 'Hero, presentaciones', color: '#ffffff o #d4c5b0' },
+                    { asset: 'Logo Navbar', medida: '56×56 px mín.', formato: 'PNG transparente', uso: 'Menú de navegación (se muestra a 28px)', color: '#ffffff' },
+                    { asset: 'Logo Hero', medida: '300×100 px mín.', formato: 'PNG transparente', uso: 'Portada del sitio', color: '#ffffff' },
+                    { asset: 'Logo Footer', medida: '240×96 px mín.', formato: 'PNG transparente', uso: 'Pie de página (se muestra a 28px alto)', color: '#ffffff o #d4c5b0' },
+                  ]},
+                  { seccion: 'Episodios', items: [
+                    { asset: 'Imagen del episodio (card)', medida: '800×600 px mín.', formato: 'JPG o WebP', uso: 'Card de episodio (ratio 16:10)', color: 'Fotografía — sin restricción' },
+                    { asset: 'Imagen del episodio (modal)', medida: 'Misma que card', formato: 'JPG o WebP', uso: 'Hero del modal al abrir episodio (240px alto)', color: 'Fotografía — sin restricción' },
+                    { asset: 'Fotos de galería', medida: '1200×800 px mín.', formato: 'JPG o WebP', uso: 'Galería dentro del episodio', color: 'Fotografía — sin restricción' },
+                  ]},
+                  { seccion: 'El Equipo', items: [
+                    { asset: 'Foto del integrante', medida: '600×800 px mín.', formato: 'JPG o WebP', uso: 'Card del equipo (ratio 3:4)', color: 'Fotografía — sin restricción' },
+                  ]},
+                  { seccion: 'Redes Sociales', items: [
+                    { asset: 'Logo de red social', medida: '512×512 px', formato: 'PNG transparente', uso: 'Footer (se usa a 16px)', color: '#ffffff — el sitio aplica opacidad' },
+                  ]},
+                  { seccion: 'Sponsors', items: [
+                    { asset: 'Logo de sponsor', medida: '400×120 px', formato: 'PNG transparente', uso: 'Footer (se usa a 18px alto)', color: '#ffffff — el footer los muestra en monocromático' },
+                  ]},
+                  { seccion: 'Avatares de Usuario', items: [
+                    { asset: 'Avatar de usuario', medida: '200×200 px', formato: 'PNG transparente', uso: 'Perfil de suscriptores (circular, 48px)', color: 'Sin restricción de color' },
+                  ]},
+                  { seccion: 'SEO', items: [
+                    { asset: 'Favicon', medida: '32×32 px o .ico', formato: '.ico o PNG', uso: 'Pestaña del navegador', color: 'Sin restricción' },
+                    { asset: 'OG Image (social preview)', medida: '1200×630 px', formato: 'JPG', uso: 'Preview al compartir en redes', color: 'Sin restricción' },
+                  ]},
+                ].map(section => (
+                  <div key={section.seccion}>
+                    <p className="text-soda-accent text-[10px] tracking-[0.25em] uppercase mb-2 mt-4">{section.seccion}</p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-[11px]">
+                        <thead>
+                          <tr className="border-b border-soda-mist/10">
+                            <th className="text-left text-soda-fog/50 font-normal py-1.5 pr-4">Asset</th>
+                            <th className="text-left text-soda-fog/50 font-normal py-1.5 pr-4">Medida</th>
+                            <th className="text-left text-soda-fog/50 font-normal py-1.5 pr-4">Formato</th>
+                            <th className="text-left text-soda-fog/50 font-normal py-1.5 pr-4">Uso en el sitio</th>
+                            <th className="text-left text-soda-fog/50 font-normal py-1.5">Color</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.items.map(item => (
+                            <tr key={item.asset} className="border-b border-soda-mist/5">
+                              <td className="text-soda-lamp py-2 pr-4">{item.asset}</td>
+                              <td className="text-soda-accent font-mono py-2 pr-4">{item.medida}</td>
+                              <td className="text-soda-fog py-2 pr-4">{item.formato}</td>
+                              <td className="text-soda-fog py-2 pr-4">{item.uso}</td>
+                              <td className="text-soda-fog py-2">{item.color}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DÓNDE SUBIR IMÁGENES */}
+            <div className={cc}>
+              <h2 className="text-xl font-serif text-soda-glow mb-2">¿Dónde subir imágenes?</h2>
+              <p className="text-soda-fog text-xs mb-4">El sitio usa URLs externas para todas las imágenes. Recomendamos estos servicios gratuitos:</p>
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { nombre: 'imgbb.com', desc: 'Gratis, fácil, sin límite. Ideal para logos y avatares.', tipo: 'PNG, JPG, GIF', url: 'https://imgbb.com' },
+                  { nombre: 'cloudinary.com', desc: 'Más profesional. Transforma imágenes automáticamente con URL.', tipo: 'Todos los formatos', url: 'https://cloudinary.com' },
+                  { nombre: 'unsplash.com', desc: 'Para fotos de alta calidad de episodios y equipo (uso libre).', tipo: 'JPG optimizado', url: 'https://unsplash.com' },
+                ].map(s => (
+                  <div key={s.nombre} className="border border-soda-mist/15 rounded-sm p-4">
+                    <p className="text-soda-lamp font-medium text-sm mb-1">{s.nombre}</p>
+                    <p className="text-soda-fog text-[11px] mb-2">{s.desc}</p>
+                    <p className="text-soda-accent/60 text-[10px]">{s.tipo}</p>
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-soda-accent text-[10px] mt-2 block hover:underline">Ir al sitio →</a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        )}
+
         {activeTab === 'secciones' && (
           <div>
             <div className={cc}>
@@ -686,31 +855,75 @@ export const AdminPage: React.FC = () => {
             {/* Redes Sociales */}
             <div className={cc}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-serif text-soda-glow">Redes Sociales (Footer)</h2>
+                <h2 className="text-xl font-serif text-soda-glow">Redes Sociales</h2>
                 <button onClick={() => update('socialLinks', [...content.socialLinks, { id: `social-${Date.now()}`, platform: 'Nueva red', abbr: 'NR', url: '#', iconUrl: '', visible: true }])} className="flex items-center gap-1 px-3 py-2 border border-soda-accent text-soda-accent rounded-sm text-xs"><Plus size={14} />Agregar red</button>
               </div>
-              <p className={nc + ' mb-4'}>Toggle = mostrar/ocultar. En el footer se muestra la sigla como link de texto.</p>
-              {/* Header */}
-              <div className="grid grid-cols-[32px_1fr_60px_2fr_1fr_32px] gap-2 mb-2 text-soda-fog text-[10px] tracking-wider px-1">
-                <div></div>
-                <div>Nombre</div>
-                <div className="text-center">Sigla</div>
-                <div>URL de la red social</div>
-                <div>URL Logo (PNG)</div>
-                <div></div>
+
+              {/* Specs box */}
+              <div className="bg-soda-night/60 border border-soda-accent/15 rounded-sm p-4 mb-5">
+                <p className="text-soda-accent text-xs font-medium mb-3 flex items-center gap-2"><Image size={13} />Especificaciones para logos de redes sociales</p>
+                <div className="grid grid-cols-3 gap-4 text-[11px]">
+                  <div>
+                    <p className="text-soda-lamp/50 mb-1 uppercase tracking-wider text-[9px]">Subir a imgbb.com con:</p>
+                    <p className="text-soda-lamp">• Mínimo: <span className="text-soda-accent">200×200 px</span></p>
+                    <p className="text-soda-lamp">• Recomendado: <span className="text-soda-accent">512×512 px</span></p>
+                    <p className="text-soda-lamp">• Formato: <span className="text-soda-accent">PNG transparente</span></p>
+                  </div>
+                  <div>
+                    <p className="text-soda-lamp/50 mb-1 uppercase tracking-wider text-[9px]">Cómo se usa en el sitio:</p>
+                    <p className="text-soda-fog">• Footer: <span className="text-soda-lamp">16×16 px</span> (auto-escalado)</p>
+                    <p className="text-soda-fog">• El Equipo: <span className="text-soda-lamp">texto abbr</span> (no imagen)</p>
+                    <p className="text-soda-fog">• El sistema escala automático ✓</p>
+                  </div>
+                  <div>
+                    <p className="text-soda-lamp/50 mb-1 uppercase tracking-wider text-[9px]">Color del logo:</p>
+                    <p className="text-soda-lamp">• Blanco puro: <span className="text-soda-accent">#FFFFFF</span></p>
+                    <p className="text-soda-lamp">• O crema: <span className="text-soda-accent">#d4c5b0</span></p>
+                    <p className="text-soda-fog text-[10px] mt-1">El sitio aplica opacidad automáticamente</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-[32px_1fr_60px_2fr_1fr_80px_32px] gap-2 mb-2 text-soda-fog text-[10px] tracking-wider px-1">
+                <div></div><div>Nombre</div><div className="text-center">Sigla</div><div>URL perfil</div><div>URL Logo PNG</div><div className="text-center">Preview</div><div></div>
               </div>
               {content.socialLinks.map((link: any, idx: number) => (
-                <div key={link.id} className="grid grid-cols-[32px_1fr_60px_2fr_1fr_32px] gap-2 mb-2 items-center">
+                <div key={link.id} className="grid grid-cols-[32px_1fr_60px_2fr_1fr_80px_32px] gap-2 mb-2 items-center">
                   <button onClick={() => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], visible: !arr[idx].visible }; update('socialLinks', arr); }} className="flex-shrink-0">
                     {link.visible ? <ToggleRight size={22} className="text-green-400" /> : <ToggleLeft size={22} className="text-soda-fog" />}
                   </button>
                   <input type="text" value={link.platform} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], platform: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="Instagram" />
                   <input type="text" value={link.abbr} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], abbr: e.target.value.substring(0, 3) }; update('socialLinks', arr); }} className={ic + ' text-center text-xs'} placeholder="IG" maxLength={3} />
-                  <input type="text" value={link.url} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], url: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="https://instagram.com/sodaroja" />
-                  <input type="text" value={link.iconUrl || ''} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], iconUrl: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="URL del icono PNG" />
+                  <input type="text" value={link.url} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], url: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="https://instagram.com/..." />
+                  <input type="text" value={link.iconUrl || ''} onChange={(e) => { const arr = [...content.socialLinks]; arr[idx] = { ...arr[idx], iconUrl: e.target.value }; update('socialLinks', arr); }} className={ic} placeholder="URL PNG 512×512" />
+                  <div className="flex items-center justify-center gap-2">
+                    {link.iconUrl ? (
+                      <div className="flex items-center gap-2">
+                        <img src={link.iconUrl} alt={link.platform} className="w-6 h-6 object-contain" style={{ filter: 'brightness(3) grayscale(1)' }} title="16px (footer)" />
+                        <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-40" title="Footer size" />
+                      </div>
+                    ) : <span className="text-soda-fog/30 text-[10px]">sin logo</span>}
+                  </div>
                   <button onClick={() => update('socialLinks', content.socialLinks.filter((_: any, i: number) => i !== idx))} className="text-soda-red flex-shrink-0"><Trash2 size={14} /></button>
                 </div>
               ))}
+
+              {/* Footer preview */}
+              {content.socialLinks.some((l: any) => l.iconUrl && l.visible) && (
+                <div className="mt-4 p-4 bg-soda-night/60 rounded-sm border border-soda-mist/10">
+                  <p className="text-soda-fog/40 text-[9px] tracking-[0.2em] uppercase mb-3 text-center">Preview footer (tamaño real)</p>
+                  <div className="flex items-center gap-6 justify-center">
+                    {content.socialLinks.filter((l: any) => l.visible).map((l: any) => (
+                      <div key={l.id} className="text-center">
+                        {l.iconUrl ? <img src={l.iconUrl} alt={l.platform} className="w-4 h-4 object-contain opacity-40 mx-auto mb-1" style={{ filter: 'brightness(3) grayscale(1)' }} /> : null}
+                        <span className="text-soda-lamp/40 text-[9px]">{l.abbr}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <p className="text-soda-fog/50 text-[11px] mt-4 flex items-center gap-1.5"><Link size={10} />Los logos se usan en el footer. La sigla (abbr) se muestra en "El Equipo" junto al perfil de cada integrante.</p>
             </div>
 
             {/* Footer Logo */}

@@ -96,7 +96,7 @@ const EasterEgg: React.FC = () => {
   return (
     <>
       <div onClick={handleClick} className="cursor-default select-none" title="">
-        <span className="text-soda-red/25 text-[9px] tracking-[0.12em]">&copy; {new Date().getFullYear()} sodaroja</span>
+        <span className="font-sans text-soda-lamp/35 text-[9px] tracking-[0.12em]">&copy; {new Date().getFullYear()} sodaroja</span>
       </div>
       <AnimatePresence>
         {show && (
@@ -150,16 +150,16 @@ const Footer: React.FC = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Top divider — fine line */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-red/20 to-transparent mb-16" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-red/30 to-transparent mb-16" />
 
         {/* Sponsors */}
         {sponsors.length > 0 && (
           <div className="mb-16 text-center">
-            <p className="text-soda-lamp/20 text-[8px] tracking-[0.35em] uppercase mb-6">Con el apoyo de</p>
+            <p className="text-soda-lamp/35 text-[8px] tracking-[0.35em] uppercase mb-6">Con el apoyo de</p>
             <div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
               {sponsors.map((s: any) => (
                 <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name}
-                  className="opacity-15 hover:opacity-40 transition-opacity duration-700">
+                  className="opacity-30 hover:opacity-60 transition-opacity duration-500">
                   <img src={s.logoUrl} alt={s.name} className="h-4 sm:h-[18px] object-contain" style={{ filter: 'brightness(3) grayscale(1)' }} loading="lazy" />
                 </a>
               ))}
@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
 
         {/* Airport counter — central, prominent */}
         <div className="text-center mb-14">
-          <p className="text-soda-lamp/20 text-[8px] tracking-[0.4em] uppercase mb-6">los números de sodaroja</p>
+          <p className="text-soda-lamp/35 text-[8px] tracking-[0.4em] uppercase mb-6">los números de sodaroja</p>
           <AirportCounter />
         </div>
 
@@ -183,8 +183,8 @@ const Footer: React.FC = () => {
               <img src={content.brand.isotipoUrl} alt="" className="h-5 w-5 object-contain opacity-25" />
             ) : null}
             <div>
-              <span className="font-sans text-soda-glow/65 text-sm block leading-tight tracking-[0.15em]">sodaroja</span>
-              <span className="font-sans text-soda-lamp/25 text-[8px] tracking-[0.2em] uppercase block mt-0.5">un podcast que viaja</span>
+              <span className="font-sans text-soda-glow/80 text-sm block leading-tight tracking-[0.15em]">sodaroja</span>
+              <span className="font-sans text-soda-lamp/40 text-[8px] tracking-[0.2em] uppercase block mt-0.5">un podcast que viaja</span>
             </div>
           </div>
 
@@ -192,9 +192,9 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-6 flex-wrap">
             {visibleLinks.map((link: any) => (
               <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer"
-                className="text-soda-lamp/25 text-[10px] tracking-[0.12em] uppercase hover:text-soda-lamp/55 transition-colors duration-700">
+                className="font-sans text-soda-lamp/40 text-[10px] tracking-[0.15em] uppercase hover:text-soda-lamp/75 transition-colors duration-500">
                 {link.iconUrl ? (
-                  <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-35 hover:opacity-65 transition-opacity duration-500" />
+                  <img src={link.iconUrl} alt={link.platform} className="w-4 h-4 object-contain opacity-50 hover:opacity-80 transition-opacity duration-400" />
                 ) : (link.abbr || link.platform)}
               </a>
             ))}
@@ -202,7 +202,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Fine bottom divider */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-mist/8 to-transparent mb-6" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-lamp/10 to-transparent mb-6" />
 
         {/* Copyright with Easter Egg + Effects toggle */}
         <div className="flex items-center justify-between flex-wrap gap-3">
@@ -210,7 +210,7 @@ const Footer: React.FC = () => {
           <button
             onClick={toggle}
             title={reduced ? 'Activar efectos visuales' : 'Reducir efectos visuales'}
-            className="flex items-center gap-1.5 text-soda-lamp/18 hover:text-soda-lamp/40 transition-colors duration-500 text-[9px] tracking-[0.12em] group"
+            className="font-sans flex items-center gap-1.5 text-soda-lamp/30 hover:text-soda-lamp/55 transition-colors duration-500 text-[9px] tracking-[0.15em] group"
           >
             <span className={`w-2.5 h-2.5 rounded-full border transition-all duration-500 ${reduced ? 'border-soda-lamp/15 bg-transparent' : 'border-soda-red/35 bg-soda-red/15'}`} />
             {reduced ? 'efectos apagados' : 'modo tranquilo'}
