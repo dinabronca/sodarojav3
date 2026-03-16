@@ -231,7 +231,7 @@ const SubscriberDashboard: React.FC = () => {
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'italic',
+                  fontStyle: 'normal',
                   color: 'rgba(254,248,237,0.85)',
                   background: 'radial-gradient(circle at 35% 30%, rgba(196,85,85,0.3) 0%, rgba(10,14,26,0.95) 65%)',
                   border: '1px solid rgba(196,85,85,0.3)',
@@ -379,7 +379,7 @@ const SubscriberDashboard: React.FC = () => {
                 <div className="rounded-sm flex flex-col items-center justify-center py-10 px-5 text-center"
                   style={{ background:'rgba(14,18,30,0.4)', border:'1px solid rgba(138,155,196,0.08)' }}>
                   <BarChart3 size={20} className="mb-3" style={{ color:'rgba(138,155,196,0.2)' }} />
-                  <p className="font-serif italic text-soda-lamp/25 text-sm mb-1">Sin encuesta activa</p>
+                  <p className="font-sans text-soda-lamp/20 text-sm mb-1">Sin encuesta activa</p>
                   <p className="text-soda-lamp/13 text-[10px]">Cuando haya una, aparece acá</p>
                 </div>
               )}
@@ -437,7 +437,7 @@ const SubscriberDashboard: React.FC = () => {
                 <div className="rounded-sm flex flex-col items-center justify-center py-10 px-5 text-center"
                   style={{ background:'rgba(14,18,30,0.4)', border:'1px solid rgba(196,85,85,0.08)' }}>
                   <Trophy size={20} className="mb-3" style={{ color:'rgba(196,85,85,0.2)' }} />
-                  <p className="font-serif italic text-soda-lamp/25 text-sm mb-1">Sin sorteo activo</p>
+                  <p className="font-sans text-soda-lamp/20 text-sm mb-1">Sin sorteo activo</p>
                   <p className="text-soda-lamp/13 text-[10px]">Guardá soditas para cuando aparezca uno</p>
                 </div>
               )}
@@ -498,7 +498,7 @@ const SubscriberDashboard: React.FC = () => {
                       <motion.div animate={{ opacity:[0.1,0.3,0.1] }} transition={{ duration:3.5, repeat:Infinity }}>
                         <Radio size={28} className="text-soda-red/25 mb-4" />
                       </motion.div>
-                      <p className="font-serif italic text-soda-lamp/35 text-base mb-1">Silencio en la frecuencia...</p>
+                      <p className="font-sans text-soda-lamp/25 text-base mb-1">Silencio en la frecuencia...</p>
                       <p className="text-soda-lamp/18 text-[10px] max-w-xs">Los próximos mensajes del equipo aparecen aquí primero</p>
                     </div>
                   ) : (
@@ -673,12 +673,12 @@ const SubscriberDashboard: React.FC = () => {
             style={{ background: 'linear-gradient(135deg, rgba(10,14,22,0.8) 0%, rgba(14,18,28,0.6) 100%)', border: '1px solid rgba(196,85,85,0.1)' }}>
             {/* Watermark number */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontSize: '6.5rem', color: 'rgba(196,85,85,0.05)', lineHeight: 1 }}>
+              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'normal', fontSize: '6.5rem', color: 'rgba(196,85,85,0.05)', lineHeight: 1 }}>
                 {String(memberNumber).padStart(4, '0')}
               </span>
             </div>
             <p className="text-[9px] tracking-[0.4em] uppercase mb-3 relative z-10" style={{ color: 'rgba(212,197,176,0.2)' }}>Número de socio</p>
-            <p className="relative z-10 tracking-[0.18em]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.6rem', fontStyle: 'italic', color: 'rgba(254,248,237,0.65)' }}>
+            <p className="relative z-10 tracking-[0.18em]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.6rem', fontStyle: 'normal', color: 'rgba(254,248,237,0.65)' }}>
               #{String(memberNumber).padStart(4, '0')}
             </p>
             <div className="mt-3 relative z-10 flex items-center justify-center gap-2">
@@ -820,7 +820,7 @@ const PublicView: React.FC = () => {
           <motion.div animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
             <div className="w-3 h-3 rounded-full mx-auto" style={{ background: 'rgba(196,85,85,0.85)', boxShadow: '0 0 20px rgba(196,85,85,0.5), 0 0 40px rgba(196,85,85,0.2)' }} />
           </motion.div>
-          <h2 className="font-display text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <em className="text-soda-red/85">Interna</em></h2>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <span className="text-soda-red/85">Interna</span></h2>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
           <p className="font-sans text-lg text-soda-lamp/65 max-w-2xl mx-auto mb-8 leading-relaxed">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
         </motion.div>

@@ -55,7 +55,7 @@ export const ElEquipo: React.FC = () => {
           className="text-center mb-20">
           <h2 className="font-display leading-[0.95] mb-0">
             <span className="text-soda-glow/90 text-5xl sm:text-7xl">El </span>
-            <em className="text-5xl sm:text-7xl italic" style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</em>
+            <span className="text-5xl sm:text-7xl" style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</span>
           </h2>
           <p className="font-sans text-soda-lamp/40 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
         </motion.div>
@@ -108,7 +108,7 @@ export const ElEquipo: React.FC = () => {
                   {/* Member vitals — top right corner */}
                   <div className="absolute top-4 right-4 text-right px-2.5 py-1.5 rounded-sm" style={{ background: 'rgba(8,10,18,0.65)', backdropFilter: 'blur(8px)', border: '1px solid rgba(212,197,176,0.08)' }}>
                     <p className="text-soda-lamp/70 text-[9px] tracking-[0.12em]">{member.cityBorn} · {member.birthYear}</p>
-                    <p className="text-soda-accent/55 text-[9px] italic mt-0.5">{member.zodiac}</p>
+                    <p className="font-mono text-soda-accent/45 text-[9px] mt-0.5">{member.zodiac}</p>
                   </div>
                 </div>
 

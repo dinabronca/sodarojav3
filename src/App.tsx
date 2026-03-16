@@ -183,8 +183,8 @@ const Footer: React.FC = () => {
               <img src={content.brand.isotipoUrl} alt="" className="h-5 w-5 object-contain opacity-25" />
             ) : null}
             <div>
-              <span className="font-serif text-soda-glow/65 text-sm block leading-tight tracking-wide">sodaroja</span>
-              <span className="text-soda-lamp/30 text-[8px] tracking-[0.15em] block mt-0.5 italic">un podcast que viaja</span>
+              <span className="font-sans text-soda-glow/65 text-sm block leading-tight tracking-[0.15em]">sodaroja</span>
+              <span className="font-sans text-soda-lamp/25 text-[8px] tracking-[0.2em] uppercase block mt-0.5">un podcast que viaja</span>
             </div>
           </div>
 

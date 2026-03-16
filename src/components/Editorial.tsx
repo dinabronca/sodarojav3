@@ -30,7 +30,7 @@ export const EditorialHeader: React.FC<{
     {/* Title */}
     <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05] mb-5" style={{ fontWeight: 300 }}>
       {title}{' '}
-      {titleAccent && <em className="text-soda-red/80">{titleAccent}</em>}
+      {titleAccent && <span className="text-soda-red/80">{titleAccent}</span>}
     </h2>
 
     {/* Subtitle — explicativo, no cita */}

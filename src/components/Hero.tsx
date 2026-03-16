@@ -127,7 +127,6 @@ export const Hero: React.FC = () => {
                 fontSize:'clamp(4.5rem,19vw,18rem)',
                 color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
-                fontStyle:'italic',
               }}
             >
               {title}
@@ -142,13 +141,13 @@ export const Hero: React.FC = () => {
             background:'linear-gradient(to right, transparent, rgba(196,85,85,0.2) 30%, rgba(212,197,176,0.1) 50%, rgba(196,85,85,0.2) 70%, transparent)' }} />
           {hero.description ? (
             <p className="font-sans text-center"
-              style={{ color:'rgba(212,197,176,0.38)', fontSize:'clamp(0.8rem,1.6vw,1rem)',
-                fontWeight:300, letterSpacing:'0.04em', lineHeight:1.85, maxWidth:'28rem' }}>
+              style={{ color:'rgba(212,197,176,0.45)', fontSize:'11px',
+                letterSpacing:'0.32em', textTransform:'uppercase', fontWeight:300, maxWidth:'32rem' }}>
               {hero.description}
             </p>
           ) : (
             <p className="font-sans text-center"
-              style={{ color:'rgba(212,197,176,0.22)', fontSize:'11px',
+              style={{ color:'rgba(212,197,176,0.35)', fontSize:'11px',
                 letterSpacing:'0.32em', textTransform:'uppercase', fontWeight:300 }}>
               historias reales de ciudades lejanas
             </p>

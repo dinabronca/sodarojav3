@@ -55,7 +55,7 @@ export const QueEsEsto: React.FC = () => {
           transition={{ duration:0.9 }} className="text-center mb-20">
           <h2 className="font-display leading-[0.95]">
             <span className="text-soda-glow/90 text-5xl sm:text-7xl md:text-8xl">&#191;Qu&#233; es </span>
-            <em className="text-5xl sm:text-7xl md:text-8xl italic" style={{ color:'rgba(196,85,85,0.8)' }}>sodaroja?</em>
+            <span className="text-5xl sm:text-7xl md:text-8xl" style={{ color:'rgba(196,85,85,0.8)' }}>sodaroja?</span>
           </h2>
         </motion.div>
 
@@ -173,7 +173,7 @@ export const QueEsEsto: React.FC = () => {
           transition={{ duration:0.8 }} className="mt-24">
           <div className="text-center mb-10">
             <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow mb-2">
-              Temas que <em className="text-soda-red/80">exploramos</em>
+              Temas que <span className="text-soda-red/80">exploramos</span>
             </h3>
             <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />
           </div>

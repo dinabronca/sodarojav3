@@ -273,7 +273,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             </div>
 
             {/* Title */}
-            <h3 className={`font-display text-soda-glow/90 mb-3 leading-[1.15] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-2xl sm:text-3xl' : 'text-[1.05rem] sm:text-lg'}`}>
+            <h3 className={`font-sans font-medium text-soda-glow/90 mb-3 leading-[1.25] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-xl sm:text-2xl' : 'text-[0.95rem] sm:text-base'}`}>
               &ldquo;{episode.title}&rdquo;
             </h3>
 
@@ -372,7 +372,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             {/* Content */}
             <div className="px-6 pt-2 pb-8">
               {/* Title */}
-              <h2 className="font-display leading-[1.1] mb-3" style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', color: 'rgba(254,248,237,0.92)' }}>
+              <h2 className="font-sans font-medium leading-[1.3] mb-3" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.65rem)', color: 'rgba(254,248,237,0.92)' }}>
                 &ldquo;{episode.title}&rdquo;
               </h2>
 

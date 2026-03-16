@@ -275,8 +275,8 @@ export const DestinationsMap: React.FC = () => {
             <span className="text-soda-red text-[10px] tracking-[0.3em] uppercase font-light">Mapa de viajes</span>
             <div className="w-10 h-px bg-soda-red" />
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-soda-glow leading-[1.1] text-center mb-10">
-            Donde <em className="text-soda-red">estuvimos</em>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05] text-center mb-10">
+            Donde <span className="text-soda-red">estuvimos</span>
           </h2>
         </motion.div>
 
