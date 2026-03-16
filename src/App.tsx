@@ -148,7 +148,7 @@ const Footer: React.FC = () => {
         background: 'radial-gradient(ellipse 80% 60% at 50% 110%, rgba(196,85,85,0.04) 0%, transparent 70%)',
       }} />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Top divider — fine line */}
         <div className="h-px w-full bg-gradient-to-r from-transparent via-soda-red/20 to-transparent mb-16" />
 

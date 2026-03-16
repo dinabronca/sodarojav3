@@ -51,7 +51,7 @@ export const Contacto: React.FC = () => {
   const ic = "w-full bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm px-4 py-3 text-soda-lamp focus:border-soda-accent focus:outline-none transition-colors text-sm";
 
   return (
-    <section id="contacto" className="relative py-28 sm:py-36 px-6 bg-gradient-to-b from-soda-night to-soda-deep overflow-hidden">
+    <section id="contacto" className="relative py-24 sm:py-32 px-6 bg-gradient-to-b from-soda-night to-soda-deep overflow-hidden">
       <MailEffects />
       {/* Floating light particles */}
       {[...Array(20)].map((_, i) => (
@@ -68,7 +68,7 @@ export const Contacto: React.FC = () => {
         />
       ))}
 
-      <div className="relative z-10 max-w-5xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         <EditorialHeader
           label="Hablemos"
           title="Ponete en"
@@ -77,7 +77,7 @@ export const Contacto: React.FC = () => {
           center
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16">
           {/* Form */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
             <form onSubmit={handleSubmit} className="space-y-5">

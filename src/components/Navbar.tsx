@@ -65,7 +65,7 @@ export const Navbar: React.FC = () => {
             }} />
         </div>
 
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 py-4">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 py-4">
           <div className="flex items-center justify-between gap-8">
 
             {/* Logo */}

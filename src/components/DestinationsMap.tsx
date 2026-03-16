@@ -267,7 +267,7 @@ export const DestinationsMap: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 sm:py-28 px-6 overflow-hidden">
+    <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
       {/* Ambient particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[{x:10,y:15},{x:85,y:25},{x:30,y:70},{x:65,y:45},{x:50,y:85},{x:90,y:65},{x:20,y:40},{x:75,y:80}].map((p, i) => (
@@ -277,14 +277,14 @@ export const DestinationsMap: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}>
-          <div className="flex items-center gap-3 mb-5 justify-center">
-            <div className="w-10 h-px bg-soda-red" />
-            <span className="text-soda-red text-[10px] tracking-[0.3em] uppercase font-light">Mapa de viajes</span>
+          <div className="flex items-center gap-3 mb-6 justify-center">
+            <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
+            <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Mapa de viajes</span>
             <div className="w-10 h-px bg-soda-red" />
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05] text-center mb-10">
+          <h2 className="font-display text-soda-glow/85 leading-[1.05] text-center mb-12" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 300 }}>
             Donde <span className="font-serif italic text-soda-red" style={{ fontWeight: 400 }}>estuvimos</span>
           </h2>
         </motion.div>

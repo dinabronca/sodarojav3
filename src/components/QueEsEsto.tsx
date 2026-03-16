@@ -26,7 +26,7 @@ export const QueEsEsto: React.FC = () => {
   const cableProgress = useTransform(scrollYProgress, [0.1, 0.85], ['0%', '100%']);
 
   return (
-    <section ref={sectionRef} id="que-es-esto" className="relative py-28 sm:py-40 px-6 overflow-hidden">
+    <section ref={sectionRef} id="que-es-esto" className="relative py-24 sm:py-32 px-6 overflow-hidden">
       <div className="absolute inset-0">
         <img src="/antenas-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover"
           style={{ filter: 'saturate(0.08) brightness(0.15) contrast(1.6) blur(2px)' }} />
@@ -42,17 +42,16 @@ export const QueEsEsto: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-4xl mx-auto relative" style={{ zIndex: 10 }}>
+      <div className="max-w-6xl mx-auto relative" style={{ zIndex: 10 }}>
 
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          className="flex items-center gap-4 justify-center mb-6">
-          <div className="w-12 h-px bg-soda-red/40" />
+          className="flex items-center gap-3 justify-center mb-6">
+          <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
           <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Sobre el proyecto</span>
-          <div className="w-12 h-px bg-soda-red/40" />
         </motion.div>
 
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          transition={{ duration:0.9 }} className="text-center mb-20">
+          transition={{ duration:0.9 }} className="text-center mb-12">
           <h2 className="font-display leading-[0.95]">
             <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>&#191;Qu&#233; es </span>
             <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(196,85,85,0.8)', fontWeight:400 }}>sodaroja?</span>
@@ -61,7 +60,7 @@ export const QueEsEsto: React.FC = () => {
 
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           transition={{ duration:1, delay:0.2 }}
-          className="relative max-w-2xl mx-auto text-center mb-28 px-4">
+          className="relative max-w-2xl mx-auto text-center mb-20 px-4">
           <p className="relative z-10 font-sans text-soda-lamp/55 leading-[1.75]" style={{ fontSize:'14px', fontWeight:300 }}>
             {queEsEsto.description}
           </p>
@@ -73,7 +72,7 @@ export const QueEsEsto: React.FC = () => {
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
-          className="text-center mb-16">
+          className="text-center mb-12">
           <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(138,155,196,0.5)', marginBottom:'8px' }}>{queEsEsto.structureTitle}</p>
           <p className="font-sans text-soda-lamp/30" style={{ fontSize:'13px', fontWeight:300 }}>{queEsEsto.structureSubtitle}</p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />

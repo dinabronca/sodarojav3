@@ -85,7 +85,7 @@ export const MiCuentaPage: React.FC = () => {
 
   return (
     <section className="relative pt-32 pb-24 px-6 min-h-screen">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
           <h1 className="text-6xl md:text-7xl font-display text-soda-glow mb-6">Mi Cuenta</h1>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-accent to-transparent mx-auto" />

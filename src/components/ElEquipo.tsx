@@ -18,7 +18,7 @@ export const ElEquipo: React.FC = () => {
     setActiveTab(prev => ({ ...prev, [i]: tab }));
 
   return (
-    <section id="equipo" className="relative py-28 sm:py-40 px-6 overflow-hidden">
+    <section id="equipo" className="relative py-24 sm:py-32 px-6 overflow-hidden">
 
       {/* Background atmosphere */}
       <div className="absolute inset-0 pointer-events-none">
@@ -45,14 +45,13 @@ export const ElEquipo: React.FC = () => {
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="flex items-center gap-4 justify-center mb-6">
-          <div className="w-12 h-px bg-soda-accent/35" />
+          <div className="w-8 h-px" style={{ background: 'rgba(138,155,196,0.35)' }} />
           <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(138,155,196,0.5)' }}>Quiénes somos</span>
-          <div className="w-12 h-px bg-soda-accent/35" />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="text-center mb-20">
+          className="text-center mb-16">
           <h2 className="font-display leading-[0.95] mb-0">
             <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>El </span>
             <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(138,155,196,0.8)', fontWeight:400 }}>Equipo</span>
@@ -61,7 +60,7 @@ export const ElEquipo: React.FC = () => {
         </motion.div>
 
         {/* Members grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {members.map((member, index) => (
             <motion.div key={index}
               initial={{ opacity: 0, y: 40 }}

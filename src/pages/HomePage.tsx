@@ -31,16 +31,16 @@ const TestimoniosSection: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 60%, rgba(196,85,85,0.025) 0%, transparent 70%)' }} />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-soda-red/50" />
-              <span className="font-sans text-soda-red/55 text-[9px] tracking-[0.4em] uppercase">Oyentes</span>
+              <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
+              <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Oyentes</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85 leading-[1.1]">
+            <h2 className="font-display text-soda-glow/85 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 300 }}>
               Lo que <span className="font-serif italic text-soda-red/70" style={{ fontWeight: 400 }}>dicen</span>
             </h2>
           </div>
@@ -54,7 +54,7 @@ const TestimoniosSection: React.FC = () => {
           <motion.div key={page}
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {current.map((t, i) => (
               <motion.div key={i}
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export const HomePage: React.FC = () => {
       <CityMarquee />
 
       {/* ===== ÚLTIMOS DESTINOS ===== */}
-      <section id="episodios" className="relative py-24 sm:py-32 px-4 sm:px-6">
+      <section id="episodios" className="relative py-24 sm:py-32 px-6">
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           <div className="absolute" style={{ left: '-5%', bottom: '10%', width: '55%', height: '55%', background: 'radial-gradient(ellipse, rgba(196,85,85,0.04) 0%, transparent 60%)', filter: 'blur(60px)' }} />
           <div className="absolute" style={{ right: '-5%', top: '20%', width: '45%', height: '45%', background: 'radial-gradient(ellipse, rgba(138,155,196,0.04) 0%, transparent 60%)', filter: 'blur(60px)' }} />
@@ -169,19 +169,19 @@ export const HomePage: React.FC = () => {
             />
           ))}
         </div>
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
 
           <motion.div initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="mb-14 sm:mb-20">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-px bg-soda-red" />
-              <span className="font-sans text-soda-red/70 text-[9px] tracking-[0.35em] uppercase">Viajes recientes</span>
+              <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Viajes recientes</span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05]">
               Los últimos <span className="font-serif italic text-soda-red" style={{ fontWeight: 400 }}>destinos</span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featured.map((episode: any, index: number) => (
               <EpisodeCard key={episode.id} episode={episode} isNewest={index === 0} episodeNumber={episodeNumberMap[episode.id]} />
             ))}
@@ -204,7 +204,7 @@ export const HomePage: React.FC = () => {
 
 
       {/* ===== ESCUCHA EN ===== */}
-      <section className="relative py-16 sm:py-20 px-6">
+      <section className="relative py-12 sm:py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="text-center mb-8" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(212,197,176,0.25)' }}>Escuchá en tu plataforma favorita</p>

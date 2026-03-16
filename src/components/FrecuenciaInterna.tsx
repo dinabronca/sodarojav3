@@ -230,8 +230,7 @@ const SubscriberDashboard: React.FC = () => {
             <div className="relative flex-shrink-0">
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
                 style={{
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontStyle: 'normal',
+                  fontFamily: "'DM Sans', system-ui, sans-serif",
                   color: 'rgba(254,248,237,0.85)',
                   background: 'radial-gradient(circle at 35% 30%, rgba(196,85,85,0.3) 0%, rgba(10,14,26,0.95) 65%)',
                   border: '1px solid rgba(196,85,85,0.3)',
@@ -247,7 +246,7 @@ const SubscriberDashboard: React.FC = () => {
               />
             </div>
             <div>
-              <h2 className="leading-none mb-2" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 400, color: 'rgba(254,248,237,0.92)' }}>
+              <h2 className="font-display leading-none mb-2" style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 300, color: 'rgba(254,248,237,0.92)' }}>
                 {user?.name || 'Suscriptor'}
               </h2>
               <div className="flex items-center gap-3">
@@ -268,7 +267,7 @@ const SubscriberDashboard: React.FC = () => {
               <div key={i}
                 className="flex flex-col items-center justify-center px-4 py-3 rounded-sm"
                 style={{ background: 'rgba(212,197,176,0.02)', border: '1px solid rgba(212,197,176,0.06)', minWidth: '70px' }}>
-                <span className="leading-none mb-1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.5rem', color: s.accent }}>{s.n}</span>
+                <span className="leading-none mb-1 font-mono" style={{ fontSize: '1.3rem', color: s.accent }}>{s.n}</span>
                 <span className="text-[8px] tracking-[0.18em] uppercase" style={{ color: 'rgba(212,197,176,0.25)' }}>{s.l}</span>
               </div>
             ))}
@@ -815,19 +814,19 @@ const PublicView: React.FC = () => {
           transition={{ duration: p.dur, repeat: Infinity, delay: p.delay }}
         />
       ))}
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <motion.div animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
-            <div className="w-3 h-3 rounded-full mx-auto" style={{ background: 'rgba(196,85,85,0.85)', boxShadow: '0 0 20px rgba(196,85,85,0.5), 0 0 40px rgba(196,85,85,0.2)' }} />
-          </motion.div>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <span className="font-serif italic text-soda-red/85" style={{ fontWeight: 400 }}>Interna</span></h2>
-          <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
-          <p className="font-sans text-soda-lamp/55 max-w-2xl mx-auto mb-8" style={{ fontSize:'14px', fontWeight:300, lineHeight:1.75 }}>Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
+      <div className="max-w-6xl mx-auto relative z-10">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
+            <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Membresía</span>
+          </div>
+          <h2 className="font-display text-soda-glow/85 mb-5" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 300 }}>Frecuencia <span className="font-serif italic text-soda-red/80" style={{ fontWeight: 400 }}>Interna</span></h2>
+          <p className="font-sans text-soda-lamp/55 max-w-2xl" style={{ fontSize:'14px', fontWeight:300, lineHeight:1.75 }}>Las historias que se cuentan cuando la noche ya está avanzada</p>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-20">
           <p className="font-sans text-soda-lamp/45 text-center" style={{ fontSize:'14px', fontWeight:300, lineHeight:1.75 }}>Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
         </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h3 className="font-serif italic text-soda-glow/85 mb-8 text-center lg:text-left" style={{ fontSize:'1.4rem', fontWeight:400 }}>Elegí cómo querés sumarte</h3>
             <div className="space-y-6">
@@ -896,7 +895,7 @@ export const FrecuenciaInterna: React.FC = () => {
   return (
     <section id="frecuencia-interna" className="relative py-24 sm:py-32 px-6 bg-gradient-to-b from-soda-night via-soda-deep to-soda-night overflow-hidden">
       {isPremium && <AuroraEffect />}
-      {isPremium ? <div className="max-w-7xl mx-auto relative z-10"><SubscriberDashboard /></div> : <PublicView />}
+      {isPremium ? <div className="max-w-6xl mx-auto relative z-10"><SubscriberDashboard /></div> : <PublicView />}
     </section>
   );
 };

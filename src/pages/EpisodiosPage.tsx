@@ -58,10 +58,10 @@ export const EpisodiosPage: React.FC = () => {
   const newestId = allSorted.length > 0 ? allSorted[0].id : null;
 
   return (
-    <section className="relative pt-28 sm:pt-32 pb-24 px-4 sm:px-6 min-h-screen">
+    <section className="relative pt-28 sm:pt-32 pb-24 px-6 min-h-screen">
       <SEO title="Episodios" description="Todos los episodios de sodaroja. Historias reales de ciudades del mundo." />
       <EpisodeVibes />
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="pt-4">
           <EditorialHeader
             label={`${filtered.length} episodios`}
@@ -86,7 +86,7 @@ export const EpisodiosPage: React.FC = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((episode: any, index: number) => (
             <motion.div key={episode.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: Math.min(index * 0.1, 0.8), ease: 'easeOut' }}>
               <EpisodeCard

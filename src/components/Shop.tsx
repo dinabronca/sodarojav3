@@ -10,7 +10,7 @@ export const Shop: React.FC = () => {
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window);
 
   return (
-    <section id="shop" className="relative py-28 sm:py-36 px-6 overflow-hidden bg-gradient-to-b from-soda-night via-soda-deep to-soda-night">
+    <section id="shop" className="relative py-24 sm:py-32 px-6 overflow-hidden bg-gradient-to-b from-soda-night via-soda-deep to-soda-night">
       <BlueprintEffects />
 
       {/* Atmospheric gradients */}
@@ -32,7 +32,7 @@ export const Shop: React.FC = () => {
         />
       ))}
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         <EditorialHeader
           label="Merch"
           title={shop.title || 'La'}

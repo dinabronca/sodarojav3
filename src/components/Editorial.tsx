@@ -51,6 +51,6 @@ export const EditorialHeader: React.FC<{
 
 export const WarmDivider: React.FC = () => (
   <div className="py-4 px-6">
-    <div className="max-w-5xl mx-auto h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(196,85,85,0.08) 30%, rgba(212,197,176,0.06) 50%, rgba(196,85,85,0.08) 70%, transparent)' }} />
+    <div className="max-w-6xl mx-auto h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(196,85,85,0.08) 30%, rgba(212,197,176,0.06) 50%, rgba(196,85,85,0.08) 70%, transparent)' }} />
   </div>
 );
