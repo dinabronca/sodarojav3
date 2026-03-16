@@ -78,7 +78,7 @@ export const EpisodiosPage: React.FC = () => {
           </div>
           <div className="flex gap-2">
             {(['all', 'free', 'premium'] as const).map(f => (
-              <button key={f} onClick={() => setFilter(f)} className={`font-sans px-4 py-2.5 rounded-sm text-[10px] tracking-[0.15em] uppercase transition-all duration-500 border ${filter === f ? 'border-soda-red/30 text-soda-lamp bg-soda-red/8' : 'border-soda-mist/10 text-soda-fog/35 hover:text-soda-fog/55'}\`}><span className='font-sans'>
+              <button key={f} onClick={() => setFilter(f)} className={`font-sans px-4 py-2.5 rounded-sm text-[10px] tracking-[0.15em] uppercase transition-all duration-500 border ${filter === f ? 'border-soda-red/30 text-soda-lamp bg-soda-red/8' : 'border-soda-mist/10 text-soda-fog/35 hover:text-soda-fog/55'}`}>
                 {f === 'all' ? 'TODOS' : f === 'free' ? 'ABIERTOS' : 'FRECUENCIA INTERNA'}
               </button>
             ))}
