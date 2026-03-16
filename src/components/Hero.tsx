@@ -1,12 +1,19 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { getContent } from '../data/content';
+import { demoEpisodes } from '../data/episodes';
 
 export const Hero: React.FC = () => {
   const content = getContent();
   const { hero, brand } = content;
   const heroLogo = brand?.heroLogoUrl;
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Dynamic counts from actual episodes
+  const storeEps = content.episodios?.items || [];
+  const allEps = storeEps.length > 0 ? storeEps : demoEpisodes;
+  const cityCount = useMemo(() => new Set(allEps.map((e: any) => e.city)).size, [allEps]);
+  const epCount = allEps.length;
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -87,10 +94,9 @@ export const Hero: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Eyebrow — año + pulso */}
+        {/* Eyebrow — pulso */}
         <motion.div className="flex items-center gap-4 mb-10 sm:mb-14"
           initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:1.2 }}>
-          <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color:'rgba(212,197,176,0.2)' }}>2025</span>
           <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to right, transparent, rgba(196,85,85,0.35))' }} />
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
             style={{ background:'rgba(196,85,85,0.75)', boxShadow:'0 0 8px rgba(196,85,85,0.6)' }}
@@ -107,7 +113,6 @@ export const Hero: React.FC = () => {
             transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
           <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to left, transparent, rgba(196,85,85,0.35))' }} />
-          <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color:'rgba(212,197,176,0.2)' }}>BA</span>
         </motion.div>
 
         {/* TÍTULO PRINCIPAL */}
@@ -155,8 +160,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.1, duration:0.9 }}>
           {[
             { label: 'temporada', value: '01' },
-            { label: 'episodios', value: '10+' },
-            { label: 'ciudades', value: '8' },
+            { label: 'ciudades', value: String(cityCount) },
           ].map((item, i) => (
             <React.Fragment key={i}>
               {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}

@@ -63,7 +63,7 @@ export const QueEsEsto: React.FC = () => {
           transition={{ duration:1, delay:0.2 }}
           className="relative max-w-2xl mx-auto text-center mb-28 px-4">
           <span className="absolute -top-10 left-4 text-soda-red/10 text-[100px] font-display leading-none select-none">&ldquo;</span>
-          <p className="relative z-10 text-xl sm:text-2xl font-serif text-soda-lamp/82 leading-[1.65] italic">
+          <p className="relative z-10 text-lg sm:text-xl font-serif text-soda-lamp/78 leading-[1.75] italic">
             {queEsEsto.description}
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
@@ -76,7 +76,7 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           className="text-center mb-16">
           <p className="text-soda-accent/50 text-[10px] tracking-[0.35em] uppercase mb-2">{queEsEsto.structureTitle}</p>
-          <p className="text-soda-lamp/30 text-sm tracking-wide italic font-serif">{queEsEsto.structureSubtitle}</p>
+          <p className="text-soda-lamp/30 text-sm tracking-wide font-sans">{queEsEsto.structureSubtitle}</p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />
         </motion.div>
 
@@ -148,8 +148,8 @@ export const QueEsEsto: React.FC = () => {
                         <span className="font-mono text-[9px] tracking-[0.3em] flex-shrink-0"
                           style={{ color:colors.text }}>{String(item.numero).padStart(2,'0')}</span>
                         <div className="w-4 h-px flex-shrink-0" style={{ background:colors.border }} />
-                        <h4 className="font-display text-[17px] sm:text-[19px] leading-tight"
-                          style={{ color:'rgba(254,248,237,0.9)', fontWeight:400 }}>{item.titulo}</h4>
+                        <h4 className="font-sans text-[15px] sm:text-[16px] leading-tight font-medium"
+                          style={{ color:'rgba(254,248,237,0.9)', letterSpacing: '0.01em' }}>{item.titulo}</h4>
                       </div>
                       {item.subtitulo && (
                         <p className="text-[10px] tracking-[0.12em] mb-3 uppercase font-sans"

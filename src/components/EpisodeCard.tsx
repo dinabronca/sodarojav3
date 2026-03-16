@@ -299,7 +299,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
       {/* === MODAL === */}
       {isExpanded && !isLocked && (
-        <div className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center pt-16 sm:pt-0" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
+        <div className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
           {/* Backdrop */}
           <motion.div
             className="absolute inset-0"
@@ -314,7 +314,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl max-h-[96vh] sm:max-h-[90vh] overflow-y-auto rounded-t-sm sm:rounded-sm"
+            className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[85vh] sm:mt-16 overflow-y-auto rounded-t-sm sm:rounded-sm"
             style={{
               background: 'linear-gradient(165deg, rgba(16,20,32,0.98) 0%, rgba(10,13,22,0.99) 100%)',
               border: '1px solid rgba(212,197,176,0.08)',
