@@ -38,7 +38,7 @@ const TestimoniosSection: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-8 h-px bg-soda-red/50" />
-              <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Oyentes</span>
+              <span className="font-sans text-soda-red/55 text-[9px] tracking-[0.4em] uppercase">Oyentes</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85 leading-[1.1]">
               Lo que <em className="text-soda-red/70">dicen</em>
@@ -72,7 +72,7 @@ const TestimoniosSection: React.FC = () => {
                 </span>
 
                 {/* Quote text — grows to fill */}
-                <p className="text-soda-lamp/65 text-sm font-light leading-[1.75] flex-1">
+                <p className="font-sans text-soda-lamp/60 text-sm leading-[1.75] flex-1">
                   {t.quote}
                 </p>
 
@@ -80,12 +80,12 @@ const TestimoniosSection: React.FC = () => {
                 <div className="flex items-center gap-3 mt-6 pt-5"
                   style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
                   <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-mono flex-shrink-0"
-                    style={{ background: 'rgba(196,85,85,0.07)', border: '1px solid rgba(196,85,85,0.15)', color: 'rgba(196,85,85,0.6)' }}>
+                    style={{ background: 'rgba(196,85,85,0.07)', border: '1px solid rgba(196,85,85,0.15)', color: 'rgba(196,85,85,0.6)', fontFamily: "'JetBrains Mono', monospace" }}>
                     {t.author.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-soda-lamp/60 text-[11px] tracking-[0.04em]">{t.author}</p>
-                    <p className="text-soda-lamp/28 text-[9px] italic mt-0.5">{t.from}</p>
+                    <p className="font-sans text-soda-lamp/60 text-[11px] tracking-[0.04em]">{t.author}</p>
+                    <p className="font-mono text-soda-lamp/25 text-[9px] mt-0.5">{t.from}</p>
                   </div>
                 </div>
               </motion.div>
@@ -174,7 +174,7 @@ export const HomePage: React.FC = () => {
           <motion.div initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="mb-14 sm:mb-20">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-px bg-soda-red" />
-              <span className="text-soda-red text-[10px] tracking-[0.3em] uppercase font-light">Viajes recientes</span>
+              <span className="font-sans text-soda-red/70 text-[9px] tracking-[0.35em] uppercase">Viajes recientes</span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05]">
               Los últimos <em className="text-soda-red">destinos</em>
@@ -191,7 +191,7 @@ export const HomePage: React.FC = () => {
             <Link to="/episodios" className="group relative inline-flex items-center gap-3 px-10 py-4 border border-soda-mist/15 text-soda-lamp/50 rounded-sm hover:border-soda-red/25 hover:text-soda-lamp transition-all duration-700 tracking-[0.25em] text-[10px] uppercase overflow-hidden">
               {/* Fondo que aparece en hover */}
               <span className="absolute inset-0 bg-gradient-to-r from-soda-red/0 via-soda-red/5 to-soda-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <span className="relative">Ver todos los episodios</span>
+              <span className="relative font-sans">Ver todos los episodios</span>
               <ArrowRight size={13} className="relative text-soda-fog/30 group-hover:text-soda-lamp/50 group-hover:translate-x-1.5 transition-all duration-500" />
             </Link>
           </motion.div>
@@ -207,11 +207,11 @@ export const HomePage: React.FC = () => {
       <section className="relative py-16 sm:py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-soda-lamp/30 text-[9px] tracking-[0.4em] uppercase text-center mb-8">Escuchá en tu plataforma favorita</p>
+            <p className="font-sans text-soda-lamp/25 text-[9px] tracking-[0.4em] uppercase text-center mb-8">Escuchá en tu plataforma favorita</p>
             <div className="flex items-center justify-center gap-6 sm:gap-10 flex-wrap">
               {((content as any).platforms || []).filter((p: any) => p.visible).map((p: any) => (
                 <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"
-                  className="group relative text-soda-lamp/40 text-xs sm:text-sm font-light tracking-[0.08em] hover:text-soda-lamp transition-all duration-500"
+                  className="group relative font-sans text-soda-lamp/40 text-xs sm:text-sm tracking-[0.08em] hover:text-soda-lamp transition-all duration-500"
                   title={p.name}
                 >
                   {p.name}

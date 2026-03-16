@@ -518,7 +518,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
               {/* Listen prompt */}
               {showListenPrompt && !listened && (
                 <div className="pt-5 mt-4" style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
-                  <p className="text-[13px] text-center mb-4" style={{ color: 'rgba(212,197,176,0.5)', fontFamily: "'DM Sans', system-ui, sans-serif", fontStyle: 'italic' }}>¿Ya escuchaste este episodio?</p>
+                  <p className="text-[13px] text-center mb-4" style={{ color: 'rgba(212,197,176,0.5)', fontFamily: "'DM Sans', system-ui, sans-serif" }}>¿Ya escuchaste este episodio?</p>
                   <div className="flex justify-center gap-3">
                     <button onClick={() => markListened(true)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.25)', color: 'rgba(212,197,176,0.75)' }}>Sí, ya lo escuché</button>
                     <button onClick={() => setShowListenPrompt(false)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.35)' }}>Todavía no</button>

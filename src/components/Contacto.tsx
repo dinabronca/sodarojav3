@@ -83,7 +83,7 @@ export const Contacto: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Subject — selectable with descriptions */}
               <div>
-                <label className="block text-soda-lamp text-sm mb-3">Asunto</label>
+                <label className="font-sans block text-soda-lamp/70 text-[11px] tracking-[0.08em] mb-3">Asunto</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {subjectOptions.map((opt) => {
                     const Icon = opt.icon;
@@ -98,7 +98,7 @@ export const Contacto: React.FC = () => {
                       >
                         <div className="flex items-center gap-2 mb-0.5">
                           <Icon size={14} className={selected ? 'text-soda-accent' : 'text-soda-fog'} />
-                          <span className="text-xs font-medium tracking-wide">{opt.label}</span>
+                          <span className="font-sans text-[12px] font-medium tracking-wide">{opt.label}</span>
                         </div>
                         <p className="text-[11px] opacity-60 leading-tight">{opt.desc}</p>
                       </button>
@@ -114,11 +114,11 @@ export const Contacto: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label className="block text-soda-lamp text-sm mb-2">Tu nombre</label><input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className={ic} placeholder="Juan Perez" /></div>
-                <div><label className="block text-soda-lamp text-sm mb-2">Tu email</label><input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className={ic} placeholder="tu@email.com" /></div>
+                <div><label className="font-sans block text-soda-lamp/70 text-[11px] tracking-[0.08em] mb-2">Tu nombre</label><input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className={ic} placeholder="Juan Perez" /></div>
+                <div><label className="font-sans block text-soda-lamp/70 text-[11px] tracking-[0.08em] mb-2">Tu email</label><input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className={ic} placeholder="tu@email.com" /></div>
               </div>
 
-              <div><label className="block text-soda-lamp text-sm mb-2">Mensaje</label><textarea required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} rows={5} className={ic + ' resize-none'} placeholder="Contanos..." /></div>
+              <div><label className="font-sans block text-soda-lamp/70 text-[11px] tracking-[0.08em] mb-2">Mensaje</label><textarea required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} rows={5} className={ic + ' resize-none'} placeholder="Contanos..." /></div>
 
               <button type="submit" disabled={status === 'sending' || !formData.subject} className={`w-full py-4 border rounded-sm transition-all duration-500 tracking-widest flex items-center justify-center gap-2 text-[11px] ${
                 status === 'sent' ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400'
@@ -131,17 +131,17 @@ export const Contacto: React.FC = () => {
                 {status === 'sent' && <><CheckCircle size={16} />MENSAJE ENVIADO</>}
                 {status === 'error' && <><AlertCircle size={16} />ERROR AL ENVIAR</>}
               </button>
-              {!formData.subject && status === 'idle' && <p className="text-soda-fog text-xs text-center">Seleccioná un asunto para enviar</p>}
+              {!formData.subject && status === 'idle' && <p className="font-sans text-soda-fog/50 text-xs text-center">Seleccioná un asunto para enviar</p>}
             </form>
           </motion.div>
 
           {/* Info sidebar */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6">
             <div className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-8">
-              <h3 className="font-display text-2xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Líneas directas</h3>
+              <h3 className="font-serif text-2xl text-soda-glow mb-6">Líneas directas</h3>
               <div className="space-y-4">
-                <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span>{contacto.email}</span></a>
-                <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span>{contacto.instagram}</span></a>
+                <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.email}</span></a>
+                <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.instagram}</span></a>
               </div>
             </div>
             <p className="font-sans text-sm text-soda-lamp/40">Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>

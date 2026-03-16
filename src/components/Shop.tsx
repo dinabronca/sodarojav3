@@ -46,19 +46,19 @@ export const Shop: React.FC = () => {
           className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-10 text-center max-w-md mx-auto mb-12 group hover:border-soda-accent/30 transition-all duration-700">
           <div className="absolute inset-0 bg-gradient-to-t from-soda-accent/3 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-sm" />
           <Package size={36} className="text-soda-accent/40 mb-4 mx-auto" />
-          <h3 className="text-xl font-display text-soda-glow mb-2">Pack de Stickers</h3>
-          <p className="text-soda-fog text-sm mb-4">Colección de stickers del culto</p>
-          <span className="text-soda-accent/40 text-[10px] tracking-[0.2em] uppercase">Próximamente</span>
+          <h3 className="text-xl font-serif text-soda-glow mb-2">Pack de Stickers</h3>
+          <p className="font-sans text-soda-lamp/40 text-sm mb-4">Colección de stickers del culto</p>
+          <span className="font-mono text-soda-accent/40 text-[10px] tracking-[0.2em] uppercase">Próximamente</span>
         </motion.div>
 
         {/* Notify */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
           className="max-w-md mx-auto text-center">
-          <p className="text-soda-fog text-sm mb-6">Dejanos tu email y te avisamos cuando esté disponible</p>
+          <p className="font-sans text-soda-lamp/40 text-sm mb-6">Dejanos tu email y te avisamos cuando esté disponible</p>
           <div className="flex gap-3">
             <input type="email" placeholder="tu@email.com" className="flex-1 bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm px-4 py-3 text-soda-lamp text-sm focus:border-soda-accent/40 focus:outline-none transition-colors duration-500" />
             <button className="px-6 py-3 bg-soda-accent/8 border border-soda-accent/30 text-soda-lamp rounded-sm hover:bg-soda-accent/15 hover:border-soda-accent/45 transition-all duration-500 text-xs tracking-wider flex items-center gap-2">
-              <Mail size={14} />Avisame
+              <Mail size={14} /><span className="font-sans">Avisame</span>
             </button>
           </div>
         </motion.div>

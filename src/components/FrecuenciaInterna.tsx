@@ -822,14 +822,14 @@ const PublicView: React.FC = () => {
           </motion.div>
           <h2 className="font-display text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <em className="text-soda-red/85">Interna</em></h2>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
-          <p className="font-sans text-lg text-soda-lamp/70 max-w-2xl mx-auto mb-8">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
+          <p className="font-sans text-lg text-soda-lamp/65 max-w-2xl mx-auto mb-8 leading-relaxed">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-20">
           <p className="font-sans text-base text-soda-lamp/50 leading-relaxed text-center">Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-display text-soda-glow mb-8 text-center lg:text-left">Eleg&#237; c&#243;mo quer&#233;s sumarte</h3>
+            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Eleg&#237; c&#243;mo quer&#233;s sumarte</h3>
             <div className="space-y-6">
               {plans.map((plan, idx) => (
                 <motion.div key={plan.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
@@ -840,7 +840,7 @@ const PublicView: React.FC = () => {
                   <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedPlan === plan.id ? 'border-soda-red bg-soda-red' : 'border-soda-mist/40'}`}>{selectedPlan === plan.id && <div className="w-2 h-2 bg-white rounded-full" />}</div>
                   {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-soda-red px-4 py-1 rounded-sm text-xs tracking-wider text-soda-glow">M&#193;S ELEGIDO</div>}
                   <div className="flex items-end justify-between pr-8">
-                    <div><h4 className="text-2xl font-display text-soda-glow mb-2">{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
+                    <div><h4 className="text-2xl font-serif text-soda-glow mb-2">{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
                     <div className="text-right"><div className="text-3xl font-display text-soda-lamp">${plan.priceARS.toLocaleString('es-AR')}</div><div className="text-sm font-sans text-soda-fog">USD ${plan.priceUSD}/mes</div></div>
                   </div>
                 </motion.div>
@@ -848,7 +848,7 @@ const PublicView: React.FC = () => {
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-display text-soda-glow mb-8 text-center lg:text-left">Qu&#233; te llev&#225;s al sumarte</h3>
+            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Qu&#233; te llev&#225;s al sumarte</h3>
             <div className="space-y-4">
               {benefits.map((b, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex items-start gap-4 group">
@@ -860,7 +860,7 @@ const PublicView: React.FC = () => {
           </motion.div>
         </div>
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16">
-          <div className="mb-6 text-center"><div className="text-soda-lamp font-sans text-sm mb-1">Plan seleccionado: <span className="text-soda-red font-medium">{currentPlan.name}</span></div><div className="text-soda-fog font-sans text-xs">${currentPlan.priceARS.toLocaleString('es-AR')} ARS / USD ${currentPlan.priceUSD} por mes</div></div>
+          <div className="mb-6 text-center"><div className="font-sans text-soda-lamp/60 text-sm mb-1">Plan seleccionado: <span className="text-soda-red font-medium">{currentPlan.name}</span></div><div className="text-soda-fog font-sans text-xs">${currentPlan.priceARS.toLocaleString('es-AR')} ARS / USD ${currentPlan.priceUSD} por mes</div></div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto mb-12">
             <button className="w-full sm:w-auto px-10 py-5 bg-soda-red/10 border border-soda-red/50 text-soda-glow rounded-sm hover:bg-soda-red/20 hover:border-soda-red/70 transition-all duration-500 tracking-wider font-sans">
               <span className="flex items-center justify-center gap-2"><Heart size={18} />SUSCRIBIRME (ARGENTINA)</span>

@@ -165,7 +165,7 @@ export const Hero: React.FC = () => {
             <React.Fragment key={i}>
               {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
               <div className="text-center">
-                <div className="font-display text-xl sm:text-2xl" style={{ color:'rgba(254,248,237,0.55)', fontWeight:300, fontStyle:'italic' }}>{item.value}</div>
+                <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
                 <div className="font-sans text-[8px] tracking-[0.3em] uppercase mt-0.5" style={{ color:'rgba(212,197,176,0.22)' }}>{item.label}</div>
               </div>
             </React.Fragment>

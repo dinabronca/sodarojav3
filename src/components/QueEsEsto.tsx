@@ -47,7 +47,7 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           className="flex items-center gap-4 justify-center mb-6">
           <div className="w-12 h-px bg-soda-red/40" />
-          <span className="text-soda-red/55 text-[10px] tracking-[0.4em] uppercase">Sobre el proyecto</span>
+          <span className="font-sans text-soda-red/55 text-[10px] tracking-[0.4em] uppercase">Sobre el proyecto</span>
           <div className="w-12 h-px bg-soda-red/40" />
         </motion.div>
 
@@ -67,14 +67,14 @@ export const QueEsEsto: React.FC = () => {
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
             <div className="w-6 h-px bg-soda-red/30" />
-            <span className="text-soda-red/35 text-[9px] tracking-[0.35em] uppercase">sodaroja</span>
+            <span className="font-mono text-soda-red/35 text-[9px] tracking-[0.35em] uppercase">sodaroja</span>
             <div className="w-6 h-px bg-soda-red/30" />
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           className="text-center mb-16">
-          <p className="text-soda-accent/50 text-[10px] tracking-[0.35em] uppercase mb-2">{queEsEsto.structureTitle}</p>
+          <p className="font-sans text-soda-accent/50 text-[10px] tracking-[0.35em] uppercase mb-2">{queEsEsto.structureTitle}</p>
           <p className="text-soda-lamp/30 text-sm tracking-wide font-sans">{queEsEsto.structureSubtitle}</p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />
         </motion.div>
@@ -147,7 +147,7 @@ export const QueEsEsto: React.FC = () => {
                         <span className="font-mono text-[9px] tracking-[0.3em] flex-shrink-0"
                           style={{ color:colors.text }}>{String(item.numero).padStart(2,'0')}</span>
                         <div className="w-4 h-px flex-shrink-0" style={{ background:colors.border }} />
-                        <h4 className="font-sans text-[15px] sm:text-[16px] leading-tight font-medium"
+                        <h4 className="font-serif text-[16px] sm:text-[17px] leading-tight"
                           style={{ color:'rgba(254,248,237,0.9)', letterSpacing: '0.01em' }}>{item.titulo}</h4>
                       </div>
                       {item.subtitulo && (
@@ -172,7 +172,7 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           transition={{ duration:0.8 }} className="mt-24">
           <div className="text-center mb-10">
-            <h3 className="font-display text-2xl sm:text-3xl text-soda-glow mb-2">
+            <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow mb-2">
               Temas que <em className="text-soda-red/80">exploramos</em>
             </h3>
             <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />

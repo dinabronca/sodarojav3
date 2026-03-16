@@ -46,7 +46,7 @@ export const ElEquipo: React.FC = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="flex items-center gap-4 justify-center mb-6">
           <div className="w-12 h-px bg-soda-accent/35" />
-          <span className="text-soda-accent/50 text-[10px] tracking-[0.4em] uppercase">Quiénes somos</span>
+          <span className="font-sans text-soda-accent/50 text-[10px] tracking-[0.4em] uppercase">Quiénes somos</span>
           <div className="w-12 h-px bg-soda-accent/35" />
         </motion.div>
 
@@ -101,7 +101,7 @@ export const ElEquipo: React.FC = () => {
 
                   {/* Name overlay on photo */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="font-display text-2xl sm:text-3xl text-soda-glow leading-none mb-1" style={{ fontWeight: 400 }}>{member.name}</h3>
+                    <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow leading-none mb-1">{member.name}</h3>
                     <p className="text-soda-accent/70 text-[10px] tracking-[0.15em] uppercase font-sans">{member.role}</p>
                   </div>
 
@@ -132,7 +132,7 @@ export const ElEquipo: React.FC = () => {
                   <div className="flex gap-1 mb-4">
                     {(['perfil', 'ciudades'] as const).map(tab => (
                       <button key={tab} onClick={() => setTab(index, tab)}
-                        className={`flex-1 py-1.5 text-[9px] tracking-[0.2em] uppercase rounded-sm transition-all duration-400 ${
+                        className={`font-sans flex-1 py-1.5 text-[9px] tracking-[0.2em] uppercase rounded-sm transition-all duration-400 ${
                           getTab(index) === tab
                             ? 'bg-soda-accent/12 text-soda-accent/80 border border-soda-accent/20'
                             : 'text-soda-lamp/25 hover:text-soda-lamp/45 border border-transparent'
