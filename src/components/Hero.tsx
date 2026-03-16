@@ -87,87 +87,86 @@ export const Hero: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Eyebrow */}
-        <motion.div className="flex items-center gap-3 mb-10 sm:mb-12"
-          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:1 }}>
-          <div className="w-8 sm:w-14 h-px" style={{ background:'linear-gradient(to right, transparent, rgba(196,85,85,0.4))' }} />
+        {/* Eyebrow — año + pulso */}
+        <motion.div className="flex items-center gap-4 mb-10 sm:mb-14"
+          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:1.2 }}>
+          <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color:'rgba(212,197,176,0.2)' }}>2025</span>
+          <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to right, transparent, rgba(196,85,85,0.35))' }} />
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-            style={{ background:'rgba(196,85,85,0.7)', boxShadow:'0 0 6px rgba(196,85,85,0.5)' }}
-            animate={{ opacity:[0.4,1,0.4], scale:[0.9,1.1,0.9] }}
-            transition={{ duration:2, repeat:Infinity, ease:'easeInOut' }}
+            style={{ background:'rgba(196,85,85,0.75)', boxShadow:'0 0 8px rgba(196,85,85,0.6)' }}
+            animate={{ opacity:[0.4,1,0.4], scale:[0.85,1.15,0.85] }}
+            transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
-          <span className="text-[9px] sm:text-[10px] uppercase font-light"
-            style={{ color:'rgba(196,85,85,0.55)', letterSpacing:'0.5em' }}>
+          <span className="text-[9px] sm:text-[10px] uppercase font-sans"
+            style={{ color:'rgba(196,85,85,0.5)', letterSpacing:'0.45em', fontWeight:300 }}>
             {subtitle}
           </span>
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-            style={{ background:'rgba(196,85,85,0.7)', boxShadow:'0 0 6px rgba(196,85,85,0.5)' }}
-            animate={{ opacity:[1,0.4,1], scale:[1.1,0.9,1.1] }}
-            transition={{ duration:2, repeat:Infinity, ease:'easeInOut' }}
+            style={{ background:'rgba(196,85,85,0.75)', boxShadow:'0 0 8px rgba(196,85,85,0.6)' }}
+            animate={{ opacity:[1,0.4,1], scale:[1.15,0.85,1.15] }}
+            transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
-          <div className="w-8 sm:w-14 h-px" style={{ background:'linear-gradient(to left, transparent, rgba(196,85,85,0.4))' }} />
+          <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to left, transparent, rgba(196,85,85,0.35))' }} />
+          <span className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color:'rgba(212,197,176,0.2)' }}>BA</span>
         </motion.div>
 
-        {/* TÍTULO — tratamiento itálico: da movimiento sin necesitar efectos extra */}
-        <div className="relative w-full overflow-hidden mb-10">
+        {/* TÍTULO PRINCIPAL */}
+        <div className="relative w-full overflow-hidden mb-4">
           <motion.div
-            initial={{ y:'108%', opacity:0 }}
+            initial={{ y:'110%', opacity:0 }}
             animate={{ y:0, opacity:1 }}
-            transition={{ delay:0.35, duration:1.05, ease:[0.16,1,0.3,1] }}
+            transition={{ delay:0.35, duration:1.1, ease:[0.16,1,0.3,1] }}
           >
-            <h1 className="font-serif tracking-[-0.03em] leading-[0.85] select-none"
+            <h1 className="font-display tracking-[-0.02em] leading-[0.88] select-none"
               style={{
-                fontSize:'clamp(4rem,18vw,17rem)',
-                color:'rgba(254,248,237,0.93)',
+                fontSize:'clamp(4.5rem,19vw,18rem)',
+                color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
                 fontStyle:'italic',
-                textShadow:'0 2px 80px rgba(196,85,85,0.08)',
               }}
             >
               {title}
             </h1>
           </motion.div>
-
-          {/* Línea sutil bajo el título */}
-          <motion.div className="absolute -bottom-2 left-1/2 -translate-x-1/2 pointer-events-none"
-            initial={{ opacity:0, scaleX:0 }} animate={{ opacity:1, scaleX:1 }}
-            transition={{ delay:0.7, duration:1.2, ease:'easeOut' }}
-            style={{
-              width:'60%', height:'1px',
-              background:'linear-gradient(to right, transparent, rgba(196,85,85,0.18) 30%, rgba(212,197,176,0.12) 50%, rgba(196,85,85,0.18) 70%, transparent)',
-            }}
-          />
         </div>
 
-        {/* Logo marca de agua — si existe */}
-        {heroLogo && (
-          <motion.div className="mb-7" initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.85, duration:1.2 }}>
-            <img src={heroLogo} alt="sodaroja" className="mx-auto object-contain"
-              style={{ height:'26px', mixBlendMode:'screen', filter:'brightness(1.8) saturate(0.1)', opacity:0.2 }}
-            />
-          </motion.div>
-        )}
+        {/* Línea fina + tagline bajo el título */}
+        <motion.div className="w-full flex flex-col items-center gap-5 mb-10"
+          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.75, duration:1.2 }}>
+          <div style={{ width:'55%', height:'1px',
+            background:'linear-gradient(to right, transparent, rgba(196,85,85,0.2) 30%, rgba(212,197,176,0.1) 50%, rgba(196,85,85,0.2) 70%, transparent)' }} />
+          {hero.description ? (
+            <p className="font-serif text-center italic"
+              style={{ color:'rgba(212,197,176,0.38)', fontSize:'clamp(0.8rem,1.6vw,1rem)',
+                fontWeight:300, letterSpacing:'0.04em', lineHeight:1.85, maxWidth:'28rem' }}>
+              {hero.description}
+            </p>
+          ) : (
+            <p className="font-sans text-center"
+              style={{ color:'rgba(212,197,176,0.22)', fontSize:'11px',
+                letterSpacing:'0.32em', textTransform:'uppercase', fontWeight:300 }}>
+              historias reales de ciudades lejanas
+            </p>
+          )}
+        </motion.div>
 
-        {/* Descripción */}
-        {hero.description && (
-          <motion.p
-            initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:1, duration:1 }}
-            className="text-center whitespace-pre-line"
-            style={{
-              color:'rgba(212,197,176,0.36)', fontSize:'clamp(0.75rem,1.5vw,0.875rem)',
-              fontWeight:300, letterSpacing:'0.05em', lineHeight:1.9, maxWidth:'26rem',
-            }}
-          >
-            {hero.description}
-          </motion.p>
-        )}
-
-        {!heroLogo && !hero.description && (
-          <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.95, duration:1 }}
-            style={{ color:'rgba(212,197,176,0.18)', fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', marginTop:'1.5rem' }}>
-            podcast narrativo
-          </motion.p>
-        )}
+        {/* Editorial data strip */}
+        <motion.div className="flex items-center gap-6 sm:gap-10"
+          initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} transition={{ delay:1.1, duration:0.9 }}>
+          {[
+            { label: 'temporada', value: '01' },
+            { label: 'episodios', value: '10+' },
+            { label: 'ciudades', value: '8' },
+          ].map((item, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
+              <div className="text-center">
+                <div className="font-display text-xl sm:text-2xl" style={{ color:'rgba(254,248,237,0.55)', fontWeight:300, fontStyle:'italic' }}>{item.value}</div>
+                <div className="font-sans text-[8px] tracking-[0.3em] uppercase mt-0.5" style={{ color:'rgba(212,197,176,0.22)' }}>{item.label}</div>
+              </div>
+            </React.Fragment>
+          ))}
+        </motion.div>
 
       </div>
 

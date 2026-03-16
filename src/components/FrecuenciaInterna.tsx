@@ -792,98 +792,177 @@ const PARTICLES_DESKTOP = [
 ];
 
 // ============================================================
-// PUBLIC VIEW (unchanged)
+// PUBLIC VIEW — editorial redesign
 // ============================================================
 const PublicView: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>('plan-b');
   const currentPlan = plans.find(p => p.id === selectedPlan) || plans[1];
-  const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768);
 
   return (
     <>
-      {[...Array(isMobile ? 3 : 6)].map((_, i) => (
-        <motion.div key={`w-${i}`} className="absolute left-1/2 top-1/2 border-2 border-soda-red rounded-full pointer-events-none"
-          style={{ width: `${300 + i * 150}px`, height: `${300 + i * 150}px`, marginLeft: `-${150 + i * 75}px`, marginTop: `-${150 + i * 75}px` }}
-          animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.15, 0.05] }}
-          transition={{ duration: 4 + i * 0.5, repeat: Infinity, delay: i * 0.5 }}
-        />
-      ))}
-      {/* Partículas con posiciones fijas — Math.random() en render directo causa posiciones distintas en cada re-render */}
-      {(isMobile ? PARTICLES_MOBILE : PARTICLES_DESKTOP).map((p, i) => (
-        <motion.div key={`p-${i}`} className="absolute w-1 h-1 bg-soda-red rounded-full opacity-40"
-          style={{ left: `${p.x}%`, top: `${p.y}%` }}
-          animate={{ y: [0, -50, 0], opacity: [0.1, 0.4, 0.1] }}
+      {/* Subtle particles */}
+      {PARTICLES_DESKTOP.slice(0, 8).map((p, i) => (
+        <motion.div key={`p-${i}`} className="absolute w-px h-px rounded-full pointer-events-none"
+          style={{ left: `${p.x}%`, top: `${p.y}%`, background: 'rgba(196,85,85,0.5)' }}
+          animate={{ y: [0, -40, 0], opacity: [0, 0.5, 0] }}
           transition={{ duration: p.dur, repeat: Infinity, delay: p.delay }}
         />
       ))}
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <motion.div animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
-            <div className="text-8xl text-soda-red">◉</div>
-          </motion.div>
-          <h2 className="text-5xl md:text-6xl font-serif text-soda-glow mb-6">Frecuencia <em className="text-soda-red/85">Interna</em></h2>
-          <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
-          <p className="text-soda-lamp text-xl font-light max-w-2xl mx-auto mb-8">Las historias que se cuentan cuando la noche ya está avanzada</p>
+
+      <div className="max-w-5xl mx-auto relative z-10">
+
+        {/* ── HEADER EDITORIAL ── */}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.9 }} className="mb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-8 h-px bg-soda-red/40" />
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-soda-red/45">membresía</span>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div>
+              <h2 className="font-display leading-[0.9]" style={{ fontWeight: 300 }}>
+                <span className="block text-soda-glow/90" style={{ fontSize: 'clamp(2.8rem,7vw,5.5rem)' }}>Frecuencia</span>
+                <em className="block text-soda-red/80" style={{ fontSize: 'clamp(3rem,8vw,6rem)' }}>Interna</em>
+              </h2>
+            </div>
+            <div className="max-w-xs lg:max-w-sm pb-2">
+              <p className="font-serif text-base sm:text-lg italic text-soda-lamp/60 leading-relaxed">
+                Las historias que se cuentan cuando la noche ya está avanzada.
+              </p>
+              <div className="w-10 h-px bg-soda-red/30 mt-4" />
+            </div>
+          </div>
+          <div className="w-full h-px mt-10" style={{ background: 'linear-gradient(to right, rgba(196,85,85,0.25), rgba(212,197,176,0.06) 60%, transparent)' }} />
         </motion.div>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-20">
-          <p className="text-soda-fog text-base font-light leading-relaxed text-center">Sodaroja es un proyecto independiente que hacemos con amor, pero también con tiempo, energía y recursos. Cada episodio lleva horas de investigación, edición y producción. Tu aporte nos permite seguir haciéndolo.</p>
+
+        {/* ── INTRO ── */}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          transition={{ duration: 1 }} className="max-w-2xl mb-20">
+          <p className="font-serif text-lg sm:text-xl text-soda-lamp/70 leading-[1.75] italic">
+            Sodaroja es un proyecto independiente. Cada episodio lleva horas de investigación, edición y producción. Tu aporte nos permite seguir haciéndolo.
+          </p>
         </motion.div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Elegí cómo querés sumarte</h3>
-            <div className="space-y-6">
-              {plans.map((plan, idx) => (
-                <motion.div key={plan.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
+
+        {/* ── PLANES — tipografía editorial, no cards genéricas ── */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="mb-16">
+          <div className="flex items-center gap-4 mb-10">
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-soda-lamp/25">01</span>
+            <div className="w-4 h-px bg-soda-lamp/15" />
+            <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-soda-lamp/30">elegí tu nivel</span>
+          </div>
+
+          <div className="space-y-0 border-t" style={{ borderColor: 'rgba(212,197,176,0.06)' }}>
+            {plans.map((plan, idx) => {
+              const isSelected = selectedPlan === plan.id;
+              return (
+                <motion.div key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`relative bg-soda-night/50 rounded-sm p-8 transition-all duration-500 cursor-pointer ${
-                    selectedPlan === plan.id ? 'border border-soda-red/60 scale-[1.01]' : plan.featured ? 'border border-soda-accent/40' : 'border border-soda-mist/15 hover:border-soda-mist/30'
-                  }`}>
-                  <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedPlan === plan.id ? 'border-soda-red bg-soda-red' : 'border-soda-mist/40'}`}>{selectedPlan === plan.id && <div className="w-2 h-2 bg-white rounded-full" />}</div>
-                  {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-soda-red px-4 py-1 rounded-sm text-xs tracking-wider text-soda-glow">MÁS ELEGIDO</div>}
-                  <div className="flex items-end justify-between pr-8">
-                    <div><h4 className="text-2xl font-serif text-soda-glow mb-2">{plan.name}</h4><p className="text-soda-fog text-sm">{plan.description}</p></div>
-                    <div className="text-right"><div className="text-3xl font-light text-soda-lamp">${plan.priceARS.toLocaleString('es-AR')}</div><div className="text-sm text-soda-fog">USD ${plan.priceUSD}/mes</div></div>
+                  className="relative flex items-center justify-between py-6 sm:py-7 cursor-pointer group transition-all duration-500 border-b"
+                  style={{ borderColor: 'rgba(212,197,176,0.06)',
+                    background: isSelected ? 'linear-gradient(to right, rgba(196,85,85,0.04), transparent)' : 'transparent' }}
+                  initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }} transition={{ delay: idx * 0.08 }}>
+
+                  {/* Selected indicator */}
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] transition-all duration-500"
+                    style={{ background: isSelected ? 'rgba(196,85,85,0.7)' : 'transparent' }} />
+
+                  <div className="flex items-center gap-6 pl-5">
+                    <span className="font-mono text-[10px] tracking-[0.25em]"
+                      style={{ color: isSelected ? 'rgba(196,85,85,0.6)' : 'rgba(212,197,176,0.2)' }}>
+                      {String(idx + 1).padStart(2,'0')}
+                    </span>
+                    <div>
+                      <h4 className="font-display text-2xl sm:text-3xl transition-colors duration-500"
+                        style={{ color: isSelected ? 'rgba(254,248,237,0.95)' : 'rgba(254,248,237,0.55)', fontWeight: 300, fontStyle: 'italic' }}>
+                        {plan.name}
+                      </h4>
+                      <p className="font-sans text-[11px] tracking-wide mt-0.5 transition-colors duration-500"
+                        style={{ color: isSelected ? 'rgba(212,197,176,0.5)' : 'rgba(212,197,176,0.25)' }}>
+                        {plan.description}
+                        {plan.featured && <span className="ml-3 text-soda-red/60">— el más elegido</span>}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="text-right pr-2 sm:pr-0">
+                    <div className="font-display text-xl sm:text-2xl transition-colors duration-500"
+                      style={{ color: isSelected ? 'rgba(254,248,237,0.85)' : 'rgba(212,197,176,0.3)', fontWeight: 300 }}>
+                      ${plan.priceARS.toLocaleString('es-AR')}
+                      <span className="font-sans text-[10px] ml-1" style={{ color: 'rgba(212,197,176,0.3)' }}>ars</span>
+                    </div>
+                    <div className="font-mono text-[10px] tracking-wider"
+                      style={{ color: isSelected ? 'rgba(196,85,85,0.5)' : 'rgba(212,197,176,0.18)' }}>
+                      USD {plan.priceUSD}
+                    </div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Qué te llevas al sumarte</h3>
-            <div className="space-y-4">
-              {benefits.map((b, i) => (
-                <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex items-start gap-4 group">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-sm border border-soda-accent/40 flex items-center justify-center group-hover:border-soda-red group-hover:bg-soda-red/10 transition-all"><Check size={14} className="text-soda-accent group-hover:text-soda-red" /></div>
-                  <span className="text-soda-lamp font-light group-hover:text-soda-glow transition-colors">{b}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16">
-          <div className="mb-6 text-center"><div className="text-soda-lamp text-sm mb-1">Plan seleccionado: <span className="text-soda-red font-medium">{currentPlan.name}</span></div><div className="text-soda-fog text-xs">${currentPlan.priceARS.toLocaleString('es-AR')} ARS / USD ${currentPlan.priceUSD} por mes</div></div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto mb-12">
-            <button className="w-full sm:w-auto px-10 py-5 bg-soda-red/10 border border-soda-red/50 text-soda-glow rounded-sm hover:bg-soda-red/20 hover:border-soda-red/70 transition-all duration-500 tracking-wider">
-              <span className="flex items-center justify-center gap-2"><Heart size={18} />SUSCRIBIRME (ARGENTINA)</span>
-              <span className="block text-xs text-soda-lamp mt-1 opacity-70">Mercado Pago · ${currentPlan.priceARS.toLocaleString('es-AR')} ARS/mes</span>
-            </button>
-            <button className="w-full sm:w-auto px-10 py-5 bg-soda-accent/8 border border-soda-accent/40 text-soda-glow rounded-sm hover:bg-soda-accent/15 hover:border-soda-accent/60 transition-all duration-500 tracking-wider">
-              <span className="flex items-center justify-center gap-2"><Heart size={18} />SUSCRIBIRME (INTERNACIONAL)</span>
-              <span className="block text-xs text-soda-lamp mt-1 opacity-70">USD ${currentPlan.priceUSD}/mes</span>
-            </button>
-          </div>
-          <p className="text-soda-fog text-xs font-light text-center mb-16">Cancelá cuando quieras, sin compromiso ni letra chica</p>
-
-          {/* ── LOGIN SOCIAL ── */}
-          <div className="max-w-sm mx-auto">
-            <div className="flex items-center gap-4 mb-8 justify-center">
-              <div className="w-12 h-px" style={{ background: 'rgba(212,197,176,0.1)' }} />
-              <span className="text-[9px] tracking-[0.35em] uppercase" style={{ color: 'rgba(212,197,176,0.3)' }}>¿ya tenés cuenta?</span>
-              <div className="w-12 h-px" style={{ background: 'rgba(212,197,176,0.1)' }} />
-            </div>
-            <SocialLoginPanel />
+              );
+            })}
           </div>
         </motion.div>
+
+        {/* ── BENEFICIOS — dos columnas limpias ── */}
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-soda-lamp/25">02</span>
+            <div className="w-4 h-px bg-soda-lamp/15" />
+            <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-soda-lamp/30">qué te llevás</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3">
+            {benefits.map((b, i) => (
+              <motion.div key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                transition={{ delay: i * 0.03 }}
+                className="flex items-center gap-3 py-2 group border-b"
+                style={{ borderColor: 'rgba(212,197,176,0.04)' }}>
+                <div className="w-1 h-1 rounded-full flex-shrink-0"
+                  style={{ background: 'rgba(196,85,85,0.5)' }} />
+                <span className="font-sans text-[13px] transition-colors duration-400 group-hover:text-soda-lamp/80"
+                  style={{ color: 'rgba(212,197,176,0.5)' }}>{b}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── CTA ── */}
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="mb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="font-mono text-[9px] tracking-[0.4em] uppercase text-soda-lamp/25">03</span>
+            <div className="w-4 h-px bg-soda-lamp/15" />
+            <span className="font-sans text-[10px] tracking-[0.25em] uppercase text-soda-lamp/30">sumarte</span>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 max-w-xl">
+            <button className="flex-1 px-6 py-4 rounded-sm text-[11px] tracking-[0.2em] uppercase transition-all duration-500 group"
+              style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.3)', color: 'rgba(254,248,237,0.7)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(196,85,85,0.15)'; (e.currentTarget as HTMLElement).style.color = 'rgba(254,248,237,0.95)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(196,85,85,0.08)'; (e.currentTarget as HTMLElement).style.color = 'rgba(254,248,237,0.7)'; }}>
+              <span className="block">Argentina</span>
+              <span className="block font-mono text-[9px] mt-0.5 opacity-50">Mercado Pago · ${currentPlan.priceARS.toLocaleString('es-AR')} ars/mes</span>
+            </button>
+            <button className="flex-1 px-6 py-4 rounded-sm text-[11px] tracking-[0.2em] uppercase transition-all duration-500"
+              style={{ background: 'rgba(138,155,196,0.06)', border: '1px solid rgba(138,155,196,0.2)', color: 'rgba(254,248,237,0.6)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(138,155,196,0.12)'; (e.currentTarget as HTMLElement).style.color = 'rgba(254,248,237,0.9)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(138,155,196,0.06)'; (e.currentTarget as HTMLElement).style.color = 'rgba(254,248,237,0.6)'; }}>
+              <span className="block">Internacional</span>
+              <span className="block font-mono text-[9px] mt-0.5 opacity-50">USD {currentPlan.priceUSD}/mes</span>
+            </button>
+          </div>
+          <p className="font-sans text-[11px] mt-4" style={{ color: 'rgba(212,197,176,0.2)' }}>
+            Cancelá cuando quieras. Sin letra chica.
+          </p>
+        </motion.div>
+
+        {/* ── LOGIN ── */}
+        <div className="max-w-sm">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-6 h-px" style={{ background: 'rgba(212,197,176,0.1)' }} />
+            <span className="font-sans text-[9px] tracking-[0.35em] uppercase" style={{ color: 'rgba(212,197,176,0.25)' }}>¿ya tenés cuenta?</span>
+          </div>
+          <SocialLoginPanel />
+        </div>
       </div>
     </>
   );

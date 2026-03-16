@@ -312,3 +312,33 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 200px 200px;
   mix-blend-mode: overlay;
 }
+
+/* ===== DETALLES DE CALIDAD ===== */
+
+/* Selección de texto — marca de agua roja */
+::selection {
+  background: rgba(196,85,85,0.25);
+  color: rgba(254,248,237,0.95);
+}
+
+/* Scrollbar custom — sutil, editorial */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(196,85,85,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(196,85,85,0.4); }
+
+/* Focus visible — para accesibilidad sin feo outline */
+:focus-visible {
+  outline: 1px solid rgba(196,85,85,0.4);
+  outline-offset: 2px;
+}
+
+/* Inputs más elegantes */
+input, textarea {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Font rendering en pantallas retina */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  body { -webkit-font-smoothing: subpixel-antialiased; }
+}

@@ -68,34 +68,55 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
     return () => { document.body.style.overflow = ''; };
   }, [isExpanded]);
 
+  // RAF cleanup on unmount
+  useEffect(() => {
+    return () => { cancelAnimationFrame(rafRef.current); isHovering.current = false; };
+  }, []);
+
   const handleCardClick = () => {
     if (!isLocked) { setIsExpanded(true); if (!listened) setShowListenPrompt(true); }
   };
 
+  const targetParallax = useRef({ x: 0, y: 0 });
+  const currentParallax = useRef({ x: 0, y: 0 });
+  const isHovering = useRef(false);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isLocked || !cardRef.current || !parallaxRef.current) return;
-    cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      if (!cardRef.current || !parallaxRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-      // Clamp para evitar que se salga de los 30px de margen
-      const tx = Math.max(-2.5, Math.min(2.5, dx * 2.5));
-      const ty = Math.max(-1.8, Math.min(1.8, dy * 1.8));
-      parallaxRef.current.style.transform = `translate(${tx}px, ${ty}px)`;
-    });
+    if (isLocked || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    // Max 0.8px movement (was 2.5px) — much slower/subtler
+    targetParallax.current = {
+      x: Math.max(-0.8, Math.min(0.8, dx * 0.8)),
+      y: Math.max(-0.6, Math.min(0.6, dy * 0.6)),
+    };
   };
 
   const handleMouseLeave = () => {
+    isHovering.current = false;
+    targetParallax.current = { x: 0, y: 0 };
     cancelAnimationFrame(rafRef.current);
-    if (!parallaxRef.current) return;
-    parallaxRef.current.style.transition = 'transform 900ms cubic-bezier(0.22,1,0.36,1)';
-    parallaxRef.current.style.transform = 'translate(0px, 0px)';
-    // Quitar transition rápida después para que en el siguiente mousemove sea instantáneo
-    setTimeout(() => {
-      if (parallaxRef.current) parallaxRef.current.style.transition = 'transform 60ms linear';
-    }, 950);
+    if (parallaxRef.current) {
+      parallaxRef.current.style.transition = 'transform 1200ms cubic-bezier(0.22,1,0.36,1)';
+      parallaxRef.current.style.transform = 'translate(0px, 0px)';
+      setTimeout(() => {
+        if (parallaxRef.current) parallaxRef.current.style.transition = 'none';
+      }, 1250);
+    }
+  };
+
+  const handleMouseEnterParallax = () => {
+    isHovering.current = true;
+    const animate = () => {
+      if (!isHovering.current || !parallaxRef.current) return;
+      // Lerp — smooth approach, no jitter
+      currentParallax.current.x += (targetParallax.current.x - currentParallax.current.x) * 0.06;
+      currentParallax.current.y += (targetParallax.current.y - currentParallax.current.y) * 0.06;
+      parallaxRef.current.style.transform = `translate(${currentParallax.current.x.toFixed(3)}px, ${currentParallax.current.y.toFixed(3)}px)`;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
   };
 
   // Auto-mark as listened after 60 seconds with modal open (implies user is engaging with embed)
@@ -126,6 +147,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
         onClick={handleCardClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onMouseEnter={handleMouseEnterParallax}
         style={{ cursor: isLocked ? 'default' : 'pointer' }}
       >
         {/* Hover lift wrapper — isolated from parallax RAF to prevent jitter */}
@@ -277,7 +299,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
       {/* === MODAL === */}
       {isExpanded && !isLocked && (
-        <div className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
+        <div className="fixed inset-0 z-[10000] flex items-end sm:items-center justify-center pt-16 sm:pt-0" onClick={() => { setIsExpanded(false); setZoomedImg(null); }}>
           {/* Backdrop */}
           <motion.div
             className="absolute inset-0"

@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
                 <div className="w-2 h-2 rounded-full transition-all duration-700 group-hover:scale-125"
                   style={{ background: 'rgba(196,85,85,0.8)', boxShadow: '0 0 6px rgba(196,85,85,0.3)' }} />
               )}
-              <span className="text-[19px] tracking-[0.05em] text-soda-glow transition-opacity duration-500 group-hover:opacity-70" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontStyle: 'italic', fontWeight: 400 }}>
+              <span className="tracking-[0.18em] text-soda-glow/85 transition-opacity duration-500 group-hover:opacity-60" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 300, letterSpacing: '0.18em', textTransform: 'lowercase' }}>
                 sodaroja
               </span>
             </Link>
