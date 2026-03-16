@@ -72,7 +72,7 @@ const TestimoniosSection: React.FC = () => {
                 </span>
 
                 {/* Quote text — grows to fill */}
-                <p className="font-sans text-soda-lamp/60 text-sm leading-[1.75] flex-1">
+                <p className="font-sans flex-1" style={{ fontSize:'13px', fontWeight:300, color:'rgba(212,197,176,0.6)', lineHeight:1.75 }}>
                   {t.quote}
                 </p>
 
@@ -84,8 +84,8 @@ const TestimoniosSection: React.FC = () => {
                     {t.author.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-sans text-soda-lamp/60 text-[11px] tracking-[0.04em]">{t.author}</p>
-                    <p className="font-mono text-soda-lamp/25 text-[9px] mt-0.5">{t.from}</p>
+                    <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(212,197,176,0.6)' }}>{t.author}</p>
+                    <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', fontWeight:300, color:'rgba(212,197,176,0.25)', marginTop:'3px' }}>{t.from}</p>
                   </div>
                 </div>
               </motion.div>
@@ -207,7 +207,7 @@ export const HomePage: React.FC = () => {
       <section className="relative py-16 sm:py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="font-sans text-soda-lamp/25 text-[9px] tracking-[0.4em] uppercase text-center mb-8">Escuchá en tu plataforma favorita</p>
+            <p className="text-center mb-8" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(212,197,176,0.25)' }}>Escuchá en tu plataforma favorita</p>
             <div className="flex items-center justify-center gap-6 sm:gap-10 flex-wrap">
               {((content as any).platforms || []).filter((p: any) => p.visible).map((p: any) => (
                 <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer"

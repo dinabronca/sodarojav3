@@ -103,8 +103,7 @@ export const Hero: React.FC = () => {
             animate={{ opacity:[0.4,1,0.4], scale:[0.85,1.15,0.85] }}
             transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
-          <span className="font-sans text-center text-[9px] sm:text-[10px] uppercase"
-            style={{ color:'rgba(212,197,176,0.45)', letterSpacing:'0.35em', fontWeight:300 }}>
+          <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.45)', maxWidth: '40rem', textAlign: 'center' }}>
             {hero.description || subtitle}
           </span>
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -151,7 +150,7 @@ export const Hero: React.FC = () => {
                 {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
                 <div className="text-center">
                   <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
-                  <div className="font-sans text-[8px] tracking-[0.3em] uppercase mt-0.5" style={{ color:'rgba(212,197,176,0.22)' }}>{item.label}</div>
+                  <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '9px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.25)', marginTop: '4px' }}>{item.label}</div>
                 </div>
               </React.Fragment>
             ))}

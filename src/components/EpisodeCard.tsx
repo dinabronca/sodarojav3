@@ -221,7 +221,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
 
               {/* Right: EP number */}
               {episodeNumber !== undefined && (
-                <span className="text-soda-glow/70 text-[10px] font-mono tracking-[0.12em] bg-soda-night/70 backdrop-blur-sm px-2.5 py-[5px] rounded-sm leading-none">{epNum(episodeNumber)}</span>
+                <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', letterSpacing:'0.15em', color:'rgba(254,248,237,0.6)', background:'rgba(10,14,26,0.7)', backdropFilter:'blur(4px)', padding:'4px 8px', borderRadius:'2px', lineHeight:1 }}>{epNum(episodeNumber)}</span>
               )}
             </div>
 
@@ -264,7 +264,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
           <div className={`relative z-10 ${featured ? 'md:w-2/5 p-6 sm:p-8 md:p-10 flex flex-col justify-center' : 'p-5 sm:p-6'}`}>
             {/* City + Date row */}
             <div className="flex items-center justify-between mb-3">
-              <span className={`text-[9px] tracking-[0.25em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/70' : 'text-soda-accent/65'}`}>
+              <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.3em', textTransform:'uppercase', fontWeight:300, color: isUnlockedPremium ? 'rgba(196,85,85,0.7)' : 'rgba(138,155,196,0.65)' }}>
                 {episode.city}
               </span>
               {formattedDate && !isLocked && (
@@ -273,22 +273,22 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             </div>
 
             {/* Title */}
-            <h3 className={`font-sans font-medium text-soda-glow/90 mb-3 leading-[1.25] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-xl sm:text-2xl' : 'text-[0.95rem] sm:text-base'}`}>
+            <h3 style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontWeight:500, color:'rgba(254,248,237,0.88)', marginBottom:'12px', lineHeight:1.3, fontSize: featured ? 'clamp(1.1rem,2vw,1.4rem)' : '15px' }}>
               &ldquo;{episode.title}&rdquo;
             </h3>
 
             {/* Description */}
-            <p className={`text-soda-lamp/42 font-light leading-[1.7] mb-5 ${featured ? 'text-sm line-clamp-4' : 'text-[12px] line-clamp-2'}`}>
+            <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", color:'rgba(212,197,176,0.45)', fontWeight:300, lineHeight:1.7, marginBottom:'20px', fontSize:'12px' }} className={featured ? 'line-clamp-4' : 'line-clamp-2'}>
               {episode.description}
             </p>
 
             {/* CTA */}
             {isLocked ? (
-              <Link to="/frecuencia-interna" onClick={e => e.stopPropagation()} className="inline-flex items-center gap-2 text-soda-red/50 text-[9px] tracking-[0.18em] uppercase hover:text-soda-red/80 transition-colors duration-700 group/cta">
+              <Link to="/frecuencia-interna" onClick={e => e.stopPropagation()} className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity duration-500 group/cta" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.25em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>
                 Desbloquear <ChevronRight size={10} className="group-hover/cta:translate-x-1 transition-transform duration-500" />
               </Link>
             ) : (
-              <span className="inline-flex items-center gap-2 text-soda-lamp/38 text-[9px] tracking-[0.18em] uppercase group-hover:text-soda-lamp/70 transition-colors duration-700">
+              <span className="inline-flex items-center gap-2 group-hover:opacity-80 transition-opacity duration-500" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.25em', textTransform:'uppercase', fontWeight:300, color:'rgba(212,197,176,0.4)' }}>
                 Escuchar <ChevronRight size={10} className="group-hover:translate-x-1 transition-transform duration-500" />
               </span>
             )}
@@ -361,7 +361,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
               {/* City + meta overlaid on bottom of image */}
               <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className={`text-[10px] tracking-[0.3em] uppercase font-medium ${isUnlockedPremium ? 'text-soda-red/80' : 'text-soda-accent/80'}`}>{episode.city}{(episode as any).country ? `, ${(episode as any).country}` : ''}</span>
+                  <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.3em', textTransform:'uppercase', fontWeight:300, color: isUnlockedPremium ? 'rgba(196,85,85,0.8)' : 'rgba(138,155,196,0.8)' }}>{episode.city}{(episode as any).country ? `, ${(episode as any).country}` : ''}</span>
                   <div className="w-px h-3" style={{ background: 'rgba(212,197,176,0.2)' }} />
                   {formattedDate && <span className="font-sans text-soda-lamp/45 text-[10px] tracking-[0.2em] uppercase">{formattedDate}</span>}
                   {(episode as any).durationMin && <span className="text-soda-lamp/35 text-[10px]">{(episode as any).durationMin} min</span>}
@@ -372,7 +372,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             {/* Content */}
             <div className="px-6 pt-2 pb-8">
               {/* Title */}
-              <h2 className="font-sans font-medium leading-[1.3] mb-3" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.65rem)', color: 'rgba(254,248,237,0.92)' }}>
+              <h2 style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontWeight:500, fontSize:'clamp(1.2rem,3vw,1.6rem)', color:'rgba(254,248,237,0.92)', lineHeight:1.3, marginBottom:'12px' }}>
                 &ldquo;{episode.title}&rdquo;
               </h2>
 

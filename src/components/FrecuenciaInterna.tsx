@@ -822,14 +822,14 @@ const PublicView: React.FC = () => {
           </motion.div>
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <span className="font-serif italic text-soda-red/85" style={{ fontWeight: 400 }}>Interna</span></h2>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
-          <p className="font-sans text-lg text-soda-lamp/65 max-w-2xl mx-auto mb-8 leading-relaxed">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
+          <p className="font-sans text-soda-lamp/55 max-w-2xl mx-auto mb-8" style={{ fontSize:'14px', fontWeight:300, lineHeight:1.75 }}>Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-20">
-          <p className="font-sans text-base text-soda-lamp/50 leading-relaxed text-center">Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
+          <p className="font-sans text-soda-lamp/45 text-center" style={{ fontSize:'14px', fontWeight:300, lineHeight:1.75 }}>Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Eleg&#237; c&#243;mo quer&#233;s sumarte</h3>
+            <h3 className="font-serif italic text-soda-glow/85 mb-8 text-center lg:text-left" style={{ fontSize:'1.4rem', fontWeight:400 }}>Elegí cómo querés sumarte</h3>
             <div className="space-y-6">
               {plans.map((plan, idx) => (
                 <motion.div key={plan.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
@@ -840,20 +840,20 @@ const PublicView: React.FC = () => {
                   <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedPlan === plan.id ? 'border-soda-red bg-soda-red' : 'border-soda-mist/40'}`}>{selectedPlan === plan.id && <div className="w-2 h-2 bg-white rounded-full" />}</div>
                   {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-soda-red px-4 py-1 rounded-sm text-xs tracking-wider text-soda-glow">M&#193;S ELEGIDO</div>}
                   <div className="flex items-end justify-between pr-8">
-                    <div><h4 className="text-2xl font-serif text-soda-glow mb-2">{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
-                    <div className="text-right"><div className="font-mono text-2xl text-soda-lamp/90 tracking-tight">${plan.priceARS.toLocaleString('es-AR')}</div><div className="font-sans text-xs text-soda-lamp/40 mt-0.5 tracking-wide">USD ${plan.priceUSD}/mes</div></div>
+                    <div><h4 className="font-serif italic text-soda-glow/85 mb-2" style={{ fontSize:'1.4rem', fontWeight:400 }}>{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
+                    <div className="text-right"><div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'1.6rem', fontWeight:300, color:'rgba(212,197,176,0.85)', letterSpacing:'-0.02em', lineHeight:1 }}>${plan.priceARS.toLocaleString('es-AR')}</div><div style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(212,197,176,0.35)', marginTop:'4px', letterSpacing:'0.1em' }}>USD ${plan.priceUSD}/mes</div></div>
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <h3 className="text-2xl font-serif text-soda-glow mb-8 text-center lg:text-left">Qu&#233; te llev&#225;s al sumarte</h3>
+            <h3 className="font-serif italic text-soda-glow/85 mb-8 text-center lg:text-left" style={{ fontSize:'1.4rem', fontWeight:400 }}>Qué te llevás al sumarte</h3>
             <div className="space-y-4">
               {benefits.map((b, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-6 h-6 rounded-sm border border-soda-accent/40 flex items-center justify-center group-hover:border-soda-red group-hover:bg-soda-red/10 transition-all"><Check size={14} className="text-soda-accent group-hover:text-soda-red" /></div>
-                  <span className="text-soda-lamp font-sans group-hover:text-soda-glow transition-colors">{b}</span>
+                  <span className="font-sans group-hover:opacity-90 transition-opacity" style={{ fontWeight:300, fontSize:'14px', color:'rgba(212,197,176,0.7)' }}>{b}</span>
                 </motion.div>
               ))}
             </div>

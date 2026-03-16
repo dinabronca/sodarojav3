@@ -120,7 +120,7 @@ export const Contacto: React.FC = () => {
 
               <div><label className="font-sans block text-soda-lamp/70 text-[11px] tracking-[0.08em] mb-2">Mensaje</label><textarea required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} rows={5} className={ic + ' resize-none'} placeholder="Contanos..." /></div>
 
-              <button type="submit" disabled={status === 'sending' || !formData.subject} className={`w-full py-4 border rounded-sm transition-all duration-500 tracking-widest flex items-center justify-center gap-2 text-[11px] ${
+              <button type="submit" disabled={status === 'sending' || !formData.subject} className={`font-sans w-full py-4 border rounded-sm transition-all duration-500 flex items-center justify-center gap-2 ${
                 status === 'sent' ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400'
                 : status === 'error' ? 'bg-red-500/10 border-red-500/40 text-red-400/80'
                 : !formData.subject ? 'border-soda-mist/15 text-soda-fog/50 cursor-not-allowed'
@@ -138,13 +138,13 @@ export const Contacto: React.FC = () => {
           {/* Info sidebar */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6">
             <div className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-8">
-              <h3 className="font-serif text-2xl text-soda-glow mb-6">Líneas directas</h3>
+              <h3 className="font-serif italic text-soda-glow/85 mb-6" style={{ fontSize:'1.4rem', fontWeight:400 }}>Líneas directas</h3>
               <div className="space-y-4">
                 <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.email}</span></a>
                 <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.instagram}</span></a>
               </div>
             </div>
-            <p className="font-sans text-sm text-soda-lamp/40">Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>
+            <p className="font-sans text-soda-lamp/40" style={{ fontSize:'13px', fontWeight:300 }}>Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>
           </motion.div>
         </div>
       </div>

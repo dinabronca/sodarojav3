@@ -47,35 +47,35 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           className="flex items-center gap-4 justify-center mb-6">
           <div className="w-12 h-px bg-soda-red/40" />
-          <span className="font-sans text-soda-red/55 text-[10px] tracking-[0.4em] uppercase">Sobre el proyecto</span>
+          <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Sobre el proyecto</span>
           <div className="w-12 h-px bg-soda-red/40" />
         </motion.div>
 
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           transition={{ duration:0.9 }} className="text-center mb-20">
           <h2 className="font-display leading-[0.95]">
-            <span className="text-soda-glow/90 text-5xl sm:text-7xl md:text-8xl">&#191;Qu&#233; es </span>
-            <span className="font-serif italic text-5xl sm:text-7xl md:text-8xl" style={{ color:'rgba(196,85,85,0.8)', fontWeight: 400 }}>sodaroja?</span>
+            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>&#191;Qu&#233; es </span>
+            <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(196,85,85,0.8)', fontWeight:400 }}>sodaroja?</span>
           </h2>
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           transition={{ duration:1, delay:0.2 }}
           className="relative max-w-2xl mx-auto text-center mb-28 px-4">
-          <p className="relative z-10 text-base sm:text-lg font-sans text-soda-lamp/65 leading-[1.8]">
+          <p className="relative z-10 font-sans text-soda-lamp/55 leading-[1.75]" style={{ fontSize:'14px', fontWeight:300 }}>
             {queEsEsto.description}
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
             <div className="w-6 h-px bg-soda-red/30" />
-            <span className="font-mono text-soda-red/35 text-[9px] tracking-[0.35em] uppercase">sodaroja</span>
+            <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', letterSpacing:'0.35em', textTransform:'uppercase', color:'rgba(196,85,85,0.35)', fontWeight:300 }}>sodaroja</span>
             <div className="w-6 h-px bg-soda-red/30" />
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           className="text-center mb-16">
-          <p className="font-sans text-soda-accent/50 text-[10px] tracking-[0.35em] uppercase mb-2">{queEsEsto.structureTitle}</p>
-          <p className="text-soda-lamp/30 text-sm tracking-wide font-sans">{queEsEsto.structureSubtitle}</p>
+          <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(138,155,196,0.5)', marginBottom:'8px' }}>{queEsEsto.structureTitle}</p>
+          <p className="font-sans text-soda-lamp/30" style={{ fontSize:'13px', fontWeight:300 }}>{queEsEsto.structureSubtitle}</p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-soda-accent/25 to-transparent mx-auto mt-4" />
         </motion.div>
 
@@ -144,17 +144,17 @@ export const QueEsEsto: React.FC = () => {
                     )}
                     <div className="p-4 sm:p-5">
                       <div className="flex items-baseline gap-3 mb-2.5">
-                        <span className="font-mono text-[9px] tracking-[0.3em] flex-shrink-0"
+                        <span className="flex-shrink-0" style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', letterSpacing:'0.2em', fontWeight:300 }}
                           style={{ color:colors.text }}>{String(item.numero).padStart(2,'0')}</span>
                         <div className="w-4 h-px flex-shrink-0" style={{ background:colors.border }} />
-                        <h4 className="font-serif text-[16px] sm:text-[17px] leading-tight"
+                        <h4 className="font-serif" style={{ fontSize:'15px', lineHeight:'1.3', fontWeight:400, fontStyle:'italic' }}
                           style={{ color:'rgba(254,248,237,0.9)', letterSpacing: '0.01em' }}>{item.titulo}</h4>
                       </div>
                       {item.subtitulo && (
                         <p className="text-[10px] tracking-[0.12em] mb-3 uppercase font-sans"
                           style={{ color:colors.text, opacity:0.6 }}>{item.subtitulo}</p>
                       )}
-                      <p className="font-sans text-[13px] leading-[1.75]" style={{ color:'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
+                      <p className="font-sans" style={{ fontSize:'13px', lineHeight:'1.75', fontWeight:300 }} style={{ color:'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
                       {item.detalles && (
                         <p className="font-sans text-[11px] leading-relaxed mt-2 opacity-60" style={{ color:'rgba(212,197,176,0.25)' }}>{item.detalles}</p>
                       )}
@@ -172,7 +172,7 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           transition={{ duration:0.8 }} className="mt-24">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow mb-2">
+            <h3 className="font-serif italic text-soda-glow/85 mb-2" style={{ fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:400 }}>
               Temas que <span className="font-serif italic text-soda-red/80" style={{ fontWeight: 400 }}>exploramos</span>
             </h3>
             <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />

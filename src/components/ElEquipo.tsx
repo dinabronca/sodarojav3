@@ -46,7 +46,7 @@ export const ElEquipo: React.FC = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="flex items-center gap-4 justify-center mb-6">
           <div className="w-12 h-px bg-soda-accent/35" />
-          <span className="font-sans text-soda-accent/50 text-[10px] tracking-[0.4em] uppercase">Quiénes somos</span>
+          <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(138,155,196,0.5)' }}>Quiénes somos</span>
           <div className="w-12 h-px bg-soda-accent/35" />
         </motion.div>
 
@@ -54,10 +54,10 @@ export const ElEquipo: React.FC = () => {
           transition={{ duration: 0.9 }}
           className="text-center mb-20">
           <h2 className="font-display leading-[0.95] mb-0">
-            <span className="text-soda-glow/90 text-5xl sm:text-7xl">El </span>
-            <span className="font-serif italic text-5xl sm:text-7xl" style={{ color: 'rgba(138,155,196,0.8)', fontWeight: 400 }}>Equipo</span>
+            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>El </span>
+            <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(138,155,196,0.8)', fontWeight:400 }}>Equipo</span>
           </h2>
-          <p className="font-sans text-soda-lamp/40 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
+          <p className="font-sans text-soda-lamp/30 mt-5" style={{ fontSize:'13px', fontWeight:300 }}>{equipo?.subtitle}</p>
         </motion.div>
 
         {/* Members grid */}
@@ -101,14 +101,14 @@ export const ElEquipo: React.FC = () => {
 
                   {/* Name overlay on photo */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <h3 className="font-serif text-2xl sm:text-3xl text-soda-glow leading-none mb-1">{member.name}</h3>
-                    <p className="text-soda-accent/70 text-[10px] tracking-[0.15em] uppercase font-sans">{member.role}</p>
+                    <h3 className="font-serif italic text-soda-glow/85 leading-none mb-1" style={{ fontSize:'clamp(1.4rem,3vw,2rem)', fontWeight:400 }}>{member.name}</h3>
+                    <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'9px', letterSpacing:'0.3em', textTransform:'uppercase', fontWeight:300, color:'rgba(138,155,196,0.6)' }}>{member.role}</p>
                   </div>
 
                   {/* Member vitals — top right corner */}
                   <div className="absolute top-4 right-4 text-right px-3 py-2 rounded-sm" style={{ background: 'rgba(6,8,16,0.75)', backdropFilter: 'blur(10px)', border: '1px solid rgba(212,197,176,0.1)' }}>
-                    <p className="font-sans text-soda-lamp/60 text-[8px] tracking-[0.2em] uppercase">{member.cityBorn}</p>
-                    <p className="font-mono text-soda-lamp/35 text-[8px] tracking-[0.15em] mt-0.5">{member.birthYear}</p>
+                    <p style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'8px', letterSpacing:'0.3em', textTransform:'uppercase', fontWeight:300, color:'rgba(212,197,176,0.55)' }}>{member.cityBorn}</p>
+                    <p style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'8px', letterSpacing:'0.15em', fontWeight:300, color:'rgba(212,197,176,0.3)', marginTop:'3px' }}>{member.birthYear}</p>
                   </div>
                 </div>
 
@@ -153,16 +153,16 @@ export const ElEquipo: React.FC = () => {
                         ? favoriteFields.slice(0, 10).map((field: any) => (
                             member.favorites?.[field.key] != null ? (
                               <div key={field.key} className="flex gap-2 text-[12px]">
-                                <span className="text-soda-accent/45 flex-shrink-0 font-sans" style={{ minWidth: '100px' }}>{field.label}</span>
-                                <span className="text-soda-lamp/65 font-sans">{String(member.favorites[field.key])}</span>
+                                <span className="flex-shrink-0" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(138,155,196,0.4)', minWidth:'100px' }}>{field.label}</span>
+                                <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'12px', fontWeight:300, color:'rgba(212,197,176,0.65)' }}>{String(member.favorites[field.key])}</span>
                               </div>
                             ) : null
                           ))
                         : cityFields.slice(0, 10).map((field: any) => (
                             member.cities?.[field.key] ? (
                               <div key={field.key} className="flex gap-2 text-[12px]">
-                                <span className="text-soda-accent/45 flex-shrink-0 font-sans" style={{ minWidth: '130px' }}>{field.label}</span>
-                                <span className="text-soda-lamp/65 font-sans">{member.cities[field.key]}</span>
+                                <span className="flex-shrink-0" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(138,155,196,0.4)', minWidth:'130px' }}>{field.label}</span>
+                                <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'12px', fontWeight:300, color:'rgba(212,197,176,0.65)' }}>{member.cities[field.key]}</span>
                               </div>
                             ) : null
                           ))
