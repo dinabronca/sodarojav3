@@ -115,18 +115,18 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         {/* TÍTULO PRINCIPAL */}
-        <div className="relative w-full overflow-hidden mb-0">
+        <div className="relative w-full mb-0" style={{ overflow: "visible" }}>
           <motion.div
             initial={{ y:'110%', opacity:0 }}
             animate={{ y:0, opacity:1 }}
             transition={{ delay:0.35, duration:1.1, ease:[0.16,1,0.3,1] }}
           >
-            <h1 className="font-display tracking-[-0.01em] leading-[0.9] select-none"
+            <h1 className="font-display tracking-[-0.01em] leading-[0.95] select-none"
               style={{
                 fontSize:'clamp(4.5rem,19vw,18rem)',
                 color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
-                paddingBottom:'0.08em',
+                paddingBottom:'0.18em',
               }}
             >
               {title}
