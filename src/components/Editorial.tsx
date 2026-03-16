@@ -48,10 +48,3 @@ export const WarmDivider: React.FC = () => (
     <div className="max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-soda-mist/8 to-transparent" />
   </div>
 );
-
-/* ===== WARM DIVIDER ===== */
-export const WarmDivider: React.FC = () => (
-  <div className="py-4 px-6">
-    <div className="max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-soda-mist/8 to-transparent" />
-  </div>
-);
