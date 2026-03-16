@@ -63,7 +63,7 @@ const TestimoniosSection: React.FC = () => {
                 style={{
                   background: 'linear-gradient(145deg, rgba(20,24,36,0.65) 0%, rgba(12,15,24,0.45) 100%)',
                   border: '1px solid rgba(212,197,176,0.08)',
-                  minHeight: '220px',
+                  minHeight: '200px',
                 }}>
                 {/* Big red opening quote */}
                 <span className="block font-display leading-none select-none mb-3 flex-shrink-0"
@@ -190,7 +190,7 @@ export const HomePage: React.FC = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2, duration: 0.6 }} className="text-center mt-14 sm:mt-20">
             <Link to="/episodios" className="group relative inline-flex items-center gap-3 px-10 py-4 border border-soda-mist/15 text-soda-lamp/50 rounded-sm hover:border-soda-red/25 hover:text-soda-lamp transition-all duration-700 tracking-[0.25em] text-[10px] uppercase overflow-hidden">
               {/* Fondo que aparece en hover */}
-              <span className="absolute inset-0 bg-gradient-to-r from-soda-red/0 via-soda-red/5 to-soda-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <span className="absolute inset-0 bg-gradient-to-r from-soda-red/0 via-soda-red/3 to-soda-red/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <span className="relative font-sans">Ver todos los episodios</span>
               <ArrowRight size={13} className="relative text-soda-fog/30 group-hover:text-soda-lamp/50 group-hover:translate-x-1.5 transition-all duration-500" />
             </Link>

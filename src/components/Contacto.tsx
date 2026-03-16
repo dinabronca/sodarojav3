@@ -48,7 +48,7 @@ export const Contacto: React.FC = () => {
   };
 
   const selectedOpt = subjectOptions.find(s => s.id === formData.subject);
-  const ic = "w-full bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm px-4 py-3 text-soda-lamp focus:border-soda-accent focus:outline-none transition-colors text-sm";
+  const ic = "w-full bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm px-4 py-3 text-soda-lamp focus:border-soda-accent/50 focus:outline-none transition-colors duration-300 text-sm";
 
   return (
     <section id="contacto" className="relative py-24 sm:py-32 px-6 bg-gradient-to-b from-soda-night to-soda-deep overflow-hidden">
@@ -140,8 +140,8 @@ export const Contacto: React.FC = () => {
             <div className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-8">
               <h3 className="font-serif italic text-soda-glow/85 mb-6" style={{ fontSize:'1.4rem', fontWeight:400 }}>Líneas directas</h3>
               <div className="space-y-4">
-                <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.email}</span></a>
-                <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span className="font-sans text-sm">{contacto.instagram}</span></a>
+                <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={18} className="text-soda-accent/60 group-hover:text-soda-lamp/70 transition-colors duration-300" /><span className="font-sans text-sm">{contacto.email}</span></a>
+                <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={18} className="text-soda-accent/60 group-hover:text-soda-lamp/70 transition-colors duration-300" /><span className="font-sans text-sm">{contacto.instagram}</span></a>
               </div>
             </div>
             <p className="font-sans text-soda-lamp/40" style={{ fontSize:'13px', fontWeight:300 }}>Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>

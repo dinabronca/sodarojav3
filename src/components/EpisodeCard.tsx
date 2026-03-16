@@ -88,8 +88,8 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
     const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
     // Max 0.8px movement (was 2.5px) — much slower/subtler
     targetParallax.current = {
-      x: Math.max(-0.8, Math.min(0.8, dx * 0.8)),
-      y: Math.max(-0.6, Math.min(0.6, dy * 0.6)),
+      x: Math.max(-0.4, Math.min(0.4, dx * 0.4)),
+      y: Math.max(-0.3, Math.min(0.3, dy * 0.3)),
     };
   };
 
@@ -150,9 +150,8 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
         onMouseEnter={handleMouseEnterParallax}
         style={{ cursor: isLocked ? 'default' : 'pointer' }}
       >
-        {/* Hover lift wrapper — isolated from parallax RAF to prevent jitter */}
-        <div className="h-full transition-transform duration-700 ease-out group-hover:-translate-y-0.5"
-          style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}>
+        {/* Card wrapper — sin lift para evitar jitter de texto */}
+        <div className="h-full">
         <div className={`relative overflow-hidden rounded-sm h-full transition-all duration-700 ${
           featured ? 'flex flex-col md:flex-row' : ''
         } ${
@@ -160,7 +159,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             ? 'bg-soda-slate/30 border border-soda-mist/10'
             : isUnlockedPremium
             ? 'bg-soda-slate/40 border border-soda-red/25 hover:border-soda-red/40'
-            : 'bg-soda-slate/30 border border-soda-mist/10 hover:border-soda-mist/20'
+            : 'bg-soda-slate/30 border border-soda-mist/8 hover:border-soda-mist/18'
         }`}
           style={isLocked ? { animation: 'premiumBreathe 6s ease-in-out infinite' } : undefined}
         >
@@ -184,7 +183,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
               ref={parallaxRef}
               className="absolute"
               style={{
-                top: '-36px', bottom: '-36px', left: '-36px', right: '-36px',
+                top: '-10px', bottom: '-10px', left: '-10px', right: '-10px',
                 transform: 'translate(0px, 0px)',
                 transition: 'transform 60ms linear',
                 willChange: 'transform',
@@ -307,14 +306,14 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            style={{ background: 'rgba(6,8,14,0.92)', backdropFilter: 'blur(12px)' }}
+            style={{ background: 'rgba(6,8,14,0.88)', backdropFilter: 'blur(16px)' }}
           />
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[85vh] sm:mt-16 overflow-y-auto rounded-t-sm sm:rounded-sm"
+            className="relative w-full max-w-xl max-h-[85vh] sm:max-h-[82vh] sm:mt-20 overflow-y-auto rounded-t-sm sm:rounded-sm"
             style={{
               background: 'linear-gradient(165deg, rgba(16,20,32,0.98) 0%, rgba(10,13,22,0.99) 100%)',
               border: '1px solid rgba(212,197,176,0.08)',
@@ -460,7 +459,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                   {gallery.length === 1 && (
                     <div className="relative aspect-[16/9] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
                       onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
-                      <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                      <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                       <div className="absolute inset-0 bg-soda-night/0 group-hover/gal:bg-soda-night/20 transition-all duration-500" />
                     </div>
                   )}
@@ -470,7 +469,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                       {gallery.map((img, gi) => (
                         <div key={gi} className={`${gi === 0 ? 'col-span-2' : 'col-span-1'} aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500`}
                           onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
-                          <img src={img} alt={`Foto ${gi+1}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                          <img src={img} alt={`Foto ${gi+1}`} className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         </div>
                       ))}
                     </div>
@@ -480,12 +479,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                     <div className="grid grid-cols-2 gap-1.5">
                       <div className="row-span-2 aspect-[3/4] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
                         onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
-                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                       </div>
                       {gallery.slice(1).map((img, gi) => (
                         <div key={gi} className="aspect-[4/3] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
                           onClick={e => { e.stopPropagation(); setZoomedImg(img); }}>
-                          <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                          <img src={img} alt={`Foto ${gi+2}`} className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         </div>
                       ))}
                     </div>
@@ -495,7 +494,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                     <div className="space-y-1.5">
                       <div className="relative aspect-[16/7] overflow-hidden rounded-sm cursor-pointer group/gal border border-soda-mist/8 hover:border-soda-red/20 transition-colors duration-500"
                         onClick={e => { e.stopPropagation(); setZoomedImg(gallery[0]); }}>
-                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] group-hover/gal:scale-[1.04]" loading="lazy" />
+                        <img src={gallery[0]} alt="Foto 1" className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover/gal:scale-[1.03]" loading="lazy" />
                         <div className="absolute inset-0 bg-gradient-to-t from-soda-night/40 via-transparent to-transparent pointer-events-none" />
                         <span className="absolute top-2.5 left-3 text-soda-glow/25 text-[8px] font-mono tracking-widest">01</span>
                       </div>

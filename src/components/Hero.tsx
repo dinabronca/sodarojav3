@@ -94,7 +94,7 @@ export const Hero: React.FC = () => {
           </motion.div>
         )}
 
-        {/* Description — ABOVE the title, same style as eyebrow */}
+        {/* Eyebrow — subtitle como label */}
         <motion.div className="flex items-center gap-4 mb-8 sm:mb-10"
           initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:1.2 }}>
           <div className="w-8 sm:w-16 h-px" style={{ background:'linear-gradient(to right, transparent, rgba(196,85,85,0.35))' }} />
@@ -103,8 +103,8 @@ export const Hero: React.FC = () => {
             animate={{ opacity:[0.4,1,0.4], scale:[0.85,1.15,0.85] }}
             transition={{ duration:2.2, repeat:Infinity, ease:'easeInOut' }}
           />
-          <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.45)', maxWidth: '40rem', textAlign: 'center' }}>
-            {hero.description || subtitle}
+          <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '10px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(196,85,85,0.5)' }}>
+            {subtitle}
           </span>
           <motion.span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
             style={{ background:'rgba(196,85,85,0.75)', boxShadow:'0 0 8px rgba(196,85,85,0.6)' }}
@@ -115,7 +115,7 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         {/* TÍTULO PRINCIPAL */}
-        <div className="relative w-full overflow-hidden mb-4">
+        <div className="relative w-full overflow-hidden mb-0">
           <motion.div
             initial={{ y:'110%', opacity:0 }}
             animate={{ y:0, opacity:1 }}
@@ -134,27 +134,33 @@ export const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Línea + data strip */}
-        <motion.div className="w-full flex flex-col items-center gap-6 mt-2"
-          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.75, duration:1.2 }}>
-          <div style={{ width:'55%', height:'1px',
-            background:'linear-gradient(to right, transparent, rgba(196,85,85,0.2) 30%, rgba(212,197,176,0.1) 50%, rgba(196,85,85,0.2) 70%, transparent)' }} />
+        {/* Description — DEBAJO del título */}
+        <motion.div className="w-full flex flex-col items-center gap-5 mt-6"
+          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.7, duration:1.2 }}>
+          <div style={{ width:'45%', height:'1px',
+            background:'linear-gradient(to right, transparent, rgba(196,85,85,0.15) 30%, rgba(212,197,176,0.08) 50%, rgba(196,85,85,0.15) 70%, transparent)' }} />
+          {hero.description && (
+            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '10px', letterSpacing: '0.3em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.4)', maxWidth: '36rem', textAlign: 'center', lineHeight: 1.9 }}>
+              {hero.description}
+            </p>
+          )}
+        </motion.div>
 
-          {/* Editorial data strip */}
-          <div className="flex items-center gap-6 sm:gap-10">
-            {[
-              { label: 'temporada', value: '01' },
-              { label: 'ciudades', value: String(cityCount) },
-            ].map((item, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
-                <div className="text-center">
-                  <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
-                  <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '9px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.25)', marginTop: '4px' }}>{item.label}</div>
-                </div>
-              </React.Fragment>
-            ))}
-          </div>
+        {/* Data strip */}
+        <motion.div className="flex items-center gap-6 sm:gap-10 mt-8"
+          initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1.0, duration:1.0 }}>
+          {[
+            { label: 'temporada', value: '01' },
+            { label: 'ciudades', value: String(cityCount) },
+          ].map((item, i) => (
+            <React.Fragment key={i}>
+              {i > 0 && <div className="w-px h-6" style={{ background:'rgba(212,197,176,0.08)' }} />}
+              <div className="text-center">
+                <div className="font-mono text-lg sm:text-xl" style={{ color:'rgba(254,248,237,0.5)' }}>{item.value}</div>
+                <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: '9px', letterSpacing: '0.35em', textTransform: 'uppercase', fontWeight: 300, color: 'rgba(212,197,176,0.25)', marginTop: '4px' }}>{item.label}</div>
+              </div>
+            </React.Fragment>
+          ))}
         </motion.div>
 
       </div>

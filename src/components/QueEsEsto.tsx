@@ -180,7 +180,7 @@ export const QueEsEsto: React.FC = () => {
                 viewport={{ once:true }} transition={{ duration:0.35, delay:i*0.04 }}
                 className="px-4 py-2 rounded-sm text-[11px] tracking-wide cursor-default font-sans transition-all duration-500"
                 style={{ background:'rgba(10,14,26,0.7)', border:'1px solid rgba(138,155,196,0.15)', color:'rgba(138,155,196,0.6)' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.32)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.88)'; }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.28)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.8)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.15)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.6)'; }}
               >{tema}</motion.span>
             ))}

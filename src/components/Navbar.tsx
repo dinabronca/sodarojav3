@@ -61,7 +61,7 @@ export const Navbar: React.FC = () => {
           <div className="h-full transition-all duration-100 ease-out"
             style={{
               width: `${scrollProgress * 100}%`,
-              background: 'linear-gradient(to right, rgba(196,85,85,0.4), rgba(196,85,85,0.15))',
+              background: 'linear-gradient(to right, rgba(196,85,85,0.3), rgba(196,85,85,0.08))',
             }} />
         </div>
 
@@ -96,7 +96,7 @@ export const Navbar: React.FC = () => {
                     {item.label}
                     {/* Active underline */}
                     <span className={`absolute -bottom-1 left-0 h-px transition-all duration-500 ease-out ${
-                      item.highlight ? 'bg-soda-red/60' : 'bg-soda-lamp/35'
+                      item.highlight ? 'bg-soda-red/60' : 'bg-soda-lamp/25'
                     } ${active ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                   </Link>
                 );

@@ -80,8 +80,8 @@ body::before {
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.06) 2px,
-      rgba(0, 0, 0, 0.06) 3px
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 3px
     );
 }
 
@@ -341,8 +341,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Scrollbar custom — sutil, editorial */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(196,85,85,0.2); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(196,85,85,0.4); }
+::-webkit-scrollbar-thumb { background: rgba(196,85,85,0.12); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(196,85,85,0.25); }
 
 /* Focus visible — para accesibilidad sin feo outline */
 :focus-visible {

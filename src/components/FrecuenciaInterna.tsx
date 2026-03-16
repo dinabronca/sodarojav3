@@ -851,7 +851,7 @@ const PublicView: React.FC = () => {
             <div className="space-y-4">
               {benefits.map((b, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex items-start gap-4 group">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-sm border border-soda-accent/40 flex items-center justify-center group-hover:border-soda-red group-hover:bg-soda-red/10 transition-all"><Check size={14} className="text-soda-accent group-hover:text-soda-red" /></div>
+                  <div className="flex-shrink-0 w-6 h-6 rounded-sm border border-soda-accent/25 flex items-center justify-center group-hover:border-soda-red/50 group-hover:bg-soda-red/5 transition-all duration-500"><Check size={14} className="text-soda-accent group-hover:text-soda-red" /></div>
                   <span className="font-sans group-hover:opacity-90 transition-opacity" style={{ fontWeight:300, fontSize:'14px', color:'rgba(212,197,176,0.7)' }}>{b}</span>
                 </motion.div>
               ))}
