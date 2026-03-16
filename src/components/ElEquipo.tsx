@@ -53,8 +53,8 @@ export const ElEquipo: React.FC = () => {
           transition={{ duration: 0.9 }}
           className="text-center mb-16">
           <h2 className="font-display leading-[0.95] mb-0">
-            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>El </span>
-            <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(138,155,196,0.8)', fontWeight:400 }}>Equipo</span>
+            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.5rem,6vw,4.5rem)', fontWeight:300 }}>El </span>
+            <span className="font-serif italic" style={{ fontSize:'clamp(2.5rem,6vw,4.5rem)', color:'rgba(138,155,196,0.8)', fontWeight:400 }}>Equipo</span>
           </h2>
           <p className="font-sans text-soda-lamp/30 mt-5" style={{ fontSize:'13px', fontWeight:300 }}>{equipo?.subtitle}</p>
         </motion.div>

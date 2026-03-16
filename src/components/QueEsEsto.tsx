@@ -53,8 +53,8 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
           transition={{ duration:0.9 }} className="text-center mb-12">
           <h2 className="font-display leading-[0.95]">
-            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', fontWeight:300 }}>&#191;Qu&#233; es </span>
-            <span className="font-serif italic" style={{ fontSize:'clamp(2.8rem,8vw,6rem)', color:'rgba(196,85,85,0.8)', fontWeight:400 }}>sodaroja?</span>
+            <span className="text-soda-glow/85" style={{ fontSize:'clamp(2.5rem,6vw,4.5rem)', fontWeight:300 }}>¿Qué es </span>
+            <span className="font-serif italic" style={{ fontSize:'clamp(2.5rem,6vw,4.5rem)', color:'rgba(196,85,85,0.8)', fontWeight:400 }}>sodaroja?</span>
           </h2>
         </motion.div>
 
@@ -174,14 +174,14 @@ export const QueEsEsto: React.FC = () => {
             </h3>
             <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />
           </div>
-          <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
-            {queEsEsto.temas.map((tema: string, i: number) => (
-              <motion.span key={i} initial={{ opacity:0, scale:0.85 }} whileInView={{ opacity:1, scale:1 }}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
+            {queEsEsto.temas.slice(0, 12).map((tema: string, i: number) => (
+              <motion.span key={i} initial={{ opacity:0, y:8 }} whileInView={{ opacity:1, y:0 }}
                 viewport={{ once:true }} transition={{ duration:0.35, delay:i*0.04 }}
-                className="px-4 py-2 rounded-sm text-[11px] tracking-wide cursor-default font-sans transition-all duration-500"
-                style={{ background:'rgba(10,14,26,0.7)', border:'1px solid rgba(138,155,196,0.15)', color:'rgba(138,155,196,0.6)' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.28)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.8)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.15)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.6)'; }}
+                className="px-5 py-3 rounded-sm cursor-default font-sans transition-all duration-500 text-center block"
+                style={{ background:'rgba(10,14,26,0.7)', border:'1px solid rgba(138,155,196,0.15)', color:'rgba(138,155,196,0.65)', fontSize:'12px', letterSpacing:'0.05em' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.3)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.85)'; (e.currentTarget as HTMLElement).style.background='rgba(138,155,196,0.04)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.15)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.65)'; (e.currentTarget as HTMLElement).style.background='rgba(10,14,26,0.7)'; }}
               >{tema}</motion.span>
             ))}
           </div>

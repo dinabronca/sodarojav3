@@ -152,7 +152,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
       >
         {/* Card wrapper — sin lift para evitar jitter de texto */}
         <div className="h-full">
-        <div className={`relative overflow-hidden rounded-sm h-full transition-all duration-700 ${
+        <div className={`relative overflow-hidden rounded-sm h-full transition-all duration-700 episode-card-inner ${
           featured ? 'flex flex-col md:flex-row' : ''
         } ${
           isLocked
@@ -161,7 +161,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             ? 'bg-soda-slate/40'
             : 'bg-soda-slate/30'
         }`}
-          style={isLocked ? { animation: 'premiumBreathe 6s ease-in-out infinite' } : { boxShadow: '0 1px 0 0 rgba(212,197,176,0.04), 0 4px 24px rgba(0,0,0,0.3)' }}
+          style={isLocked ? { animation: 'premiumBreathe 6s ease-in-out infinite' } : undefined}
         >
           {/* Hover glow */}
           <div className={`absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0 rounded-sm ${

@@ -40,7 +40,7 @@ const TestimoniosSection: React.FC = () => {
               <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
               <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Oyentes</span>
             </div>
-            <h2 className="font-display text-soda-glow/85 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 300 }}>
+            <h2 className="font-display text-soda-glow/85 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 300 }}>
               Lo que <span className="font-serif italic text-soda-red/70" style={{ fontWeight: 400 }}>dicen</span>
             </h2>
           </div>
@@ -62,9 +62,17 @@ const TestimoniosSection: React.FC = () => {
                 className="relative flex flex-col p-7 rounded-sm overflow-hidden"
                 style={{
                   background: 'linear-gradient(145deg, rgba(20,24,36,0.65) 0%, rgba(12,15,24,0.45) 100%)',
-                  border: '1px solid rgba(212,197,176,0.08)',
+                  border: '1px solid rgba(212,197,176,0.06)',
                   minHeight: '200px',
                 }}>
+                {/* Interior particles */}
+                {[{x:15,y:20,d:6},{x:75,y:60,d:8},{x:40,y:80,d:7},{x:88,y:25,d:9},{x:55,y:45,d:6}].map((p,pi) => (
+                  <motion.div key={pi} className="absolute rounded-full pointer-events-none"
+                    style={{ left:`${p.x}%`, top:`${p.y}%`, width:2, height:2, background:'rgba(196,85,85,0.4)' }}
+                    animate={{ y:[0,-14,0], opacity:[0,0.5,0] }}
+                    transition={{ duration:p.d, repeat:Infinity, delay:pi*1.2+i*0.4, ease:'easeInOut' }}
+                  />
+                ))}
                 {/* Big red opening quote */}
                 <span className="block font-display leading-none select-none mb-3 flex-shrink-0"
                   style={{ fontSize: '4rem', color: 'rgba(196,85,85,0.55)', lineHeight: 1, marginTop: '-0.5rem' }}>
@@ -176,7 +184,7 @@ export const HomePage: React.FC = () => {
               <div className="w-10 h-px bg-soda-red" />
               <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'10px', letterSpacing:'0.35em', textTransform:'uppercase', fontWeight:300, color:'rgba(196,85,85,0.55)' }}>Viajes recientes</span>
             </div>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05]">
+            <h2 className="font-display text-soda-glow/85 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", fontWeight: 300 }}>
               Los últimos <span className="font-serif italic text-soda-red" style={{ fontWeight: 400 }}>destinos</span>
             </h2>
           </motion.div>

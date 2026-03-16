@@ -13,7 +13,6 @@ import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
 import { AuthCallbackPage } from './pages/AuthCallbackPage';
-import { CustomCursor } from './effects/CustomCursor';
 import { getContent, loadContentFromDB } from './data/content';
 import { initDemoUsers } from './data/auth';
 import { demoEpisodes } from './data/episodes';
@@ -276,7 +275,6 @@ const AnimatedOutlet: React.FC = () => {
 function AppLayout() {
   return (
     <div className="relative min-h-screen bg-soda-night overflow-x-hidden">
-      <CustomCursor />
       <ScrollProgress />
       <div className="vhs-global-band" />
       <div className="grain-overlay" />
