@@ -143,17 +143,15 @@ export const QueEsEsto: React.FC = () => {
                     )}
                     <div className="p-4 sm:p-5">
                       <div className="flex items-baseline gap-3 mb-2.5">
-                        <span className="flex-shrink-0" style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', letterSpacing:'0.2em', fontWeight:300 }}
-                          style={{ color:colors.text }}>{String(item.numero).padStart(2,'0')}</span>
+                        <span className="flex-shrink-0" style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'9px', letterSpacing:'0.2em', fontWeight:300, color:colors.text }}>{String(item.numero).padStart(2,'0')}</span>
                         <div className="w-4 h-px flex-shrink-0" style={{ background:colors.border }} />
-                        <h4 className="font-serif" style={{ fontSize:'15px', lineHeight:'1.3', fontWeight:400, fontStyle:'italic' }}
-                          style={{ color:'rgba(254,248,237,0.9)', letterSpacing: '0.01em' }}>{item.titulo}</h4>
+                        <h4 className="font-serif" style={{ fontSize:'15px', lineHeight:'1.3', fontWeight:400, fontStyle:'italic', color:'rgba(254,248,237,0.9)', letterSpacing:'0.01em' }}>{item.titulo}</h4>
                       </div>
                       {item.subtitulo && (
                         <p className="text-[10px] tracking-[0.12em] mb-3 uppercase font-sans"
                           style={{ color:colors.text, opacity:0.6 }}>{item.subtitulo}</p>
                       )}
-                      <p className="font-sans" style={{ fontSize:'13px', lineHeight:'1.75', fontWeight:300 }} style={{ color:'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
+                      <p className="font-sans" style={{ fontSize:'13px', lineHeight:'1.75', fontWeight:300, color:'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
                       {item.detalles && (
                         <p className="font-sans text-[11px] leading-relaxed mt-2 opacity-60" style={{ color:'rgba(212,197,176,0.25)' }}>{item.detalles}</p>
                       )}

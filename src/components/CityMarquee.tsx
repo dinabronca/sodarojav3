@@ -14,7 +14,7 @@ export const CityMarquee: React.FC = () => {
       <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-soda-night to-transparent z-10" />
       <div style={{ display: 'flex', width: 'max-content', animation: 'marqueeScroll 810s linear infinite' }}>
         {[0,1,2,3].map(i => (
-          <span key={i} className="font-display text-soda-mist/[0.08] whitespace-nowrap" style={{ fontSize: "clamp(2rem, 6vw, 4rem)", letterSpacing: "0.1em", fontWeight: 300 }} style={{ paddingRight: '2rem' }}>
+          <span key={i} className="font-display text-soda-mist/[0.08] whitespace-nowrap" style={{ fontSize: "clamp(2rem, 6vw, 4rem)", letterSpacing: "0.1em", fontWeight: 300, paddingRight: "2rem" }}>
             {text}
           </span>
         ))}
