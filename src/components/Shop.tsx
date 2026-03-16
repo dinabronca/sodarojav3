@@ -46,7 +46,7 @@ export const Shop: React.FC = () => {
           className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-10 text-center max-w-md mx-auto mb-12 group hover:border-soda-accent/30 transition-all duration-700">
           <div className="absolute inset-0 bg-gradient-to-t from-soda-accent/3 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-sm" />
           <Package size={36} className="text-soda-accent/40 mb-4 mx-auto" />
-          <h3 className="text-xl font-serif text-soda-glow mb-2">Pack de Stickers</h3>
+          <h3 className="text-xl font-display text-soda-glow mb-2">Pack de Stickers</h3>
           <p className="text-soda-fog text-sm mb-4">Colección de stickers del culto</p>
           <span className="text-soda-accent/40 text-[10px] tracking-[0.2em] uppercase">Próximamente</span>
         </motion.div>

@@ -171,7 +171,7 @@ export const UnirsePage: React.FC = () => {
             style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.2)', boxShadow: '0 0 20px rgba(196,85,85,0.08)' }}>
             <div className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(196,85,85,0.8)' }} />
           </motion.div>
-          <h1 className="font-serif text-3xl text-soda-glow/90 mb-2">
+          <h1 className="font-display text-3xl text-soda-glow/90 mb-2" style={{ fontWeight: 300 }}>
             {mode === 'register' ? 'Unirse a sodaroja' : 'Bienvenido de vuelta'}
           </h1>
           <p className="text-soda-lamp/30 text-sm">

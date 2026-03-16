@@ -40,7 +40,7 @@ const TestimoniosSection: React.FC = () => {
               <div className="w-8 h-px bg-soda-red/50" />
               <span className="text-soda-red/55 text-[9px] tracking-[0.4em] uppercase font-light">Oyentes</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl text-soda-glow/85 font-light leading-[1.1]">
+            <h2 className="font-display text-3xl sm:text-4xl text-soda-glow/85" leading-[1.1]">
               Lo que <em className="text-soda-red/70">dicen</em>
             </h2>
           </div>
@@ -66,7 +66,7 @@ const TestimoniosSection: React.FC = () => {
                   minHeight: '220px',
                 }}>
                 {/* Big red opening quote */}
-                <span className="block font-serif leading-none select-none mb-3 flex-shrink-0"
+                <span className="block font-display leading-none select-none mb-3 flex-shrink-0"
                   style={{ fontSize: '4rem', color: 'rgba(196,85,85,0.55)', lineHeight: 1, marginTop: '-0.5rem' }}>
                   &ldquo;
                 </span>
@@ -176,7 +176,7 @@ export const HomePage: React.FC = () => {
               <div className="w-10 h-px bg-soda-red" />
               <span className="text-soda-red text-[10px] tracking-[0.3em] uppercase font-light">Viajes recientes</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif text-soda-glow leading-[1.1]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-soda-glow leading-[1.05]">
               Los últimos <em className="text-soda-red">destinos</em>
             </h2>
           </motion.div>

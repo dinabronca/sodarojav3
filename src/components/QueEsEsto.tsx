@@ -62,8 +62,7 @@ export const QueEsEsto: React.FC = () => {
         <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
           transition={{ duration:1, delay:0.2 }}
           className="relative max-w-2xl mx-auto text-center mb-28 px-4">
-          <span className="absolute -top-10 left-4 text-soda-red/10 text-[100px] font-display leading-none select-none">&ldquo;</span>
-          <p className="relative z-10 text-lg sm:text-xl font-serif text-soda-lamp/78 leading-[1.75] italic">
+          <p className="relative z-10 text-base sm:text-lg font-sans text-soda-lamp/65 leading-[1.8]">
             {queEsEsto.description}
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
@@ -157,7 +156,7 @@ export const QueEsEsto: React.FC = () => {
                       )}
                       <p className="font-sans text-[13px] leading-[1.75]" style={{ color:'rgba(212,197,176,0.52)' }}>{item.descripcion}</p>
                       {item.detalles && (
-                        <p className="font-serif text-[11px] leading-relaxed mt-2 italic" style={{ color:'rgba(212,197,176,0.25)' }}>{item.detalles}</p>
+                        <p className="font-sans text-[11px] leading-relaxed mt-2 opacity-60" style={{ color:'rgba(212,197,176,0.25)' }}>{item.detalles}</p>
                       )}
                     </div>
                   </motion.div>

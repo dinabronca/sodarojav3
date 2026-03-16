@@ -273,7 +273,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             </div>
 
             {/* Title */}
-            <h3 className={`font-serif text-soda-glow/90 mb-3 leading-[1.25] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-2xl sm:text-3xl' : 'text-[1.05rem] sm:text-lg'}`}>
+            <h3 className={`font-display text-soda-glow/90 mb-3 leading-[1.15] group-hover:text-soda-glow transition-colors duration-700 ${featured ? 'text-2xl sm:text-3xl' : 'text-[1.05rem] sm:text-lg'}`}>
               &ldquo;{episode.title}&rdquo;
             </h3>
 
@@ -372,12 +372,12 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             {/* Content */}
             <div className="px-6 pt-2 pb-8">
               {/* Title */}
-              <h2 className="font-serif leading-[1.15] mb-3" style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', color: 'rgba(254,248,237,0.92)' }}>
+              <h2 className="font-display leading-[1.1] mb-3" style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', color: 'rgba(254,248,237,0.92)' }}>
                 &ldquo;{episode.title}&rdquo;
               </h2>
 
               {/* Description */}
-              <p className="text-[13px] leading-[1.8] mb-7" style={{ color: 'rgba(212,197,176,0.55)', fontFamily: "'Crimson Pro', Georgia, serif" }}>{episode.description}</p>
+              <p className="text-[13px] leading-[1.8] mb-7" style={{ color: 'rgba(212,197,176,0.55)', fontFamily: "'DM Sans', system-ui, sans-serif" }}>{episode.description}</p>
 
               {/* Thin rule */}
               <div className="mb-6" style={{ height: '1px', background: 'linear-gradient(to right, rgba(196,85,85,0.2), rgba(212,197,176,0.08), transparent)' }} />
@@ -518,7 +518,7 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
               {/* Listen prompt */}
               {showListenPrompt && !listened && (
                 <div className="pt-5 mt-4" style={{ borderTop: '1px solid rgba(212,197,176,0.07)' }}>
-                  <p className="text-[13px] text-center mb-4" style={{ color: 'rgba(212,197,176,0.5)', fontFamily: "'Crimson Pro', Georgia, serif", fontStyle: 'italic' }}>¿Ya escuchaste este episodio?</p>
+                  <p className="text-[13px] text-center mb-4" style={{ color: 'rgba(212,197,176,0.5)', fontFamily: "'DM Sans', system-ui, sans-serif", fontStyle: 'italic' }}>¿Ya escuchaste este episodio?</p>
                   <div className="flex justify-center gap-3">
                     <button onClick={() => markListened(true)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ background: 'rgba(196,85,85,0.08)', border: '1px solid rgba(196,85,85,0.25)', color: 'rgba(212,197,176,0.75)' }}>Sí, ya lo escuché</button>
                     <button onClick={() => setShowListenPrompt(false)} className="px-5 py-2 text-[11px] tracking-[0.1em] uppercase transition-all duration-400 rounded-sm" style={{ border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.35)' }}>Todavía no</button>

@@ -87,7 +87,7 @@ export const MiCuentaPage: React.FC = () => {
     <section className="relative pt-32 pb-24 px-6 min-h-screen">
       <div className="max-w-5xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-          <h1 className="text-6xl md:text-7xl font-serif text-soda-glow mb-6">Mi Cuenta</h1>
+          <h1 className="text-6xl md:text-7xl font-display text-soda-glow mb-6">Mi Cuenta</h1>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-accent to-transparent mx-auto" />
         </motion.div>
 
@@ -140,7 +140,7 @@ export const MiCuentaPage: React.FC = () => {
           <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-2 space-y-6">
             {activeTab === 'perfil' && (
               <div className="bg-soda-slate bg-opacity-40 backdrop-blur-sm border border-soda-mist border-opacity-20 rounded-sm p-8">
-                <h2 className="text-2xl font-serif text-soda-glow mb-2">Información Personal</h2>
+                <h2 className="text-2xl font-display text-soda-glow mb-2">Información Personal</h2>
                 <p className="text-soda-fog text-xs mb-8">Solo pedimos lo necesario.</p>
                 <div className="space-y-5">
                   <div><label className="block text-soda-lamp text-sm mb-2">Nombre</label><input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={ic} /></div>
@@ -167,7 +167,7 @@ export const MiCuentaPage: React.FC = () => {
 
             {activeTab === 'suscripcion' && (
               <div className="bg-soda-slate bg-opacity-40 backdrop-blur-sm border border-soda-mist border-opacity-20 rounded-sm p-8">
-                <h2 className="text-2xl font-serif text-soda-glow mb-6">Tu Suscripción</h2>
+                <h2 className="text-2xl font-display text-soda-glow mb-6">Tu Suscripción</h2>
                 {user.isPremium ? (
                   <>
                     <div className="space-y-4 mb-6">
@@ -201,7 +201,7 @@ export const MiCuentaPage: React.FC = () => {
 
             {activeTab === 'config' && (
               <div className="bg-soda-slate bg-opacity-40 backdrop-blur-sm border border-soda-mist border-opacity-20 rounded-sm p-8">
-                <h2 className="text-2xl font-serif text-soda-glow mb-6">Configuración</h2>
+                <h2 className="text-2xl font-display text-soda-glow mb-6">Configuración</h2>
                 <div className="space-y-6">
                   <div className="flex items-center justify-between pb-4 border-b border-soda-mist border-opacity-20">
                     <div><p className="text-soda-lamp text-sm">Notificaciones por email</p><p className="text-soda-fog text-xs">Nuevos episodios y novedades</p></div>

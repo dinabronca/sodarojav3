@@ -141,7 +141,7 @@ export const Hero: React.FC = () => {
           <div style={{ width:'55%', height:'1px',
             background:'linear-gradient(to right, transparent, rgba(196,85,85,0.2) 30%, rgba(212,197,176,0.1) 50%, rgba(196,85,85,0.2) 70%, transparent)' }} />
           {hero.description ? (
-            <p className="font-serif text-center italic"
+            <p className="font-sans text-center"
               style={{ color:'rgba(212,197,176,0.38)', fontSize:'clamp(0.8rem,1.6vw,1rem)',
                 fontWeight:300, letterSpacing:'0.04em', lineHeight:1.85, maxWidth:'28rem' }}>
               {hero.description}

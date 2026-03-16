@@ -275,7 +275,7 @@ export const DestinationsMap: React.FC = () => {
             <span className="text-soda-red text-[10px] tracking-[0.3em] uppercase font-light">Mapa de viajes</span>
             <div className="w-10 h-px bg-soda-red" />
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-soda-glow leading-[1.1] text-center mb-10">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-soda-glow leading-[1.1] text-center mb-10">
             Donde <em className="text-soda-red">estuvimos</em>
           </h2>
         </motion.div>
@@ -386,7 +386,7 @@ export const DestinationsMap: React.FC = () => {
                         <span className="text-soda-lamp/30 ml-2">· {formatDate(hoverCard.ep.publishDate)}</span>
                       )}
                     </p>
-                    <p className="text-soda-lamp/90 text-[11px] font-serif leading-snug mb-2 line-clamp-2">
+                    <p className="text-soda-lamp/90 text-[11px] font-sans leading-snug mb-2 line-clamp-2">
                       &ldquo;{hoverCard.ep.title}&rdquo;
                     </p>
                     <p className="text-soda-red/60 text-[9px] tracking-[0.15em] uppercase">

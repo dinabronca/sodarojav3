@@ -138,13 +138,13 @@ export const Contacto: React.FC = () => {
           {/* Info sidebar */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6">
             <div className="bg-soda-slate/40 backdrop-blur-sm border border-soda-mist/20 rounded-sm p-8">
-              <h3 className="text-xl font-serif text-soda-glow mb-6">Líneas directas</h3>
+              <h3 className="font-display text-2xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Líneas directas</h3>
               <div className="space-y-4">
                 <a href={`mailto:${contacto.email}`} className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Mail size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span>{contacto.email}</span></a>
                 <a href={`https://instagram.com/${contacto.instagram.replace('@', '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-soda-lamp hover:text-soda-glow transition-colors group"><Instagram size={24} className="text-soda-accent group-hover:text-soda-lamp transition-colors" /><span>{contacto.instagram}</span></a>
               </div>
             </div>
-            <p className="text-soda-fog text-sm font-light">Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>
+            <p className="font-sans text-sm text-soda-lamp/40">Respondemos todos los mensajes. Puede que tarde un poco, pero llegamos.</p>
           </motion.div>
         </div>
       </div>

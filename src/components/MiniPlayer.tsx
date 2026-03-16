@@ -62,7 +62,7 @@ export const MiniPlayer: React.FC = () => {
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className="text-soda-glow text-xs font-serif truncate leading-tight">&ldquo;{episodeTitle}&rdquo;</p>
+              <p className="text-soda-glow text-xs font-sans truncate leading-tight">&ldquo;{episodeTitle}&rdquo;</p>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className="text-soda-red/70 text-[9px] tracking-wider">{city}</span>
                 <div className="flex items-center gap-1">

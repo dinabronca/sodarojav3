@@ -57,7 +57,7 @@ export const ElEquipo: React.FC = () => {
             <span className="text-soda-glow/90 text-5xl sm:text-7xl">El </span>
             <em className="text-5xl sm:text-7xl italic" style={{ color: 'rgba(138,155,196,0.8)' }}>Equipo</em>
           </h2>
-          <p className="text-soda-lamp/30 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
+          <p className="font-sans text-soda-lamp/40 text-sm mt-5 tracking-wide">{equipo?.subtitle}</p>
         </motion.div>
 
         {/* Members grid */}

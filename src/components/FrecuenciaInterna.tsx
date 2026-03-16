@@ -817,15 +817,15 @@ const PublicView: React.FC = () => {
       ))}
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <motion.div animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
-            <div className="text-8xl text-soda-red">&#9677;</div>
+          <motion.div animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }} className="inline-block mb-8">
+            <div className="w-3 h-3 rounded-full mx-auto" style={{ background: 'rgba(196,85,85,0.85)', boxShadow: '0 0 20px rgba(196,85,85,0.5), 0 0 40px rgba(196,85,85,0.2)' }} />
           </motion.div>
-          <h2 className="text-5xl md:text-6xl font-display text-soda-glow mb-6">Frecuencia <em className="text-soda-red/85">Interna</em></h2>
+          <h2 className="font-display text-5xl md:text-6xl text-soda-glow mb-6" style={{ fontWeight: 300 }}>Frecuencia <em className="text-soda-red/85">Interna</em></h2>
           <div className="w-32 h-px bg-gradient-to-r from-transparent via-soda-red to-transparent mx-auto mb-8" />
-          <p className="text-soda-lamp text-xl font-serif font-light max-w-2xl mx-auto mb-8">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
+          <p className="font-sans text-lg text-soda-lamp/70 max-w-2xl mx-auto mb-8">Las historias que se cuentan cuando la noche ya est&#225; avanzada</p>
         </motion.div>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-20">
-          <p className="text-soda-fog text-base font-serif leading-relaxed text-center">Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
+          <p className="font-sans text-base text-soda-lamp/50 leading-relaxed text-center">Sodaroja es un proyecto independiente que hacemos con amor, pero tambi&#233;n con tiempo, energ&#237;a y recursos. Cada episodio lleva horas de investigaci&#243;n, edici&#243;n y producci&#243;n. Tu aporte nos permite seguir haci&#233;ndolo.</p>
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
@@ -885,6 +885,7 @@ const PublicView: React.FC = () => {
     </>
   );
 };
+
 
 // ============================================================
 // MAIN
