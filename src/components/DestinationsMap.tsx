@@ -313,7 +313,7 @@ export const DestinationsMap: React.FC = () => {
             </div>
           </motion.div>
         ) : (
-        <motion.div
+          <motion.div
           initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} transition={{ duration:0.8 }}
           className="relative w-full rounded-sm overflow-hidden"
           style={{ height: '420px', border: '1px solid rgba(212,197,176,0.06)' }}
@@ -379,8 +379,6 @@ export const DestinationsMap: React.FC = () => {
               <span className="text-soda-lamp/45 text-[9px] tracking-wider">Reset</span>
             </button>
           )}
-        )} {/* end mobile ternary */}
-
           {/* Custom hover card — React-rendered, not Leaflet popup */}
           <AnimatePresence>
             {hoverCard && (
@@ -396,23 +394,15 @@ export const DestinationsMap: React.FC = () => {
               >
                 <div className="bg-soda-night/97 border border-soda-mist/15 rounded-sm overflow-hidden shadow-2xl"
                   style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,85,85,0.08)' }}>
-                  {/* Image */}
                   {hoverCard.ep.imageUrl && (
                     <div className="relative w-full overflow-hidden" style={{ height: 110 }}>
-                      <img
-                        src={hoverCard.ep.imageUrl}
-                        alt={hoverCard.ep.city}
-                        className="w-full h-full object-cover"
-                        style={{ filter: 'brightness(0.85) saturate(0.9)' }}
-                      />
+                      <img src={hoverCard.ep.imageUrl} alt={hoverCard.ep.city} className="w-full h-full object-cover" style={{ filter: 'brightness(0.85) saturate(0.9)' }} />
                       <div className="absolute inset-0 bg-gradient-to-t from-soda-night/80 via-transparent to-transparent" />
-                      {/* EP number overlay */}
                       <span className="absolute top-2 right-2 text-soda-glow/70 text-[9px] font-mono tracking-wider bg-soda-night/70 px-2 py-1 rounded-sm">
                         EP. {String(hoverCard.ep.epNumber).padStart(3, '0')}
                       </span>
                     </div>
                   )}
-                  {/* Info */}
                   <div className="p-3">
                     <p className="text-soda-accent/80 text-[9px] tracking-[0.2em] uppercase mb-1">
                       {hoverCard.ep.city}{hoverCard.ep.country ? `, ${hoverCard.ep.country}` : ''}
@@ -423,15 +413,14 @@ export const DestinationsMap: React.FC = () => {
                     <p className="text-soda-lamp/90 text-[11px] font-sans leading-snug mb-2 line-clamp-2">
                       &ldquo;{hoverCard.ep.title}&rdquo;
                     </p>
-                    <p className="text-soda-red/60 text-[9px] tracking-[0.15em] uppercase">
-                      Click para ver episodio →
-                    </p>
+                    <p className="text-soda-red/60 text-[9px] tracking-[0.15em] uppercase">Click para ver episodio →</p>
                   </div>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Cities without coords warning — shown only in dev/when there are misses */}
         {(() => {
