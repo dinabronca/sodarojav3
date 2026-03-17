@@ -194,16 +194,25 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
                 loading="lazy"
                 style={isLocked ? { filter: 'saturate(0.2) brightness(0.4) blur(2px)' } : isUnlockedPremium ? { filter: 'contrast(1.1) saturate(1.15) brightness(1.05)' } : {}}
               />
-              {/* Gradiente que cubre siempre — incluye zona extra debajo */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  left: 0, right: 0,
-                  bottom: '-4px',   // 4px extra por debajo del borde del wrapper
-                  height: '75%',
-                  background: 'linear-gradient(to top, rgba(10,14,26,0.72) 0%, rgba(10,14,26,0.35) 45%, transparent 100%)',
-                }}
+              {/* Gradiente que cubre siempre */}
+              <div className="absolute pointer-events-none"
+                style={{ left:0, right:0, bottom:'-4px', height:'75%',
+                  background:'linear-gradient(to top, rgba(10,14,26,0.72) 0%, rgba(10,14,26,0.35) 45%, transparent 100%)' }}
               />
+              {/* Premium: vignette + red tint + top gradient */}
+              {isUnlockedPremium && (
+                <>
+                  <div className="absolute inset-0 pointer-events-none"
+                    style={{ background:'radial-gradient(ellipse at center, transparent 40%, rgba(196,85,85,0.08) 100%)' }} />
+                  <div className="absolute inset-0 pointer-events-none"
+                    style={{ background:'linear-gradient(to bottom, rgba(196,85,85,0.06) 0%, transparent 40%)', mixBlendMode:'screen' }} />
+                  <motion.div className="absolute inset-0 pointer-events-none"
+                    animate={{ opacity:[0,0.06,0] }}
+                    transition={{ duration:4, repeat:Infinity, ease:'easeInOut' }}
+                    style={{ background:'linear-gradient(135deg, transparent 30%, rgba(196,85,85,0.12) 50%, transparent 70%)' }}
+                  />
+                </>
+              )}
             </div>
 
             {/* Top badges row — same height on both sides */}

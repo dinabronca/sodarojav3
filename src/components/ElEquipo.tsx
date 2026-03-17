@@ -79,7 +79,7 @@ export const ElEquipo: React.FC = () => {
                   style={{ boxShadow: 'inset 0 0 40px rgba(196,85,85,0.04)' }} />
 
                 {/* Photo */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-soda-deep">
+                <div className="relative aspect-[4/5] overflow-hidden bg-soda-deep">
                   <motion.img
                     src={member.photoUrl}
                     alt={member.name}
@@ -113,9 +113,9 @@ export const ElEquipo: React.FC = () => {
                 </div>
 
                 {/* Info section */}
-                <div className="p-5">
+                <div className="p-4">
                   {/* Socials */}
-                  <div className="flex items-center gap-3 mb-5 pb-4" style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
+                  <div className="flex items-center gap-3 mb-3 pb-3" style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
                     <span className="font-sans text-[8px] tracking-[0.25em] uppercase flex-1" style={{ color: 'rgba(212,197,176,0.18)' }}>Redes</span>
                     {(member.socials || []).map((s: any) => (
                       <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer"
@@ -129,7 +129,7 @@ export const ElEquipo: React.FC = () => {
                   </div>
 
                   {/* Tab switcher */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-3">
                     {(['perfil', 'ciudades'] as const).map(tab => (
                       <button key={tab} onClick={() => setTab(index, tab)}
                         className={`font-sans flex-1 py-1.5 text-[9px] tracking-[0.2em] uppercase rounded-sm transition-all duration-400 ${
@@ -147,7 +147,7 @@ export const ElEquipo: React.FC = () => {
                     <motion.div key={`${index}-${getTab(index)}`}
                       initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.22 }}
-                      className="space-y-2">
+                      className="space-y-1.5">
                       {getTab(index) === 'perfil'
                         ? favoriteFields.slice(0, 10).map((field: any) => (
                             member.favorites?.[field.key] != null ? (

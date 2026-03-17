@@ -65,17 +65,19 @@ const TestimoniosSection: React.FC = () => {
                   border: '1px solid rgba(212,197,176,0.06)',
                   minHeight: '200px',
                 }}>
-                {/* Interior particles — más densas y visibles */}
+                {/* Interior particles — siempre visibles, no desaparecen */}
                 {[
-                  {x:8,y:75,d:5,s:2.5,op:0.7},{x:20,y:30,d:7,s:2,op:0.6},{x:35,y:85,d:4,s:3,op:0.8},
-                  {x:50,y:50,d:6,s:2,op:0.6},{x:65,y:20,d:8,s:2.5,op:0.7},{x:78,y:65,d:5,s:2,op:0.65},
-                  {x:90,y:40,d:7,s:3,op:0.75},{x:12,y:55,d:6,s:2,op:0.6},{x:55,y:15,d:9,s:2.5,op:0.7},
-                  {x:42,y:70,d:5,s:2,op:0.65},{x:85,y:85,d:6,s:3,op:0.8},{x:28,y:10,d:7,s:2,op:0.6},
+                  {x:8,y:75,d:5,s:2.5,oa:0.55,ob:0.85},{x:20,y:30,d:7,s:2,oa:0.45,ob:0.75},
+                  {x:35,y:85,d:4,s:3,oa:0.6,ob:0.9},{x:50,y:50,d:6,s:2,oa:0.5,ob:0.75},
+                  {x:65,y:20,d:8,s:2.5,oa:0.55,ob:0.8},{x:78,y:65,d:5,s:2,oa:0.5,ob:0.75},
+                  {x:90,y:40,d:7,s:3,oa:0.6,ob:0.85},{x:12,y:55,d:6,s:2,oa:0.45,ob:0.7},
+                  {x:55,y:15,d:9,s:2.5,oa:0.55,ob:0.8},{x:42,y:70,d:5,s:2,oa:0.5,ob:0.75},
+                  {x:85,y:85,d:6,s:3,oa:0.6,ob:0.85},{x:28,y:10,d:7,s:2,oa:0.45,ob:0.7},
                 ].map((p,pi) => (
                   <motion.div key={pi} className="absolute rounded-full pointer-events-none"
-                    style={{ left:`${p.x}%`, top:`${p.y}%`, width:p.s, height:p.s, background:'rgba(196,85,85,0.9)' }}
-                    animate={{ y:[0,-20,0], opacity:[0,p.op,0] }}
-                    transition={{ duration:p.d, repeat:Infinity, delay:pi*0.7+i*0.3, ease:'easeInOut' }}
+                    style={{ left:`${p.x}%`, top:`${p.y}%`, width:p.s, height:p.s, background:'rgba(196,85,85,0.85)' }}
+                    animate={{ y:[0,-18,0], opacity:[p.oa,p.ob,p.oa] }}
+                    transition={{ duration:p.d, repeat:Infinity, delay:pi*0.5+i*0.25, ease:'easeInOut' }}
                   />
                 ))}
                 {/* Big red opening quote */}

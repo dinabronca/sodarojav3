@@ -819,7 +819,7 @@ const PublicView: React.FC = () => {
           transition={{ duration: p.dur, repeat: Infinity, delay: p.delay }}
         />
       ))}
-      <div className="max-w-6xl mx-auto relative z-10 px-0">
+      <div className="max-w-6xl mx-auto relative z-10 px-6 sm:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-8 h-px" style={{ background: 'rgba(196,85,85,0.5)' }} />
@@ -916,9 +916,9 @@ export const FrecuenciaInterna: React.FC = () => {
   const user = getCurrentUser();
   const isPremium = user?.isPremium === true;
   return (
-    <section id="frecuencia-interna" className="relative py-24 sm:py-32 px-6 bg-gradient-to-b from-soda-night via-soda-deep to-soda-night overflow-hidden">
+    <section id="frecuencia-interna" className="relative py-24 sm:py-32 bg-gradient-to-b from-soda-night via-soda-deep to-soda-night overflow-hidden">
       {isPremium && <AuroraEffect />}
-      {isPremium ? <div className="max-w-6xl mx-auto relative z-10"><SubscriberDashboard /></div> : <PublicView />}
+      {isPremium ? <div className="max-w-6xl mx-auto relative z-10 px-6 sm:px-8"><SubscriberDashboard /></div> : <PublicView />}
     </section>
   );
 };

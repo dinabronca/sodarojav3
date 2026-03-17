@@ -144,6 +144,16 @@ const Footer: React.FC = () => {
   const { reduced, toggle } = useEffectsToggle();
   return (
     <footer className="relative px-6 pt-20 pb-12 overflow-hidden">
+      {/* Footer particles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[{x:5,y:30},{x:18,y:70},{x:32,y:15},{x:48,y:55},{x:62,y:80},{x:75,y:25},{x:88,y:60},{x:95,y:40}].map((p,i) => (
+          <motion.div key={i} className="absolute rounded-full"
+            style={{ left:`${p.x}%`, top:`${p.y}%`, width:1.5, height:1.5, background:'rgba(196,85,85,0.35)' }}
+            animate={{ y:[0,-30,0], opacity:[0,0.4,0] }}
+            transition={{ duration:6+i*0.8, repeat:Infinity, delay:i*1.1, ease:'easeInOut' }}
+          />
+        ))}
+      </div>
       {/* Faint city silhouette backdrop */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: 'radial-gradient(ellipse 80% 60% at 50% 110%, rgba(196,85,85,0.04) 0%, transparent 70%)',
