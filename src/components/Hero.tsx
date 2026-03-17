@@ -132,7 +132,7 @@ export const Hero: React.FC = () => {
                 fontSize:'clamp(4.5rem,19vw,18rem)',
                 color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
-                paddingBottom:'0.25em',
+                paddingBottom:'0.28em',
               }}
             >
               {title}

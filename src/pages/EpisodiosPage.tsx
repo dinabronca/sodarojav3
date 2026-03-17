@@ -75,7 +75,7 @@ export const EpisodiosPage: React.FC = () => {
     if (duration === 'medium') eps = eps.filter((e: any) => (e.durationMin || 0) >= 35 && (e.durationMin || 0) <= 55);
     if (duration === 'long') eps = eps.filter((e: any) => (e.durationMin || 0) > 55);
     return eps;
-  }, [allSorted, search, filter, duration, episodeNumberMap]);
+  }, [allSorted, search, filter, duration, episodeNumberMap]); // eslint-disable-line
 
   const cities = useMemo(() => [...new Set(allSorted.map(e => e.city))], [allSorted]);
 

@@ -147,12 +147,11 @@ export const ElEquipo: React.FC = () => {
                     <motion.div key={`${index}-${getTab(index)}`}
                       initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.22 }}
-                      className="space-y-2.5 max-h-52 overflow-y-auto pr-1"
-                      style={{ scrollbarWidth: 'none' }}>
+                      className="space-y-2">
                       {getTab(index) === 'perfil'
                         ? favoriteFields.slice(0, 10).map((field: any) => (
                             member.favorites?.[field.key] != null ? (
-                              <div key={field.key} className="flex gap-2 text-[12px]">
+                              <div key={field.key} className="flex gap-2">
                                 <span className="flex-shrink-0" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(138,155,196,0.4)', minWidth:'100px' }}>{field.label}</span>
                                 <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'12px', fontWeight:300, color:'rgba(212,197,176,0.65)' }}>{String(member.favorites[field.key])}</span>
                               </div>
@@ -160,7 +159,7 @@ export const ElEquipo: React.FC = () => {
                           ))
                         : cityFields.slice(0, 10).map((field: any) => (
                             member.cities?.[field.key] ? (
-                              <div key={field.key} className="flex gap-2 text-[12px]">
+                              <div key={field.key} className="flex gap-2">
                                 <span className="flex-shrink-0" style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(138,155,196,0.4)', minWidth:'130px' }}>{field.label}</span>
                                 <span style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'12px', fontWeight:300, color:'rgba(212,197,176,0.65)' }}>{member.cities[field.key]}</span>
                               </div>

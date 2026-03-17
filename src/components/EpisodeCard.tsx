@@ -339,9 +339,14 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
               className="absolute top-4 right-14 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
               style={{ background: 'rgba(10,13,22,0.7)', border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.4)', fontSize: '14px' }}
               title="Copiar link del episodio"
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.9)'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.4)'}>
-              ⎋
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.9)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,197,176,0.2)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.4)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(212,197,176,0.1)'; }}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <circle cx="10" cy="2" r="1.5" stroke="currentColor" strokeWidth="1.2"/>
+                <circle cx="10" cy="10" r="1.5" stroke="currentColor" strokeWidth="1.2"/>
+                <circle cx="2" cy="6" r="1.5" stroke="currentColor" strokeWidth="1.2"/>
+                <path d="M3.4 5.3L8.6 2.7M3.4 6.7L8.6 9.3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
             </button>
             <button
               onClick={() => setIsExpanded(false)}

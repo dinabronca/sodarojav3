@@ -65,12 +65,17 @@ const TestimoniosSection: React.FC = () => {
                   border: '1px solid rgba(212,197,176,0.06)',
                   minHeight: '200px',
                 }}>
-                {/* Interior particles */}
-                {[{x:15,y:20,d:6},{x:75,y:60,d:8},{x:40,y:80,d:7},{x:88,y:25,d:9},{x:55,y:45,d:6}].map((p,pi) => (
+                {/* Interior particles — más densas y visibles */}
+                {[
+                  {x:8,y:75,d:5,s:2.5,op:0.7},{x:20,y:30,d:7,s:2,op:0.6},{x:35,y:85,d:4,s:3,op:0.8},
+                  {x:50,y:50,d:6,s:2,op:0.6},{x:65,y:20,d:8,s:2.5,op:0.7},{x:78,y:65,d:5,s:2,op:0.65},
+                  {x:90,y:40,d:7,s:3,op:0.75},{x:12,y:55,d:6,s:2,op:0.6},{x:55,y:15,d:9,s:2.5,op:0.7},
+                  {x:42,y:70,d:5,s:2,op:0.65},{x:85,y:85,d:6,s:3,op:0.8},{x:28,y:10,d:7,s:2,op:0.6},
+                ].map((p,pi) => (
                   <motion.div key={pi} className="absolute rounded-full pointer-events-none"
-                    style={{ left:`${p.x}%`, top:`${p.y}%`, width:2, height:2, background:'rgba(196,85,85,0.4)' }}
-                    animate={{ y:[0,-14,0], opacity:[0,0.5,0] }}
-                    transition={{ duration:p.d, repeat:Infinity, delay:pi*1.2+i*0.4, ease:'easeInOut' }}
+                    style={{ left:`${p.x}%`, top:`${p.y}%`, width:p.s, height:p.s, background:'rgba(196,85,85,0.9)' }}
+                    animate={{ y:[0,-20,0], opacity:[0,p.op,0] }}
+                    transition={{ duration:p.d, repeat:Infinity, delay:pi*0.7+i*0.3, ease:'easeInOut' }}
                   />
                 ))}
                 {/* Big red opening quote */}

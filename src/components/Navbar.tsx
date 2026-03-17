@@ -68,18 +68,12 @@ export const Navbar: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6 sm:px-8 py-4">
           <div className="flex items-center justify-between gap-8">
 
-            {/* Logo */}
-            <Link to="/" className="group flex items-center gap-3 z-[110] flex-shrink-0">
-              {content.brand?.navbarLogoUrl ? (
-                <img src={content.brand.navbarLogoUrl} alt="sodaroja"
-                  className="h-7 w-7 object-contain rounded-full transition-opacity duration-500 group-hover:opacity-80" />
-              ) : (
-                <div className="w-2 h-2 rounded-full transition-all duration-700 group-hover:scale-125"
-                  style={{ background: 'rgba(196,85,85,0.8)', boxShadow: '0 0 6px rgba(196,85,85,0.3)' }} />
-              )}
-              <span className="tracking-[0.18em] text-soda-glow/85 transition-opacity duration-500 group-hover:opacity-60" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 300, letterSpacing: '0.18em', textTransform: 'lowercase' }}>
-                sodaroja
-              </span>
+            {/* Logo — solo punto rojo */}
+            <Link to="/" className="group flex items-center z-[110] flex-shrink-0 p-1">
+              <motion.div className="w-2 h-2 rounded-full transition-all duration-700 group-hover:scale-150"
+                style={{ background: 'rgba(196,85,85,0.8)', boxShadow: '0 0 6px rgba(196,85,85,0.3)' }}
+                whileHover={{ boxShadow: '0 0 12px rgba(196,85,85,0.6)' }}
+              />
             </Link>
 
             {/* Desktop menu — with sliding underline */}
@@ -119,7 +113,7 @@ export const Navbar: React.FC = () => {
                   </Link>
                 ) : (
                   <Link to="/unirse"
-                    className="text-[11px] tracking-[0.12em] uppercase px-4 py-2 rounded-sm transition-all duration-500 animate-pulse-slow"
+                    className="text-[11px] tracking-[0.12em] uppercase px-4 py-2 rounded-sm transition-all duration-500"
                     style={{
                       color: 'rgba(196,85,85,0.75)',
                       border: '1px solid rgba(196,85,85,0.2)',
@@ -194,8 +188,9 @@ export const Navbar: React.FC = () => {
               </button>
 
               {/* Brand in panel */}
-              <div className="px-8 pt-16 pb-8" style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
-                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '13px', fontWeight: 300, letterSpacing: '0.18em', textTransform: 'lowercase', color: 'rgba(254,248,237,0.6)' }}>
+              <div className="px-8 pt-16 pb-8 flex items-center gap-2" style={{ borderBottom: '1px solid rgba(212,197,176,0.06)' }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(196,85,85,0.7)' }} />
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '12px', fontWeight: 300, letterSpacing: '0.2em', textTransform: 'lowercase', color: 'rgba(254,248,237,0.45)' }}>
                   sodaroja
                 </span>
               </div>

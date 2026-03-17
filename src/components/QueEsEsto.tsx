@@ -174,15 +174,32 @@ export const QueEsEsto: React.FC = () => {
             </h3>
             <div className="w-8 h-px bg-soda-red/30 mx-auto mt-3" />
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {queEsEsto.temas.slice(0, 12).map((tema: string, i: number) => (
-              <motion.span key={i} initial={{ opacity:0, y:8 }} whileInView={{ opacity:1, y:0 }}
-                viewport={{ once:true }} transition={{ duration:0.35, delay:i*0.04 }}
-                className="px-5 py-3 rounded-sm cursor-default font-sans transition-all duration-500 text-center block"
-                style={{ background:'rgba(10,14,26,0.7)', border:'1px solid rgba(138,155,196,0.15)', color:'rgba(138,155,196,0.65)', fontSize:'12px', letterSpacing:'0.05em' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.3)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.85)'; (e.currentTarget as HTMLElement).style.background='rgba(138,155,196,0.04)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.15)'; (e.currentTarget as HTMLElement).style.color='rgba(138,155,196,0.65)'; (e.currentTarget as HTMLElement).style.background='rgba(10,14,26,0.7)'; }}
-              >{tema}</motion.span>
+              <motion.div key={i}
+                initial={{ opacity:0, y:16 }} whileInView={{ opacity:1, y:0 }}
+                viewport={{ once:true }} transition={{ duration:0.5, delay:i*0.05, ease:[0.16,1,0.3,1] }}
+                className="group relative cursor-default rounded-sm overflow-hidden"
+                style={{ background:'linear-gradient(135deg, rgba(14,18,30,0.9) 0%, rgba(10,13,22,0.7) 100%)', border:'1px solid rgba(138,155,196,0.1)' }}
+                whileHover={{ y: -2 }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.25)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(138,155,196,0.1)'; }}>
+                {/* Top accent line on hover */}
+                <div className="absolute top-0 left-0 right-0 h-px transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  style={{ background:'linear-gradient(to right, transparent, rgba(138,155,196,0.4), transparent)' }} />
+                {/* Number */}
+                <div className="absolute top-2 right-2.5 font-mono opacity-15 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{ fontSize:'9px', color:'rgba(138,155,196,0.8)', letterSpacing:'0.1em' }}>
+                  {String(i+1).padStart(2,'0')}
+                </div>
+                {/* Content */}
+                <div className="px-4 py-4">
+                  <span className="font-sans block transition-colors duration-500 group-hover:text-soda-accent"
+                    style={{ fontSize:'11px', letterSpacing:'0.04em', color:'rgba(138,155,196,0.6)', lineHeight:1.5 }}>
+                    {tema}
+                  </span>
+                </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
