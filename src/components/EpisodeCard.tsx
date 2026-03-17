@@ -323,6 +323,26 @@ export const EpisodeCard: React.FC<{ episode: Episode; isNewest?: boolean; episo
             onClick={e => e.stopPropagation()}
           >
             {/* Close */}
+            {/* Share button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const url = `${window.location.origin}/episodios?ep=${episode.id}`;
+                navigator.clipboard?.writeText(url).then(() => {
+                  const btn = e.currentTarget as HTMLElement;
+                  const orig = btn.innerHTML;
+                  btn.innerHTML = '✓';
+                  btn.style.color = 'rgba(74,222,128,0.9)';
+                  setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2000);
+                });
+              }}
+              className="absolute top-4 right-14 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
+              style={{ background: 'rgba(10,13,22,0.7)', border: '1px solid rgba(212,197,176,0.1)', color: 'rgba(212,197,176,0.4)', fontSize: '14px' }}
+              title="Copiar link del episodio"
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.9)'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(212,197,176,0.4)'}>
+              ⎋
+            </button>
             <button
               onClick={() => setIsExpanded(false)}
               className="absolute top-4 right-4 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"

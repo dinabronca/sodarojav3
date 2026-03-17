@@ -39,7 +39,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center"
       style={{ background: '#080b14' }}
     >
       {/* Fondo animado con mouse */}
@@ -74,9 +74,15 @@ export const Hero: React.FC = () => {
         ))}
       </div>
 
-      {/* Línea vertical superior */}
+      {/* Líneas verticales decorativas */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 pointer-events-none z-[3]"
         style={{ background: 'linear-gradient(to bottom, transparent, rgba(196,85,85,0.22) 60%, rgba(196,85,85,0.1))' }}
+      />
+      <div className="absolute top-0 left-6 w-px h-16 pointer-events-none z-[3] hidden sm:block"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(196,85,85,0.06))' }}
+      />
+      <div className="absolute top-0 right-6 w-px h-16 pointer-events-none z-[3] hidden sm:block"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(196,85,85,0.06))' }}
       />
 
       {/* CONTENIDO */}
@@ -126,7 +132,7 @@ export const Hero: React.FC = () => {
                 fontSize:'clamp(4.5rem,19vw,18rem)',
                 color:'rgba(254,248,237,0.94)',
                 fontWeight:300,
-                paddingBottom:'0.18em',
+                paddingBottom:'0.25em',
               }}
             >
               {title}

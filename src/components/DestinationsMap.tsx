@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { getContent } from '../data/content';
+import { episodeSlug } from '../data/episodes';
 import { demoEpisodes } from '../data/episodes';
 
 const cityCoords: Record<string, { lat: number; lng: number }> = {
@@ -220,7 +221,8 @@ export const DestinationsMap: React.FC = () => {
 
           if (isAlreadyZoomed) {
             // Second click — navigate
-            navigate(`/episodios?ep=${ep.id}`);
+            const epNum = episodes.findIndex((e: any) => e.id === ep.id) + 1;
+            navigate(`/episodios/${episodeSlug(epNum, ep.city)}`);
           } else {
             // First click — zoom in
             isZoomingRef.current = true;
@@ -266,6 +268,8 @@ export const DestinationsMap: React.FC = () => {
     return `${months[dt.getMonth()]} ${dt.getFullYear()}`;
   };
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <section className="relative py-24 sm:py-32 px-6 overflow-hidden">
       {/* Ambient particles */}
@@ -289,10 +293,30 @@ export const DestinationsMap: React.FC = () => {
           </h2>
         </motion.div>
 
+        {isMobile ? (
+          /* Mobile fallback — lista elegante de ciudades */
+          <motion.div initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }}
+            className="rounded-sm overflow-hidden" style={{ border: '1px solid rgba(212,197,176,0.06)', background: 'rgba(10,14,26,0.6)' }}>
+            <div className="grid grid-cols-2 gap-px" style={{ background: 'rgba(212,197,176,0.04)' }}>
+              {cities.slice(0,10).map((city: any, i: number) => (
+                <div key={i} className="p-5 cursor-pointer hover:bg-soda-red/5 transition-colors duration-300"
+                  style={{ background: 'rgba(10,14,26,0.8)' }}
+                  onClick={() => navigate(`/episodios?ep=${city.id}`)}>
+                  <p className="font-sans text-soda-lamp/40 mb-1" style={{ fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase' }}>EP. {String(i+1).padStart(3,'0')}</p>
+                  <p className="font-serif italic text-soda-glow/80" style={{ fontSize: '15px', fontWeight: 400 }}>{city.city}</p>
+                  {(city as any).country && <p className="font-sans text-soda-lamp/30 mt-0.5" style={{ fontSize: '10px' }}>{(city as any).country}</p>}
+                </div>
+              ))}
+            </div>
+            <div className="p-4 text-center" style={{ borderTop: '1px solid rgba(212,197,176,0.04)' }}>
+              <a href="/episodios" className="font-sans text-soda-red/50 hover:text-soda-red/80 transition-colors" style={{ fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase' }}>Ver todos los episodios →</a>
+            </div>
+          </motion.div>
+        ) : (
         <motion.div
           initial={{ opacity:0 }} whileInView={{ opacity:1 }} viewport={{ once:true }} transition={{ duration:0.8 }}
-          className="relative w-full rounded-sm overflow-hidden border border-soda-mist/10"
-          style={{ height: '420px' }}
+          className="relative w-full rounded-sm overflow-hidden"
+          style={{ height: '420px', border: '1px solid rgba(212,197,176,0.06)' }}
           ref={containerRef}
           onClick={handleMapClick}
         >
@@ -355,6 +379,7 @@ export const DestinationsMap: React.FC = () => {
               <span className="text-soda-lamp/45 text-[9px] tracking-wider">Reset</span>
             </button>
           )}
+        )} {/* end mobile ternary */}
 
           {/* Custom hover card — React-rendered, not Leaflet popup */}
           <AnimatePresence>

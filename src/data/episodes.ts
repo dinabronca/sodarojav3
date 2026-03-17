@@ -18,6 +18,15 @@ interface DemoEpisode {
   gallery?: string[];
 }
 
+export const slugify = (city: string) =>
+  city.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '')
+    .trim();
+
+export const episodeSlug = (num: number, city: string) =>
+  `${String(num).padStart(3,'0')}-${slugify(city)}`;
+
 export const demoEpisodes: DemoEpisode[] = [
   {
     id: '10',

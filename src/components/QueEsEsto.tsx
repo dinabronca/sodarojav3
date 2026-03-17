@@ -167,7 +167,7 @@ export const QueEsEsto: React.FC = () => {
         </div>
 
         <motion.div initial={{ opacity:0, y:30 }} whileInView={{ opacity:1, y:0 }} viewport={{ once:true }}
-          transition={{ duration:0.8 }} className="mt-24">
+          transition={{ duration:0.8 }} className="mt-28">
           <div className="text-center mb-10">
             <h3 className="font-serif italic text-soda-glow/85 mb-2" style={{ fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:400 }}>
               Temas que <span className="font-serif italic text-soda-red/80" style={{ fontWeight: 400 }}>exploramos</span>

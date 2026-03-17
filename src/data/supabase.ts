@@ -85,6 +85,36 @@ export const signUpWithEmail = async (email: string, password: string, name: str
     password,
     options: { data: { full_name: name, display_name: name } },
   });
+
+  // Send welcome email via EmailJS if configured
+  if (!error && data.user) {
+    try {
+      const content = (window as any).__SODAROJA_CONTENT__;
+      const ejsService = content?.meta?.emailjsServiceId;
+      const ejsKey = content?.meta?.emailjsPublicKey;
+      if (ejsService && ejsKey) {
+        await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: ejsService,
+            template_id: content?.meta?.emailjsWelcomeTemplateId || content?.meta?.emailjsTemplateId,
+            user_id: ejsKey,
+            template_params: {
+              to_name: name,
+              to_email: email,
+              subject: 'Bienvenido/a a sodaroja',
+              message: `Hola ${name},\n\nGracias por unirte a sodaroja. Somos un podcast narrativo que cada semana elige una ciudad del mundo y cuenta dos historias reales que sucedieron ahí.\n\nCada episodio es un viaje. Estamos muy contentos de que estés acá.\n\nPodés explorar todos los episodios en sodaroja.com/episodios\n\nUn abrazo,\nEl equipo de sodaroja`,
+            },
+          }),
+        });
+      }
+    } catch (e) {
+      // Welcome email failure is non-critical
+      console.warn('Welcome email failed:', e);
+    }
+  }
+
   return { data, error };
 };
 

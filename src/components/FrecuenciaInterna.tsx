@@ -795,7 +795,12 @@ const PARTICLES_DESKTOP = [
 // ============================================================
 const PublicView: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>('plan-b');
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
+  const annualDiscount = 0.20; // 20% off annual
   const currentPlan = plans.find(p => p.id === selectedPlan) || plans[1];
+  const displayPrice = (ars: number, usd: number) => billing === 'annual'
+    ? { ars: Math.round(ars * (1 - annualDiscount) * 12), usd: Math.round(usd * (1 - annualDiscount) * 12) }
+    : { ars, usd };
   const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768);
 
   return (
@@ -826,6 +831,20 @@ const PublicView: React.FC = () => {
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16">
           <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            {/* Billing toggle */}
+            <div className="flex items-center gap-3 mb-8">
+              <span className="font-sans text-soda-lamp/40" style={{ fontSize: '11px', fontWeight: 300 }}>mensual</span>
+              <button onClick={() => setBilling(b => b === 'monthly' ? 'annual' : 'monthly')}
+                className="relative w-10 h-5 rounded-full transition-all duration-300 flex-shrink-0"
+                style={{ background: billing === 'annual' ? 'rgba(196,85,85,0.5)' : 'rgba(42,49,66,0.8)', border: '1px solid rgba(196,85,85,0.2)' }}>
+                <span className="absolute top-0.5 w-4 h-4 rounded-full transition-all duration-300"
+                  style={{ background: 'rgba(254,248,237,0.85)', left: billing === 'annual' ? '20px' : '2px' }} />
+              </button>
+              <span className="font-sans text-soda-lamp/40" style={{ fontSize: '11px', fontWeight: 300 }}>anual</span>
+              {billing === 'annual' && (
+                <span className="font-sans px-2 py-0.5 rounded-sm" style={{ fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', background: 'rgba(196,85,85,0.12)', color: 'rgba(196,85,85,0.8)', border: '1px solid rgba(196,85,85,0.2)' }}>20% off</span>
+              )}
+            </div>
             <h3 className="font-serif italic text-soda-glow/85 mb-8 text-center lg:text-left" style={{ fontSize:'1.4rem', fontWeight:400 }}>Elegí cómo querés sumarte</h3>
             <div className="space-y-6">
               {plans.map((plan, idx) => (
@@ -838,7 +857,12 @@ const PublicView: React.FC = () => {
                   {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-soda-red px-4 py-1 rounded-sm text-xs tracking-wider text-soda-glow">M&#193;S ELEGIDO</div>}
                   <div className="flex items-end justify-between pr-8">
                     <div><h4 className="font-serif italic text-soda-glow/85 mb-2" style={{ fontSize:'1.4rem', fontWeight:400 }}>{plan.name}</h4><p className="text-soda-fog font-sans text-sm">{plan.description}</p></div>
-                    <div className="text-right"><div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'1.6rem', fontWeight:300, color:'rgba(212,197,176,0.85)', letterSpacing:'-0.02em', lineHeight:1 }}>${plan.priceARS.toLocaleString('es-AR')}</div><div style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(212,197,176,0.35)', marginTop:'4px', letterSpacing:'0.1em' }}>USD ${plan.priceUSD}/mes</div></div>
+                    <div className="text-right"><div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'1.6rem', fontWeight:300, color:'rgba(212,197,176,0.85)', letterSpacing:'-0.02em', lineHeight:1 }}>
+                        ${displayPrice(plan.priceARS, plan.priceUSD).ars.toLocaleString('es-AR')}
+                      </div>
+                      <div style={{ fontFamily:"'DM Sans',system-ui,sans-serif", fontSize:'11px', fontWeight:300, color:'rgba(212,197,176,0.35)', marginTop:'4px', letterSpacing:'0.1em' }}>
+                        USD ${displayPrice(plan.priceARS, plan.priceUSD).usd}/{billing === 'annual' ? 'año' : 'mes'}
+                      </div></div>
                   </div>
                 </motion.div>
               ))}

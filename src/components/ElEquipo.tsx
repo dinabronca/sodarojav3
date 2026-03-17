@@ -87,6 +87,7 @@ export const ElEquipo: React.FC = () => {
                     animate={{ scale: hoveredMember === index ? 1.03 : 1 }}
                     transition={{ duration: 2.5, ease: 'easeOut' }}
                     loading="lazy"
+                    decoding="async"
                     style={{ filter: hoveredMember === index ? 'brightness(0.9) saturate(1.05)' : 'brightness(0.85) saturate(0.95)' }}
                   />
                   {/* Gradient overlay */}

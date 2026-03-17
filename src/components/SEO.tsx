@@ -8,7 +8,7 @@ interface SEOProps {
   url?: string;
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, image, url }) => {
+export const SEO: React.FC<SEOProps & { episodeData?: { title: string; description: string; duration?: number; date?: string; image?: string } }> = ({ title, description, image, url, episodeData }) => {
   const content = getContent();
   const siteTitle = content.meta?.pageTitle || 'sodaroja';
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
@@ -37,11 +37,43 @@ export const SEO: React.FC<SEOProps> = ({ title, description, image, url }) => {
     setMeta('og:type', 'website');
     if (image) setMeta('og:image', image);
     if (url) setMeta('og:url', url);
+    setMeta('og:site_name', siteTitle);
+    setMeta('og:locale', 'es_AR');
     setMeta('twitter:card', image ? 'summary_large_image' : 'summary');
+    setMeta('twitter:site', '@sodaroja');
     setMeta('twitter:title', fullTitle);
     setMeta('twitter:description', desc);
     if (image) setMeta('twitter:image', image);
-  }, [fullTitle, desc, image, url]);
+
+    // Schema markup
+    const existingSchema = document.getElementById('schema-json-ld');
+    if (existingSchema) existingSchema.remove();
+    const schema = document.createElement('script');
+    schema.id = 'schema-json-ld';
+    schema.type = 'application/ld+json';
+    if (episodeData) {
+      schema.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'PodcastEpisode',
+        name: episodeData.title,
+        description: episodeData.description,
+        datePublished: episodeData.date,
+        timeRequired: episodeData.duration ? `PT${episodeData.duration}M` : undefined,
+        image: episodeData.image,
+        partOfSeries: { '@type': 'PodcastSeries', name: siteTitle, url: window.location.origin },
+      });
+    } else {
+      schema.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'PodcastSeries',
+        name: siteTitle,
+        description: desc,
+        url: window.location.origin,
+        inLanguage: 'es',
+      });
+    }
+    document.head.appendChild(schema);
+  }, [fullTitle, desc, image, url, episodeData]);
 
   return null;
 };

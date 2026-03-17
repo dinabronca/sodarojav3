@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'rea
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ScrollToTopButton } from './components/ScrollToTopButton';
 import { HomePage } from './pages/HomePage';
 import { QueEsEstoPage } from './pages/QueEsEstoPage';
 import { EquipoPage } from './pages/EquipoPage';
@@ -13,6 +14,7 @@ import { ContactoPage } from './pages/ContactoPage';
 import { MiCuentaPage } from './pages/MiCuentaPage';
 import { UnirsePage } from './pages/UnirsePage';
 import { AuthCallbackPage } from './pages/AuthCallbackPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { getContent, loadContentFromDB } from './data/content';
 import { initDemoUsers } from './data/auth';
 import { demoEpisodes } from './data/episodes';
@@ -281,6 +283,7 @@ function AppLayout() {
       <Navbar />
       <AnimatedOutlet />
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }
@@ -296,6 +299,7 @@ function App() {
           <Route path="/que-es-esto" element={<QueEsEstoPage />} />
           <Route path="/equipo" element={<EquipoPage />} />
           <Route path="/episodios" element={<EpisodiosPage />} />
+          <Route path="/episodios/:slug" element={<EpisodiosPage />} />
           <Route path="/frecuencia-interna" element={<FrecuenciaInternaPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
@@ -307,6 +311,7 @@ function App() {
           } />
           <Route path="/unirse" element={<UnirsePage />} />
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>
